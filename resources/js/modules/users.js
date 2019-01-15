@@ -41,6 +41,14 @@ export const users = {
                 })
 
         },
+        loginUserGithub( { commit}){
+            UserAPI.getLoginUserGithub()
+                .then(function (data) {
+                    console.log(data)
+                    router.push('main')
+                });
+        }
+        ,
         logoutUser({commit}) {
             let token = window.localStorage.getItem('token')
             UserAPI.logoutUser(token)

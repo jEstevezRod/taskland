@@ -12,6 +12,7 @@ switch( process.env.NODE_ENV ){
   break;
 }
 
+
 export const TASKLAND_CONFIG = {
   API_URL: api_url,
 }

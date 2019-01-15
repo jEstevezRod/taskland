@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './store'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 
 const router = new VueRouter({
@@ -11,6 +11,14 @@ const router = new VueRouter({
             path: '/',
             name: 'Home',
             component: Vue.component('Home', require('./pages/Home.vue')).default,
+            meta: {
+                auth: false
+            }
+        },
+        {
+            path: '/password',
+            name: 'Password',
+            component: Vue.component('Password', require('./pages/Password.vue')).default,
             meta: {
                 auth: false
             }

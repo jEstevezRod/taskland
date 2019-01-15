@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use JWTFactory;
 use JWTAuth;
+use Response;
 
 class AuthenticationController extends Controller
 {
@@ -47,9 +48,11 @@ class AuthenticationController extends Controller
 
             $user = $newUser;
         }
-        $token = JWTAuth::fromUser($user) ;
 
-        return redirect('/#/main')->with(['data' => $this->respondWithToken($token)] );
+        $token = JWTAuth::fromUser($user);
+
+
+        return redirect('/#/password')->with(['data' => $this->respondWithToken($token)] );
 
     }
     protected function respondWithToken($token)

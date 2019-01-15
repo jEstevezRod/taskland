@@ -31,6 +31,14 @@ export default {
       password: data.password
     })
   },
+  getLoginUserGithub: function () {
+    return axios.get('http://localhost:8000/login/github')
+        .then( function (data) {
+          console.log(data);
+          router.push('main')
+        })
+  }
+  ,
 
   logoutUser: function (token) {
     return axios.post( TASKLAND_CONFIG.API_URL + '/logoutUser?token=' + token)
