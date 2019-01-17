@@ -2,46 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed37f10b-26b2-4047-8728-2f962c5f1550" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/cbc0e2f3-4b7b-4a3e-b610-2037fcd73c84.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/cors.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_01_17_180813_create_teams_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_01_17_180847_create_projects_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_01_17_181147_add_foreign_keys.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_01_17_181527_create_states_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_01_17_181551_create_projects_users_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_01_17_181604_create_teammember_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_01_17_181630_create_assigned_tasks_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/api/assignedtask.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/api/project.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/api/projectuser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/api/state.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/api/team.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/api/teammember.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/modules/assignedtasks.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/modules/projects.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/modules/projectusers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/modules/states.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/modules/teammembers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/modules/teams.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/AuthenticationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/AuthenticationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_01_01_032859_added_tasks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_01_17_175844_create_task_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/api/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/api/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/DashboardHomeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/DashboardHomeComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/ModalAddTaskComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashboard/ModalAddTaskComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/ProjectsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashboard/ProjectsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/StateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/dashboard/StateComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/modules/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/modules/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/Password.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/Password.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/TaskContainerComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/TaskContainerComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -112,18 +74,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/js/api/user.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/modules/teammembers.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
@@ -182,7 +132,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/js/modules/assignedtasks.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="342">
@@ -190,6 +140,18 @@
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/readme.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="889">
+                <caret line="76" column="65" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -250,7 +212,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/User.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Controller.php" />
         <option value="$PROJECT_DIR$/public/.htaccess" />
@@ -301,6 +262,7 @@
         <option value="$PROJECT_DIR$/resources/js/modules/states.js" />
         <option value="$PROJECT_DIR$/resources/js/modules/projects.js" />
         <option value="$PROJECT_DIR$/resources/js/modules/assignedtasks.js" />
+        <option value="$PROJECT_DIR$/readme.md" />
       </list>
     </option>
   </component>
@@ -586,7 +548,7 @@
       <workItem from="1547579321089" duration="5052000" />
       <workItem from="1547592573230" duration="5968000" />
       <workItem from="1547663271692" duration="1063000" />
-      <workItem from="1547745782274" duration="6990000" />
+      <workItem from="1547745782274" duration="7138000" />
     </task>
     <task id="LOCAL-00001" summary="added password page for laravel socialite after github login">
       <created>1547584355218</created>
@@ -599,7 +561,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84491000" />
+    <option name="totallyTimeSpent" value="84639000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -646,16 +608,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="added password page for laravel socialite after github login" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Providers/RouteServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-94">
-          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-          <folding>
-            <element signature="e#33#70#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/pages/Password.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -1005,6 +957,16 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="889">
+            <caret line="76" column="65" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

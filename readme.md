@@ -1,69 +1,77 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<p align="center"><img src="https://i.imgur.com/uUuMaOj.png"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
+## About Laravel and Vue js
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Vue is a progressive framework for building user interfaces. Unlike other monolithic frameworks, Vue is designed from the ground up to be incrementally adoptable. The core library is focused on the view layer only, and is easy to pick up and integrate with other libraries or existing projects. On the other hand, Vue is also perfectly capable of powering sophisticated Single-Page Applications when used in combination with modern tooling and supporting libraries.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+### - Explicación de la idea del proyecto.
 
-## Learning Laravel
+Debido que hasta ahora no me he encontrado trabajando en equipo, no me habia dado cuenta
+de lo importante que es realmente un buen sistema de versión de controles y no solo eso, hace
+falta acompañarla con una herramienta que ayude a esquematizar las tareas pendientes ,
+tareas en progreso, tareas preparadas para hacer merge con el branch principal, editar tareas
+por cualquier circunstancia, etc. Ahí es donde surge mi idea, crear una aplicación web, en la
+cual los miembros de los equipos puedan organizarse de la mejor manera posible y con ello
+una eficiencia en el trabajo.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+---
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+### - Tecnologías utilizadas para el desarrollo.
 
-## Laravel Sponsors
+El proyecto estará formado por un front-end elaborado con el framework de Vue js haciendo
+servicio a un back-end servido por Laravel. Por parte de Vuejs se usará Vue Router como
+encargado de manejar las rutas y como arquitectura de componentes Vuex. Con Laravel haré
+uso de Laravel Mix para facilitar el uso de webpack, Laravel Socialite para poder loguearte en
+la página web mediante redes sociales ( Google, Github, etc.. ) .
+El entorno de desarrollo será en laravel Homestead, la cual es una box predefinida de Vagrant
+que me permite desarrollar en una máquina virtual con el entorno ya totalmente preparado para
+el desarrollo.
+La base de datos será MySQL.
+Se utilizarán frameworks de distinto tipos: Para css ,como alternativa a bootstrap, usaré Bulma.
+Y Axios para las peticiones http basadas en promesas.
+Se hará uso de Webpack como sistema de bundling tanto como para ayudarnos en el
+desarrollo para producción, como para ayudarnos a transpilar y preprocesar código
+prácticamente de cualquier tecnología ya que con instalar el loader adecuado lo transformará a
+una versión o formato más generalizado.
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+<p align="center"><img src="https://i.imgur.com/SVqv55N.png"></p>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
+---
 
-## Contributing
+### - Alcance completo del proyecto.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+La página root será donde podrás loguearte o registrarte mediante un modal, esta página será
+la única que podrán ver los usuarios anónimos junto con la page not found 404.
+Una vez iniciado sesión estaremos en la página principal, en la parte central habrá una feed de
+las notificaciones de lo que van haciendo los miembros de nuestro equipo ( si estamos en
+alguno ), las tareas tanto individuales como colectivas, nuevos comentarios en tareas en las
+que estamos participando, etc...
+Habrá un menú de navegación en la que podremos ir a los siguientes lugares:
 
-## Security Vulnerabilities
+-Dashboard:​​ Esta es la página principal de tareas, donde podremos ver nuestras tareas
+individuales ( que nosotros mismos nos hayamos puesto, o las que han sido asignadas desde
+algún equipo) y también podremos seleccionar los diferentes equipos en los que estamos y si
+clicamos en alguno de ellos podremos ver todas las tareas en sus diferentes estados. Existetipos de estados para las tareas, el primero es , - in queue - (todas las tareas que todavía nohan empezado), -in progress - ( que están asignadas a un o varios miembros y está en desarrollo), - completed - ( tareas completadas que están completadas o que simplemente ya
+está arreglado y está listo para actualizar la con master branch). Aparte, cada equipo puede
+tener 1 o más proyectos en los que está trabajando.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-Mensajes:​​ En esta sección los usuarios que estén en un mismo equipo podrán hablar entre
+ellos a través de mensajes, estará compuesto por grupos, que cada grupo será en los equipos
+que esté.
 
-## License
+-​Calendario: ​Será un calendario en el que se verá de una forma sencilla y simple las fechaslas tareas, así como el tiempo límite para terminar dichas tareas, etc.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-Notas:​​ Creo que siempre es interesante tener un lugar donde poder tener ciertas notas
+temporalmente, me explico, cuando estas trabajando, en muchas ocasiones echas de menos
+un “contenedor” donde pegar ciertas cosas que necesitarás minutos más adelante, así como
+tener los nombres de las diferentes programas / o información de logueo. O tener de forma
+personal ciertos apuntes o datos puntuales de una manera fácilmente accesible. Además
+existirá la posibilidad de tener notas compartidas con otros usuarios.
+
+-Perfil:​​ Es el lugar donde podrás editar información personal, administrar equipos, organizar
+proyectos, etc.
+
+<p align="center"><img src="https://i.imgur.com/BsImI3W.png"></p>
