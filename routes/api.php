@@ -13,6 +13,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/newUser', 'API\RegisterController@register');
 
+    Route::get('/loadUserWithoutPass', 'Web\AuthenticationController@loadUserWithoutPass');
+
     Route::post('/loginUser', 'API\UsersController@getLoginUser');
 
     Route::get('/user', 'API\UsersController@me');

@@ -120,8 +120,11 @@
 </template>
 
 <script>
+    import DashboardHomeComponent from  './DashboardHomeComponent';
+    import ProjectsComponent from '../components/dashboard/ProjectsComponent'
 
     export default {
+        components:{ DashboardHomeComponent, ProjectsComponent},
         name: "TaskContainer",
         data() {
             return {

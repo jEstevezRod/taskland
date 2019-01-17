@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\User;
+use Illuminate\Support\Facades\Cookie;
 use Socialite;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
@@ -11,6 +12,7 @@ use Auth;
 use JWTFactory;
 use JWTAuth;
 use Response;
+use Session;
 
 class AuthenticationController extends Controller
 {
@@ -35,26 +37,28 @@ class AuthenticationController extends Controller
 
 
         if ($user == null) {
-            $newUser = new User();
 
+            $newUser = new User();
             $newUser->name = $socialUser->getName();
             $newUser->email = $socialUser->getEmail() == '' ? '' : $socialUser->getEmail();
             $newUser->avatar = $socialUser->getAvatar();
-            $newUser->password = null;
+            $newUser->password = Hash::make($socialUser->getId());
             $newUser->provider = $social;
             $newUser->provider_id = $socialUser->getId();
 
             $newUser->save();
 
             $user = $newUser;
+
         }
 
-        $token = JWTAuth::fromUser($user);
+        Cookie::queue('access', auth()->login($user), 3600);
 
 
-        return redirect('/#/password')->with(['data' => $this->respondWithToken($token)] );
+        return redirect('/#/password')->with(auth()->login($user));
 
     }
+
     protected function respondWithToken($token)
     {
         return response()->json([
@@ -63,5 +67,14 @@ class AuthenticationController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
 //            'user_id' => auth()->user()->getId()
         ]);
+    }
+
+    public function loadUserWithoutPass(Request $request)
+    {
+        $token  = $request->input('token');
+
+        $user = JWTAuth::toUser($token);
+
+        return response()->json(['user' => $user]);
     }
 }

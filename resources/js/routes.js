@@ -45,7 +45,18 @@ const router = new VueRouter({
                     component: Vue.component('Dashboard', require('./pages/TaskContainerComponent.vue')).default,
                     meta: {
                         auth: true
-                    }
+                    },
+                    children: [
+                        {
+                            path: '',
+                            component: Vue.component('DashboardHomeComponent', require('./pages/DashboardHomeComponent.vue')).default,
+                        },
+                        {
+                            path: ':id',
+                            name: 'dashboard',
+                            component: Vue.component('ProjectsComponent', require('./components/dashboard/ProjectsComponent')).default,
+                        }
+                    ]
                 }
             ]
 

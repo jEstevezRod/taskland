@@ -6,14 +6,21 @@
 */
 
 import UserAPI from '../api/user.js';
-import  axios  from 'axios'
-import router from '../routes.js'
+// import  axios  from 'axios'
+// import router from '../routes.js'
 
 
 const types = {
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT'
 }
+
+function getCookie(name) {
+    let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+}
+
+
 
 
 export const users = {
@@ -24,7 +31,8 @@ export const users = {
         firstPassword: '',
         newUser: {},
         logged: !!window.localStorage.getItem('token'),
-        token: localStorage.getItem('token') || ''
+        token: localStorage.getItem('token') || '',
+        userWithoutPass: ''
     },
 
 
@@ -44,11 +52,23 @@ export const users = {
         loginUserGithub( { commit}){
             UserAPI.getLoginUserGithub()
                 .then(function (data) {
-                    console.log(data)
+                    console.log(data);
                     router.push('main')
                 });
         }
         ,
+        loadUserWithoutPass({commit}){
+            let token = document.cookie;
+            console.log(token)
+
+
+            UserAPI.getUserWithoutPass(token)
+                .then(function (response) {
+                    console.log(response);
+                    commit('setuserWithoutPass')
+                })
+        },
+
         logoutUser({commit}) {
             let token = window.localStorage.getItem('token')
             UserAPI.logoutUser(token)
@@ -126,6 +146,9 @@ export const users = {
         },
         setToken(state, nToken) {
             state.token = nToken
+        },
+        setuserWithoutPass(state,userWithoutPass) {
+            state.userWithoutPass = userWithoutPass
         }
 
 
@@ -150,6 +173,8 @@ export const users = {
         isLogged: state => state.logged,
 
         getToken: state => state.token,
+
+        getuserWithoutPass: state => state.userWithoutPass
 
     }
 }

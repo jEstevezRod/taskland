@@ -22,15 +22,16 @@ if (token) {
 
 
 
-import Vue    from 'vue';
+import Vue from 'vue';
 import router from './routes.js'
 import store from './store.js'
 import Buefy from 'buefy';
 
-Vue.use(Buefy)
+Vue.use(Buefy);
 
 import Home from './pages/Home.vue'
 import Main from './pages/Main.vue'
+
 
 import VeeValidate from 'vee-validate';
 

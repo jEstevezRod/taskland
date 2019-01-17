@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import {EventBus} from '../../../event-bus.js';
+    import {EventBus} from '../../event-bus.js';
     import draggable from 'vuedraggable'
 
     export default {
