@@ -28,7 +28,8 @@
 </template>
 
 <script>
-    import { EventBus } from '../../../event-bus.js';
+    import { EventBus } from '../../event-bus.js';
+
     export default {
         name: "ModalAddProjectComponent"
         ,
@@ -41,8 +42,8 @@
             }
         },
         mounted(){
-            this.$axios.get('/teams')
-                .then(response => this.team_list = response.data.teams)
+            // this.$axios.get('/teams')
+            //     .then(response => this.team_list = response.data.teams)
         },
 
         methods: {

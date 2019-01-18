@@ -24,11 +24,9 @@
         <!--</div>-->
         <!--<p>{{infoo}}</p>-->
       <!--</section>-->
-    <!--</b-modal>-->-----
-    ----<p>{{getUser}}</p>----
-    <p>{{isLogged}}</p>------ <p>{{getToken}}</p>
-    <button class="button is-dark" @click="logout"> Cerrar sesion</button>
+    <!--</b-modal>-->
 
+    <p>{{isLogged}}</p>
 
     <administration-component></administration-component>
 

@@ -120,11 +120,15 @@
 </template>
 
 <script>
-    import DashboardHomeComponent from  './DashboardHomeComponent';
+    import DashboardHomeComponent from '../components/dashboard/DashboardHomeComponent';
     import ProjectsComponent from '../components/dashboard/ProjectsComponent'
+    import ModalAddTask from '../components/dashboard/ModalAddTaskComponent'
+    import ModalAddProject from '../components/dashboard/ModalAddProjectComponent'
+    import ModalAddState from '../components/dashboard/ModalAddStateComponent'
+    import ModalAddTeam from '../components/dashboard/ModalAddTeamComponent'
 
     export default {
-        components:{ DashboardHomeComponent, ProjectsComponent},
+        components:{ DashboardHomeComponent, ProjectsComponent,ModalAddTask, ModalAddProject, ModalAddState, ModalAddTeam},
         name: "TaskContainer",
         data() {
             return {

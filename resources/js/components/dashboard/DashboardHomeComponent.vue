@@ -63,7 +63,7 @@
 </template>
 
 <script>
-    import LineChart from '../components/dashboard/ChartDashboardComponent'
+    import LineChart from './ChartDashboardComponent'
     export default {
         name: "DashboardHomeComponent",
         components: { LineChart}

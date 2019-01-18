@@ -7,7 +7,7 @@
 
 import UserAPI from '../api/user.js';
 // import  axios  from 'axios'
-// import router from '../routes.js'
+import router from '../routes.js'
 
 
 const types = {

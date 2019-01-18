@@ -7,6 +7,8 @@ Route::group(['prefix' => 'auth'], function () {
 
 //Route::prefix('auth')->group(function () {
 
+    // For user and auth
+
     Route::get('/login/{social}', 'Web\AuthenticationController@getSocialRedirect');
 
     Route::get('/login/{social}/callback', 'Web\AuthenticationController@getSocialCallback');
@@ -25,10 +27,15 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/logoutUser', 'API\UsersController@logout');
 
+    //For tasks
 
     Route::get('/tasks', 'API\TasksController@getTasks');
 
     Route::get('/tasks/{id}', 'API\TasksController@getTask');
 
     Route::post('/tasks', 'API\TasksController@postNewTask');
+
+    //For teams
+
+    Route::post('/newTeam', 'API\TeamController@postNewTeam');
 });

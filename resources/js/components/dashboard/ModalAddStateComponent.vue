@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import { EventBus } from '../../../event-bus.js';
+    import { EventBus } from '../../event-bus.js';
 
     export default {
         name: "ModalAddStateComponent",
@@ -45,9 +45,9 @@
 
         },
         mounted() {
-            this.$axios.get('/projects')
-                .then(response => this.project_list = response.data.projects)
-                .catch(error => console.log(error.response))
+            // this.$axios.get('/projects')
+            //     .then(response => this.project_list = response.data.projects)
+            //     .catch(error => console.log(error.response))
         },
         methods: {
             addState() {

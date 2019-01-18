@@ -34,9 +34,12 @@ class TeamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postNewTeam(Request $request)
     {
-        //
+        $team = new Team;
+        $team->t_name = $request->input('t_name');
+        $team->save();
+        return response()->json(['message' => 'Team ' . $request->input('t_name') . ' added correctly']);
     }
 
     /**

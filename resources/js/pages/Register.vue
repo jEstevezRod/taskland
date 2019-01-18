@@ -29,6 +29,7 @@
                         password-reveal
                         placeholder="Write your password again"
                         required
+                        @keyup.enter="registerClient"
                 ></b-input>
             </b-field>
 

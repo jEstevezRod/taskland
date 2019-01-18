@@ -49,7 +49,7 @@ const router = new VueRouter({
                     children: [
                         {
                             path: '',
-                            component: Vue.component('DashboardHomeComponent', require('./pages/DashboardHomeComponent.vue')).default,
+                            component: Vue.component('DashboardHomeComponent', require('./components/dashboard/DashboardHomeComponent.vue')).default,
                         },
                         {
                             path: ':id',

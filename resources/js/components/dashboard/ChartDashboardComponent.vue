@@ -14,9 +14,9 @@
             }
         },
         mounted () {
-            this.$axios.get('/tasks').then(response => this.tasks_list = response.data.tasks);
-            this.$axios.get('/states').then(response => this.states_list = response.data.states);
-            this.$axios.get('/projects').then(response => this.projects_list = response.data.projects);
+            // this.$axios.get('/tasks').then(response => this.tasks_list = response.data.tasks);
+            // this.$axios.get('/states').then(response => this.states_list = response.data.states);
+            // this.$axios.get('/projects').then(response => this.projects_list = response.data.projects);
             this.renderChart({
                 labels: this.states_list,
                 datasets: [

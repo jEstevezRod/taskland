@@ -41,6 +41,7 @@
 <script>
     import {EventBus} from '../../event-bus.js';
 
+
     export default {
         name: "ModalAddTaskComponent",
         data() {
@@ -62,12 +63,12 @@
         },
         mounted() {
 
-            this.$axios.get('/states')
-                .then(response => this.states_list = response.data.states)
-                .catch(error => console.log(error.response))
-            this.$axios.get('/projects')
-                .then(response => this.project_list = response.data.projects)
-                .catch(error => console.log(error.response))
+            // this.$axios.get('/states')
+            //     .then(response => this.states_list = response.data.states)
+            //     .catch(error => console.log(error.response))
+            // this.$axios.get('/projects')
+            //     .then(response => this.project_list = response.data.projects)
+            //     .catch(error => console.log(error.response))
 
         },
         methods: {

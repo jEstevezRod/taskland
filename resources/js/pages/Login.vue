@@ -9,12 +9,13 @@
                     <b-input class="" type="email" v-model="email" placeholder="Your email"></b-input>
                 </b-field>
 
-                <b-field label="Password">
+                <b-field label="Password" @keyup.enter.native="loginStandard">
                     <b-input
                             type="password"
                             v-model="password"
                             password-reveal
                             placeholder="Your password"
+
                     ></b-input>
                 </b-field>
 
