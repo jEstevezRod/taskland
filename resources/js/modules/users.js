@@ -42,9 +42,9 @@ export const users = {
             UserAPI.getLoginUser(data)
                 .then(function (response) {
                     commit(types.LOGIN)
-                    window.localStorage.setItem('token', response.data.access_token)
-                    window.localStorage.setItem('userId', response.data.user_id)
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token
+                    window.localStorage.setItem('token', response.data.data.token)
+                    window.localStorage.setItem('userId', response.data.data.user.id)
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data.token
                     router.push('main')
                 })
 

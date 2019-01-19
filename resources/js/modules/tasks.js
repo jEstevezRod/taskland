@@ -27,6 +27,14 @@ export const tasks = {
     },
     actions: {
 
+        newTask({commit}, data) {
+
+            taskAPI.newTask(data)
+                .then((response) => console.log(response.data.message))
+                .catch()
+        }
+        ,
+
         loadTasks( { commit } ){
 
 

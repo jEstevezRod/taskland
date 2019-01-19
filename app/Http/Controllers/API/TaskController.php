@@ -31,18 +31,28 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postNewTask(Request $request)
     {
-        //
+        $task = new Task;
+
+        $task->project_id = $request->input('project_id');
+        $task->subject = $request->input('subject');
+        $task->description = $request->input('description');
+        $task->state = $request->input('state');
+
+        $task->save();
+
+        return response()->json(['message' => 'Task created correctly!', 'task' => $task]);
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Task  $task
+     * @param  \App\Models\Task $task
      * @return \Illuminate\Http\Response
      */
     public function show(Task $task)
@@ -53,7 +63,7 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Task  $task
+     * @param  \App\Models\Task $task
      * @return \Illuminate\Http\Response
      */
     public function edit(Task $task)
@@ -64,8 +74,8 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Task  $task
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Task $task
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Task $task)
@@ -76,7 +86,7 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Task  $task
+     * @param  \App\Models\Task $task
      * @return \Illuminate\Http\Response
      */
     public function destroy(Task $task)

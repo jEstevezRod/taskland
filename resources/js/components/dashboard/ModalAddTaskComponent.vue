@@ -1,5 +1,5 @@
 <template>
-    <form action="/tasks" method="post" @submit.prevent="onSubmit">
+    <form action="/tasks" method="post" @submit.prevent="newTask">
         <div class="modal-card" style="width: auto">
             <header class="modal-card-head">
                 <p class="modal-card-title has-text-centered">Add task</p>
@@ -72,6 +72,15 @@
 
         },
         methods: {
+
+            newTask() {
+              this.$store.dispatch('newTask', {
+                  project_id: this.project_id,
+                  subject: this.subject,
+                  description: this.description,
+                  state: this.state,
+              })
+            },
 
             onSubmit() {
                 this.$axios.post('/tasks', {

@@ -17,9 +17,11 @@
 
                         <!--sidebar information-->
                         <div class="teams-wrapper">
-                            <p class="subtitle">TEAMS:</p>
-                            <ul>
-                                <li v-for="team in teams_list">{{team.t_name}}</li>
+                            <p class="subtitle">TEAMS ({{getNumberTeams}}) :</p>
+                            <ul class="container">
+                                <li v-for="team in getTeamList" class="">
+                                    <strong>Name: </strong>{{team.t_name}} ( id : {{team.id}} )
+                                </li>
                             </ul>
                         </div>
                         <div class="projects-wrapper">
@@ -126,6 +128,8 @@
     import ModalAddProject from '../components/dashboard/ModalAddProjectComponent'
     import ModalAddState from '../components/dashboard/ModalAddStateComponent'
     import ModalAddTeam from '../components/dashboard/ModalAddTeamComponent'
+    import { mapGetters } from 'vuex';
+
 
     export default {
         components:{ DashboardHomeComponent, ProjectsComponent,ModalAddTask, ModalAddProject, ModalAddState, ModalAddTeam},
@@ -169,7 +173,12 @@
                 },
             }
         },
+        created () {
+            this.$store.dispatch("loadUser");
+            this.$store.dispatch("loadAllTeams");        }
+        ,
         mounted() {
+
            /*  this.$axios.get('/tasks')
                 .then(response => this.tasks_list = response.data.tasks)
                 .catch(error => console.log(error.response))
@@ -187,18 +196,26 @@
             this.$axios.get('/teams')
                 .then(response => this.teams_list = response.data.teams)
                 .catch(error => console.log(error.response))
+            */
 
 
-            EventBus.$on('updateProjects', value => this.project_list.push(value))
-            EventBus.$on('updateTeam', value => this.teams_list.push(value)) */
+
         },
         methods : {
+
             addToProject() {
                 this.$axios.post('/userInProject', {
                     email: this.emailToCheck,
                     project_id : this.project_id_add
                 }).then( response => console.log(response.data.message))
+                    .catch( error => console.log(error))
             }
+
+        },
+        computed : {
+            ...mapGetters([
+                'isLogged', 'getUser', "getTeamList", "getNumberTeams"
+            ])
         }
 
 

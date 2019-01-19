@@ -5,17 +5,28 @@ namespace App\Http\Controllers\API;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
+use JWTAuth;
 
 class TeamController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct() {
+        $this->middleware('auth:api');
+
+    }
+
+    public function loadTeams()
     {
-        //
+        $user = JWTAuth::user() ;
+
+
+        $teams = DB::table('teams')
+            ->join('team_members', 'teams.id', '=', 'team_members.team_id')
+            ->select('teams.t_name','teams.id')
+            ->where('team_members.user_id', $user->id)
+            ->get();
+
+        return response()->json(['message' => 'Teams loaded correctly!', 'teams' => $teams]);
     }
 
     /**
@@ -39,7 +50,12 @@ class TeamController extends Controller
         $team = new Team;
         $team->t_name = $request->input('t_name');
         $team->save();
-        return response()->json(['message' => 'Team ' . $request->input('t_name') . ' added correctly']);
+
+        return [
+            'message' => 'Team ' . $request->input('t_name') . ' added correctly',
+            'team_id' => $team->id,
+            'team' => $team
+        ];
     }
 
     /**

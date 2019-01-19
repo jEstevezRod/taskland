@@ -9,14 +9,17 @@ import Vuex from 'vuex'
 
 Vue.use( Vuex );
 
-import { tasks } from './modules/tasks'
 import { users} from './modules/users'
 import { teams } from './modules/teams'
+import { tasks} from './modules/tasks'
+import { teamMembers } from "./modules/teammembers";
 
 export default new Vuex.Store({
     modules: {
         tasks,
         users,
-        teams
+        teams,
+        teamMembers
+
     }
 });

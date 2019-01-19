@@ -28,6 +28,13 @@
 
     <p>{{isLogged}}</p>
 
+    <ul class="container">
+      <p class="title has-text-centered"> Teams created</p>
+      <li v-for="team in getTeamList" class="box">
+        <strong>Name: </strong>{{team.t_name}} ( {{team.id}} )
+      </li>
+    </ul>
+
     <administration-component></administration-component>
 
     <cookie-law theme="dark-lime">
@@ -53,6 +60,8 @@ import UpSideComponent from "../components/main/UpSideComponent.vue";
 import AdministrationComponent from "../components/main/AdministrationComponent.vue";
 import FeedComponent from "../components/main/FeedComponent.vue";
 import { mapGetters } from 'vuex'
+import { EventBus} from "../event-bus";
+
 export default {
   name: "MainComponent",
   data() {
@@ -63,6 +72,7 @@ export default {
       isCardModalActive: false,
       hasPass: '',
       data2: '',
+
     };
   },
   components: {
@@ -73,15 +83,18 @@ export default {
   },
   created() {
     this.$store.dispatch("loadUser");
+    this.$store.dispatch("loadAllTeams");
+
   },
   mounted() {
     this.data2 = this.$store.getters.getUser;
 
   },
-  computed: mapGetters([
-    'isLogged', 'getUser', "getToken"
-  ]),
-
+  computed: {
+    ...mapGetters([
+    'isLogged', 'getUser', "getToken", "getTeamList"
+  ])
+  },
   methods: {
 
     setPassword: function() {

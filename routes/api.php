@@ -33,9 +33,23 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/tasks/{id}', 'API\TasksController@getTask');
 
-    Route::post('/tasks', 'API\TasksController@postNewTask');
+    Route::post('/tasks', 'API\TaskController@postNewTask');
 
     //For teams
 
+
     Route::post('/newTeam', 'API\TeamController@postNewTeam');
+
+    Route::get('/loadTeams', 'API\TeamController@loadTeams');
+
+
+    // For teammember
+
+    Route::post('/addTeamMember', 'API\ManageMembers@new');
+
+    // For projects
+
+    Route::post('/newProject', 'API\ProjectController@store');
+
+
 });

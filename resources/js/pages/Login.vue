@@ -32,13 +32,11 @@
 </template>
 
 <script>
-    import router from '../routes'
-
     export default {
         data() {
             return {
-                email: '',
-                password: '',
+                email: 'bbb@bbb.com',
+                password: 'bbbbbb',
             }
         },
         methods: {

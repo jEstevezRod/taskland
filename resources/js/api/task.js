@@ -13,14 +13,13 @@ export default {
    getTask: function( taskID ){
     return axios.get( TASKLAND_CONFIG.API_URL + '/tasks/' + taskID );
 },
-    postAddNewTask: function( name, address, city, state, zip ){
+    newTask: function( data){
         return axios.post( TASKLAND_CONFIG.API_URL + '/tasks',
             {
-                name: name,
-                address: address,
-                city: city,
-                state: state,
-                zip: zip
+                project_id: data.project_id,
+                subject: data.subject,
+                description: data.description,
+                state: data.state,
             }
         );
     }

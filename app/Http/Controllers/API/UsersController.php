@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function getUserCheckPass()
     {
 
-        $pass =  auth()->user()->checkPassword();
+        $pass = auth()->user()->checkPassword();
 
         return response()->json(['hasPassword' => $pass], 201);
     }
@@ -34,7 +34,7 @@ class UsersController extends Controller
     {
 //        return response(['data' => Auth::check()]);
 
-       $user =  auth()->user();
+        $user = auth()->user();
 
         $user->password = Hash::make($request->input('password'));
         $user->save();
@@ -43,23 +43,59 @@ class UsersController extends Controller
     }
 
 
-
     public function getLoginUser(Request $request)
     {
+
+//        $request->validate([
+//            'email' => 'required|email',
+//            'password' => 'required|min:6',
+//        ]);
+//
+//        $credentials = request(['email', 'password']);
+//
+//        if (!$token = auth()->attempt($credentials)) {
+//            return response()->json(['error' => 'Unauthorized'], 401);
+//        }
+//
+//
+//        return $this->respondWithToken($token);
 
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
 
+//        $credentials = $request->only('email', 'password');
         $credentials = request(['email', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        try {
+            if (!JWTAuth::attempt($credentials)) {
+                return response()->json([
+                    'message' => 'invalid_credentials',
+                    'data' => null
+                ], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json([
+                'message' => 'could_not_create_token',
+                'data' => null
+            ], 500);
         }
 
+        $user = auth()->user();
 
-        return $this->respondWithToken($token);
+        $data['token'] = auth()->claims([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ])->attempt($credentials);
+
+        $data['user'] = $user;
+
+        return response()->json([
+            'message' => 'Success',
+            'data' => $data
+        ]);
 
     }
 
@@ -69,7 +105,6 @@ class UsersController extends Controller
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
-
 
 
     }

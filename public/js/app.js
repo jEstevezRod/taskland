@@ -1896,7 +1896,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _event_bus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-bus.js */ "./resources/js/event-bus.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1937,10 +1941,14 @@ __webpack_require__.r(__webpack_exports__);
       team_list: []
     };
   },
-  mounted: function mounted() {// this.$axios.get('/teams')
-    //     .then(response => this.team_list = response.data.teams)
-  },
+  mounted: function mounted() {},
   methods: {
+    onNewProject: function onNewProject() {
+      this.$store.dispatch("newProject", {
+        name: this.p_name,
+        team: this.p_team
+      });
+    },
     onSubmitProject: function onSubmitProject() {
       var _this = this;
 
@@ -1955,7 +1963,7 @@ __webpack_require__.r(__webpack_exports__);
           type: 'is-success'
         });
 
-        _event_bus_js__WEBPACK_IMPORTED_MODULE_0__["EventBus"].$emit('updateProjects', response.data.project);
+        EventBus.$emit('updateProjects', response.data.project);
 
         _this.$axios.post('/userInProject', {
           project_id: response.data.project.id
@@ -1964,7 +1972,8 @@ __webpack_require__.r(__webpack_exports__);
         });
       }).catch();
     }
-  }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['isLogged', 'getUser', "getTeamList"]))
 });
 
 /***/ }),
@@ -2126,6 +2135,14 @@ __webpack_require__.r(__webpack_exports__);
     //     .catch(error => console.log(error.response))
   },
   methods: {
+    newTask: function newTask() {
+      this.$store.dispatch('newTask', {
+        project_id: this.project_id,
+        subject: this.subject,
+        description: this.description,
+        state: this.state
+      });
+    },
     onSubmit: function onSubmit() {
       this.$axios.post('/tasks', {
         project_id: this.project_id,
@@ -2202,14 +2219,29 @@ __webpack_require__.r(__webpack_exports__);
   name: "ModalAddTeamComponent",
   data: function data() {
     return {
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      t_name: ''
+      t_name: '',
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
+  },
+  mounted: function mounted() {
+    this.user = this.$store.getters.getUser;
   },
   methods: {
     onSubmitNewTeam: function onSubmitNewTeam() {
+      var _this = this;
+
       this.$store.dispatch('newTeam', {
         t_name: this.t_name
+      }).then(function (response) {
+        console.log(response.data.message);
+
+        _this.$store.dispatch("newTeamMember", response.data.team_id).then(function (response) {
+          return console.log(response.data.message);
+        }).catch(function (error) {
+          return console.error(error);
+        });
+      }).catch(function (error) {
+        return console.error(error);
       });
     }
   }
@@ -2743,6 +2775,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_main_AdministrationComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/main/AdministrationComponent.vue */ "./resources/js/components/main/AdministrationComponent.vue");
 /* harmony import */ var _components_main_FeedComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/main/FeedComponent.vue */ "./resources/js/components/main/FeedComponent.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _event_bus__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../event-bus */ "./resources/js/event-bus.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2792,6 +2829,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2817,11 +2862,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.$store.dispatch("loadUser");
+    this.$store.dispatch("loadAllTeams");
   },
   mounted: function mounted() {
     this.data2 = this.$store.getters.getUser;
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['isLogged', 'getUser', "getToken"]),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapGetters"])(['isLogged', 'getUser', "getToken", "getTeamList"])),
   methods: {
     setPassword: function setPassword() {
       this.$store.dispatch("putFirstPassword", {
@@ -2846,7 +2892,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../routes */ "./resources/js/routes.js");
 //
 //
 //
@@ -2880,12 +2925,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      email: '',
-      password: ''
+      email: 'bbb@bbb.com',
+      password: 'bbbbbb'
     };
   },
   methods: {
@@ -3091,6 +3135,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_dashboard_ModalAddProjectComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/dashboard/ModalAddProjectComponent */ "./resources/js/components/dashboard/ModalAddProjectComponent.vue");
 /* harmony import */ var _components_dashboard_ModalAddStateComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/dashboard/ModalAddStateComponent */ "./resources/js/components/dashboard/ModalAddStateComponent.vue");
 /* harmony import */ var _components_dashboard_ModalAddTeamComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/dashboard/ModalAddTeamComponent */ "./resources/js/components/dashboard/ModalAddTeamComponent.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3212,6 +3261,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
@@ -3267,6 +3319,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  created: function created() {
+    this.$store.dispatch("loadUser");
+    this.$store.dispatch("loadAllTeams");
+  },
   mounted: function mounted() {
     /*  this.$axios.get('/tasks')
          .then(response => this.tasks_list = response.data.tasks)
@@ -3282,8 +3338,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$axios.get('/teams')
          .then(response => this.teams_list = response.data.teams)
          .catch(error => console.log(error.response))
-       EventBus.$on('updateProjects', value => this.project_list.push(value))
-     EventBus.$on('updateTeam', value => this.teams_list.push(value)) */
+     */
   },
   methods: {
     addToProject: function addToProject() {
@@ -3292,9 +3347,12 @@ __webpack_require__.r(__webpack_exports__);
         project_id: this.project_id_add
       }).then(function (response) {
         return console.log(response.data.message);
+      }).catch(function (error) {
+        return console.log(error);
       });
     }
-  }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapGetters"])(['isLogged', 'getUser', "getTeamList", "getNumberTeams"]))
 });
 
 /***/ }),
@@ -30553,7 +30611,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -30591,7 +30649,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -30610,7 +30668,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90165,7 +90223,7 @@ var render = function() {
                       expression: "p_team"
                     }
                   },
-                  _vm._l(_vm.team_list, function(team_option) {
+                  _vm._l(_vm.getTeamList, function(team_option) {
                     return _c(
                       "option",
                       { domProps: { value: team_option.id } },
@@ -90402,7 +90460,7 @@ var render = function() {
       on: {
         submit: function($event) {
           $event.preventDefault()
-          return _vm.onSubmit($event)
+          return _vm.newTask($event)
         }
       }
     },
@@ -90647,7 +90705,12 @@ var render = function() {
               }
             ],
             staticClass: "input",
-            attrs: { type: "text", name: "t_name", id: "t_name" },
+            attrs: {
+              type: "text",
+              name: "t_name",
+              id: "t_name",
+              autocomplete: "off"
+            },
             domProps: { value: _vm.t_name },
             on: {
               input: function($event) {
@@ -91466,6 +91529,24 @@ var render = function() {
       _vm._v(" "),
       _c("p", [_vm._v(_vm._s(_vm.isLogged))]),
       _vm._v(" "),
+      _c(
+        "ul",
+        { staticClass: "container" },
+        [
+          _c("p", { staticClass: "title has-text-centered" }, [
+            _vm._v(" Teams created")
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.getTeamList, function(team) {
+            return _c("li", { staticClass: "box" }, [
+              _c("strong", [_vm._v("Name: ")]),
+              _vm._v(_vm._s(team.t_name) + " ( " + _vm._s(team.id) + " )\n    ")
+            ])
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
       _c("administration-component"),
       _vm._v(" "),
       _c("cookie-law", {
@@ -91909,12 +91990,23 @@ var render = function() {
         _c("div", { staticClass: "columns" }, [
           _c("div", { staticClass: "column is-12 sidebar" }, [
             _c("div", { staticClass: "teams-wrapper" }, [
-              _c("p", { staticClass: "subtitle" }, [_vm._v("TEAMS:")]),
+              _c("p", { staticClass: "subtitle" }, [
+                _vm._v("TEAMS (" + _vm._s(_vm.getNumberTeams) + ") :")
+              ]),
               _vm._v(" "),
               _c(
                 "ul",
-                _vm._l(_vm.teams_list, function(team) {
-                  return _c("li", [_vm._v(_vm._s(team.t_name))])
+                { staticClass: "container" },
+                _vm._l(_vm.getTeamList, function(team) {
+                  return _c("li", {}, [
+                    _c("strong", [_vm._v("Name: ")]),
+                    _vm._v(
+                      _vm._s(team.t_name) +
+                        " ( id : " +
+                        _vm._s(team.id) +
+                        " )\n                            "
+                    )
+                  ])
                 })
               )
             ]),
@@ -107153,13 +107245,12 @@ __webpack_require__.r(__webpack_exports__);
   getTask: function getTask(taskID) {
     return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/tasks/' + taskID);
   },
-  postAddNewTask: function postAddNewTask(name, address, city, state, zip) {
+  newTask: function newTask(data) {
     return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/tasks', {
-      name: name,
-      address: address,
-      city: city,
-      state: state,
-      zip: zip
+      project_id: data.project_id,
+      subject: data.subject,
+      description: data.description,
+      state: data.state
     });
   }
 });
@@ -107179,7 +107270,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   postNewTeam: function postNewTeam(data) {
-    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/newTeam', data);
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/newTeam', data.data);
+  },
+  loadTeams: function loadTeams(token) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+    return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/loadTeams');
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/api/teammember.js":
+/*!****************************************!*\
+  !*** ./resources/js/api/teammember.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  addTeamMember: function addTeamMember(data) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+    return axios.post(_config__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/addTeamMember?token=' + data.token, {
+      team_id: data.team_id,
+      token: data.token
+    });
   }
 });
 
@@ -108595,16 +108714,22 @@ var tasks = {
     task: {}
   },
   actions: {
-    loadTasks: function loadTasks(_ref) {
+    newTask: function newTask(_ref, data) {
       var commit = _ref.commit;
+      _api_task_js__WEBPACK_IMPORTED_MODULE_0__["default"].newTask(data).then(function (response) {
+        return console.log(response.data.message);
+      }).catch();
+    },
+    loadTasks: function loadTasks(_ref2) {
+      var commit = _ref2.commit;
       _api_task_js__WEBPACK_IMPORTED_MODULE_0__["default"].getTasks().then(function (response) {
         commit('setTasks', response.data);
       }).catch(function () {
         commit('setTasks', []);
       });
     },
-    loadTask: function loadTask(_ref2, data) {
-      var commit = _ref2.commit;
+    loadTask: function loadTask(_ref3, data) {
+      var commit = _ref3.commit;
       _api_task_js__WEBPACK_IMPORTED_MODULE_0__["default"].getTask(data.id).then(function (response) {
         commit('setTask', response.data);
       }).catch(function () {
@@ -108632,6 +108757,50 @@ var tasks = {
 
 /***/ }),
 
+/***/ "./resources/js/modules/teammembers.js":
+/*!*********************************************!*\
+  !*** ./resources/js/modules/teammembers.js ***!
+  \*********************************************/
+/*! exports provided: teamMembers */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "teamMembers", function() { return teamMembers; });
+/* harmony import */ var _api_teammember_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api/teammember.js */ "./resources/js/api/teammember.js");
+/*
+|-------------------------------------------------------------------------------
+| VUEX modules/teammembers.js
+|-------------------------------------------------------------------------------
+| The Vuex data store for the teammembers
+*/
+
+var teamMembers = {
+  state: {
+    teams: []
+  },
+  actions: {
+    newTeamMember: function newTeamMember(_ref, team_id) {
+      var commit = _ref.commit;
+      var token = window.localStorage.getItem('token');
+      return new Promise(function (resolve, reject) {
+        _api_teammember_js__WEBPACK_IMPORTED_MODULE_0__["default"].addTeamMember({
+          team_id: team_id,
+          token: token
+        }).then(function (response) {
+          resolve(response);
+        }, function (error) {
+          reject(error);
+        });
+      });
+    }
+  },
+  mutations: {},
+  getters: {}
+};
+
+/***/ }),
+
 /***/ "./resources/js/modules/teams.js":
 /*!***************************************!*\
   !*** ./resources/js/modules/teams.js ***!
@@ -108652,19 +108821,67 @@ __webpack_require__.r(__webpack_exports__);
 
 var teams = {
   state: {
-    team: ''
+    team: {},
+    teamList: [],
+    numberTeams: 0
   },
   actions: {
     newTeam: function newTeam(_ref, data) {
       var commit = _ref.commit;
-      console.log(data);
-      _api_team_js__WEBPACK_IMPORTED_MODULE_0__["default"].postNewTeam(data).then(function (response) {
-        console.log(response);
+      var token = window.localStorage.getItem('token');
+      return new Promise(function (resolve, reject) {
+        _api_team_js__WEBPACK_IMPORTED_MODULE_0__["default"].postNewTeam({
+          data: data,
+          token: token
+        }).then(function (response) {
+          commit('setTeam', response.data.team);
+          commit('addTeamToTeamList', response.data.team);
+          resolve(response);
+        }, function (error) {
+          console.log('Reject creating a new team, I\'m on newTeam in teams.js ');
+          reject(error);
+        });
+      });
+    },
+    loadAllTeams: function loadAllTeams(_ref2) {
+      var commit = _ref2.commit;
+      var token = window.localStorage.getItem('token');
+      return new Promise(function (resolve, reject) {
+        _api_team_js__WEBPACK_IMPORTED_MODULE_0__["default"].loadTeams(token).then(function (response) {
+          commit('fillTeamList', response.data.teams);
+          resolve(response);
+        }, function (error) {
+          console.log('Reject loading teams, I\'m on loadTeams in teams.js ');
+          reject(error);
+        });
       });
     }
   },
-  mutations: {},
-  getters: {}
+  mutations: {
+    setTeam: function setTeam(state, team) {
+      state.team = team;
+    },
+    addTeamToTeamList: function addTeamToTeamList(state, value) {
+      state.teamList.push(value);
+    },
+    fillTeamList: function fillTeamList(state, array) {
+      return state.teamList = array;
+    },
+    countTeams: function countTeams(state, array) {
+      return state.numberTeams = array.length;
+    }
+  },
+  getters: {
+    getTeam: function getTeam(state) {
+      return state.team;
+    },
+    getTeamList: function getTeamList(state) {
+      return state.teamList;
+    },
+    getNumberTeams: function getNumberTeams(state) {
+      return state.teamList.length;
+    }
+  }
 };
 
 /***/ }),
@@ -108719,9 +108936,9 @@ var users = {
       var commit = _ref.commit;
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getLoginUser(data).then(function (response) {
         commit(types.LOGIN);
-        window.localStorage.setItem('token', response.data.access_token);
-        window.localStorage.setItem('userId', response.data.user_id);
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+        window.localStorage.setItem('token', response.data.data.token);
+        window.localStorage.setItem('userId', response.data.data.user.id);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data.token;
         _routes_js__WEBPACK_IMPORTED_MODULE_1__["default"].push('main');
       });
     },
@@ -109532,9 +109749,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _modules_tasks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tasks */ "./resources/js/modules/tasks.js");
-/* harmony import */ var _modules_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/users */ "./resources/js/modules/users.js");
-/* harmony import */ var _modules_teams__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/teams */ "./resources/js/modules/teams.js");
+/* harmony import */ var _modules_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/users */ "./resources/js/modules/users.js");
+/* harmony import */ var _modules_teams__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/teams */ "./resources/js/modules/teams.js");
+/* harmony import */ var _modules_tasks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/tasks */ "./resources/js/modules/tasks.js");
+/* harmony import */ var _modules_teammembers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/teammembers */ "./resources/js/modules/teammembers.js");
 __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").polyfill();
 
 
@@ -109543,11 +109761,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    tasks: _modules_tasks__WEBPACK_IMPORTED_MODULE_2__["tasks"],
-    users: _modules_users__WEBPACK_IMPORTED_MODULE_3__["users"],
-    teams: _modules_teams__WEBPACK_IMPORTED_MODULE_4__["teams"]
+    tasks: _modules_tasks__WEBPACK_IMPORTED_MODULE_4__["tasks"],
+    users: _modules_users__WEBPACK_IMPORTED_MODULE_2__["users"],
+    teams: _modules_teams__WEBPACK_IMPORTED_MODULE_3__["teams"],
+    teamMembers: _modules_teammembers__WEBPACK_IMPORTED_MODULE_5__["teamMembers"]
   }
 }));
 

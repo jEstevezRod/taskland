@@ -26,24 +26,32 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-     'remember_token','provider', 'provider_id'
+        'remember_token', 'provider', 'provider_id'
     ];
 
     public function getId()
     {
         return $this->id;
     }
-    public function getName(){
+
+    public function getName()
+    {
         return $this->name;
     }
-    public function getEmail(){
+
+    public function getEmail()
+    {
         return $this->email;
     }
-    public function checkPassword(){
-        if ( $this->password !== null) return true;
+
+    public function checkPassword()
+    {
+        if ($this->password !== null) return true;
         else return false;
     }
-    public function getPassword(){
+
+    public function getPassword()
+    {
         return $this->password;
     }
 
