@@ -24,7 +24,7 @@
             <footer class="modal-card-foot">
                 <button class="button" type="button" @click="$parent.close()">Close</button>
                 <button class="button is-primary" @click="loginStandard">Login</button>
-                <a class="button is-dark has-text-white is-pulled-right" style="margin-left: auto" href="/login/github"  >
+                <a class="button is-dark has-text-white is-pulled-right" style="margin-left: auto" href="/login/github">
                     Login with Github</a>
             </footer>
         </div>
@@ -48,7 +48,11 @@
                     .then()
                     .catch(error => console.log(error))
 
+            },
+            aa : function () {
+                this.$store.dispatch('loginwithgithub')
             }
+
         }
     };
 </script>

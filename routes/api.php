@@ -27,6 +27,14 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/logoutUser', 'API\UsersController@logout');
 
+    Route::get('/loginUserWithToken', 'API\AuthenticationController@loadUserWithoutPass');
+
+    //specials
+
+//    Route::post('/login/{driver}', 'Web\AuthenticationController@getSocialRedirect');
+//
+//    Route::post('/login/{driver}/callback', 'Web\AuthenticationController@getSocialCallback');
+
     //For tasks
 
     Route::get('/loadTasks/{id}', 'API\TaskController@getTasks');

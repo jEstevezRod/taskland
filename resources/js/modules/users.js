@@ -15,6 +15,17 @@ const types = {
     LOGOUT: 'LOGOUT'
 }
 
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
 function getCookie(name) {
     let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return v ? v[2] : null;
@@ -39,7 +50,12 @@ export const users = {
     actions: {
 
         loginUser({commit}, data) {
-            UserAPI.getLoginUser(data)
+
+            let token = readCookie('access');
+
+            console.log(token)
+
+            UserAPI.getLoginUser(data, token)
                 .then(function (response) {
                     commit(types.LOGIN)
                     window.localStorage.setItem('token', response.data.data.token)
@@ -49,16 +65,23 @@ export const users = {
                 })
 
         },
-        loginUserGithub( { commit}){
-            UserAPI.getLoginUserGithub()
+
+
+        loginUserGithub( { commit}, data){
+
+            UserAPI.getLoginUserGithub(data)
                 .then(function (data) {
-                    console.log(data);
-                    router.push('main')
+                    console.log(data)
+                    // window.localStorage.setItem('token', response.data.data.token)
+                    // window.localStorage.setItem('userId', response.data.data.user.id)
+                    // axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+                    // router.push('main')
                 });
         }
         ,
         loadUserWithoutPass({commit}){
-            let token = document.cookie;
+            let token = readCookie('access');
+
             console.log(token)
 
 
@@ -83,7 +106,11 @@ export const users = {
         },
 
         loadUser({commit}) {
-            let token = window.localStorage.getItem('token')
+
+            let token = window.localStorage.getItem('token');
+
+            // if (token == null) token = window.localStorage.getItem('token')
+
             UserAPI.getUser(token)
                 .then(function (response) {
                     commit('setUser', response.data);

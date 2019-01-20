@@ -1,3 +1,12 @@
+@php
+$config = [
+'appName' => config('app.name'),
+'locale' => $locale = app()->getLocale(),
+'locales' => config('app.locales'),
+'githubAuth' => config('services.github.client_id'),
+];
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

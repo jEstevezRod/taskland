@@ -13,12 +13,13 @@ use Illuminate\Http\Request;
 use Validator;
 use JWTFactory;
 use JWTAuth;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['getLoginUser']]);
+        $this->middleware('auth:api', ['except' => ['getLoginUser','me']]);
     }
 
     public function getUserCheckPass()
@@ -127,6 +128,8 @@ class UsersController extends Controller
 
     public function me()
     {
+
+
         return response()->json(auth()->user());
     }
 

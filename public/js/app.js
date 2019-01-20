@@ -3097,8 +3097,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     FeedComponent: _components_main_FeedComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   created: function created() {
-    this.$store.dispatch("loadUser");
-    this.$store.dispatch("loadAllTeams");
+    this.$store.dispatch("loadUser"); // this.$store.dispatch("loadAllTeams");
   },
   mounted: function mounted() {
     this.data2 = this.$store.getters.getUser;
@@ -3176,6 +3175,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then().catch(function (error) {
         return console.log(error);
       });
+    },
+    aa: function aa() {
+      this.$store.dispatch('loginwithgithub');
     }
   }
 });
@@ -3252,19 +3254,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Password",
   data: function data() {
     return {
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      token: ''
     };
   },
   mounted: function mounted() {
-    this.$store.dispatch('loadUserWithoutPass');
+    // this.$store.dispatch('loadUserWithoutPass')
+    // this.token = this.readCookie('access');
+    this.token = this.getCookie(); // this.$store.dispatch('loginUserGithub', this.token)
+
+    this.$store.dispatch('loadUser');
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['getuserWithoutPass'])
+  computed: {// ...mapGetters([])
+  },
+  methods: {
+    readCookie: function readCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1, c.length);
+        }
+
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+
+      return null;
+    },
+    getCookie: function getCookie(name) {
+      var a = document.cookie.split(';');
+      return a[1];
+    }
+  }
 });
 
 /***/ }),
@@ -94813,27 +94845,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "columns is-flex is-vcentered has-background-grey-light" },
-    [
-      _c("div", { staticClass: "column is-12  " }, [
-        _c("div", { staticClass: "container is-fluid " }, [
-          _c("div", { staticClass: "box" }, [
-            _c("p", [_vm._v(_vm._s(_vm.getuserWithoutPass))]),
-            _vm._v(" "),
-            _c(
-              "h1",
-              { staticClass: "title has-text-danger has-text-centered" },
-              [_vm._v("BUILDING...")]
-            )
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "columns is-flex is-vcentered has-background-grey-light" },
+      [
+        _c("div", { staticClass: "column is-12  " }, [
+          _c("section", { staticClass: "hero is-info" }, [
+            _c("div", { staticClass: "hero-body" }, [
+              _c("div", { staticClass: "container is-fluid" }, [
+                _c(
+                  "h1",
+                  { staticClass: "title has-text-white has-text-centered" },
+                  [_vm._v("Logged !!")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h1",
+                  { staticClass: "subtitle has-text-white has-text-centered" },
+                  [_vm._v("BUT IN BUILDING...")]
+                )
+              ])
+            ])
           ])
         ])
-      ])
-    ]
-  )
-}
-var staticRenderFns = []
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -110740,7 +110785,8 @@ __webpack_require__.r(__webpack_exports__);
       passwordConfirmation: data.passwordConfirmation
     });
   },
-  getLoginUser: function getLoginUser(data) {
+  getLoginUser: function getLoginUser(data, token) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/loginUser', {
       email: data.email,
       password: data.password
@@ -110753,6 +110799,9 @@ __webpack_require__.r(__webpack_exports__);
     return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/loadUserWithoutPass?token=' + token, {
       'token': token
     });
+  },
+  getLoginUserGithub: function getLoginUserGithub(token) {
+    return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__["TASKLAND_CONFIG"].API_URL + '/loginUserWithToken?token=' + token, token);
   }
   /*
     PUT  /api/v1/user
@@ -112805,6 +112854,23 @@ var types = {
   LOGOUT: 'LOGOUT'
 };
 
+function readCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1, c.length);
+    }
+
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+  }
+
+  return null;
+}
+
 function getCookie(name) {
   var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
   return v ? v[2] : null;
@@ -112823,7 +112889,9 @@ var users = {
   actions: {
     loginUser: function loginUser(_ref, data) {
       var commit = _ref.commit;
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getLoginUser(data).then(function (response) {
+      var token = readCookie('access');
+      console.log(token);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getLoginUser(data, token).then(function (response) {
         commit(types.LOGIN);
         window.localStorage.setItem('token', response.data.data.token);
         window.localStorage.setItem('userId', response.data.data.user.id);
@@ -112831,16 +112899,18 @@ var users = {
         _routes_js__WEBPACK_IMPORTED_MODULE_1__["default"].push('main');
       });
     },
-    loginUserGithub: function loginUserGithub(_ref2) {
+    loginUserGithub: function loginUserGithub(_ref2, data) {
       var commit = _ref2.commit;
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getLoginUserGithub().then(function (data) {
-        console.log(data);
-        _routes_js__WEBPACK_IMPORTED_MODULE_1__["default"].push('main');
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getLoginUserGithub(data).then(function (data) {
+        console.log(data); // window.localStorage.setItem('token', response.data.data.token)
+        // window.localStorage.setItem('userId', response.data.data.user.id)
+        // axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        // router.push('main')
       });
     },
     loadUserWithoutPass: function loadUserWithoutPass(_ref3) {
       var commit = _ref3.commit;
-      var token = document.cookie;
+      var token = readCookie('access');
       console.log(token);
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getUserWithoutPass(token).then(function (response) {
         console.log(response);
@@ -112860,7 +112930,8 @@ var users = {
     },
     loadUser: function loadUser(_ref5) {
       var commit = _ref5.commit;
-      var token = window.localStorage.getItem('token');
+      var token = window.localStorage.getItem('token'); // if (token == null) token = window.localStorage.getItem('token')
+
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getUser(token).then(function (response) {
         commit('setUser', response.data);
       }).catch(function () {
@@ -113604,23 +113675,24 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '*',
     redirect: '/'
   }]
-}); // router.beforeEach((to, from, next) => {
+}); //
+// router.beforeEach((to, from, next) => {
 //
 //     // check if the route requires authentication and user is not logged in
 //     if (to.matched.some(route => route.meta.auth) && !store.state.isLogged) {
 //         // redirect to login page
-//         next({ name: 'Home' })
+//         next({ name: 'Home' });
 //         return
 //     }
 //
 //     // if logged in redirect to dashboard
 //     if(to.path === '/login' && store.state.isLogged) {
-//         next({ name: 'HomeViewComponent' })
+//         next({ name: 'HomeViewComponent' });
 //         return
 //     }
 //
 //     next()
-// })
+// });
 
 /* harmony default export */ __webpack_exports__["default"] = (router);
 

@@ -67,23 +67,23 @@ const router = new VueRouter({
 
 });
 
-
+//
 // router.beforeEach((to, from, next) => {
 //
 //     // check if the route requires authentication and user is not logged in
 //     if (to.matched.some(route => route.meta.auth) && !store.state.isLogged) {
 //         // redirect to login page
-//         next({ name: 'Home' })
+//         next({ name: 'Home' });
 //         return
 //     }
 //
 //     // if logged in redirect to dashboard
 //     if(to.path === '/login' && store.state.isLogged) {
-//         next({ name: 'HomeViewComponent' })
+//         next({ name: 'HomeViewComponent' });
 //         return
 //     }
 //
 //     next()
-// })
+// });
 
 export default router

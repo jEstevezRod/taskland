@@ -13,6 +13,7 @@ use JWTFactory;
 use JWTAuth;
 use Response;
 use Session;
+use Hash;
 
 class AuthenticationController extends Controller
 {
@@ -24,6 +25,12 @@ class AuthenticationController extends Controller
         } catch (\InvalidArgumentException $e) {
             return redirect('/#/');
         }
+
+
+//        return [
+//            'url' => Socialite::driver($social)->stateless()->redirect()->getTargetUrl(),
+//        ];
+
     }
 
     public function getSocialCallback($social)
@@ -31,18 +38,18 @@ class AuthenticationController extends Controller
 
         $socialUser = Socialite::with($social)->stateless()->user();
 
-        $user = User::where('provider_id', '=', $socialUser->id)
-            ->where('provider', '=', $social)
+        $user = User::where('provider_id', $socialUser->id)
+            ->where('provider', $social)
             ->first();
 
 
         if ($user == null) {
 
-            $newUser = new User();
+            $newUser = new User;
             $newUser->name = $socialUser->getName();
             $newUser->email = $socialUser->getEmail() == '' ? '' : $socialUser->getEmail();
             $newUser->avatar = $socialUser->getAvatar();
-            $newUser->password = Hash::make($socialUser->getId());
+            $newUser->password = $socialUser->getId();
             $newUser->provider = $social;
             $newUser->provider_id = $socialUser->getId();
 
@@ -52,20 +59,26 @@ class AuthenticationController extends Controller
 
         }
 
-        Cookie::queue('access', auth()->login($user), 3600);
+
+        if (! $token = auth()->login($user)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
 
 
-        return redirect('/#/password')->with(auth()->login($user));
+        return redirect('/#/password', 301, [
+            'Authorization' => 'Bearer ' . $token
+        ]);
+
+//        return redirect('/#/password')->with([respondWithToken($token)]);
 
     }
 
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
+            'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-//            'user_id' => auth()->user()->getId()
         ]);
     }
 

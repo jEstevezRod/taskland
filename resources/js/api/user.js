@@ -25,7 +25,10 @@ export default {
       passwordConfirmation: data.passwordConfirmation});
   },
 
-  getLoginUser: function (data) {
+  getLoginUser: function (data, token) {
+
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
     return axios.post( TASKLAND_CONFIG.API_URL + '/loginUser', {
       email: data.email,
       password: data.password
@@ -37,6 +40,11 @@ export default {
   },
   getUserWithoutPass: function (token) {
     return axios.get( TASKLAND_CONFIG.API_URL + '/loadUserWithoutPass?token=' + token, { 'token' : token})
+  },
+
+  getLoginUserGithub: function (token) {
+
+    return axios.get( TASKLAND_CONFIG.API_URL + '/loginUserWithToken?token=' + token, token)
   }
 
   /*

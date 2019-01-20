@@ -83,7 +83,7 @@ export default {
   },
   created() {
     this.$store.dispatch("loadUser");
-    this.$store.dispatch("loadAllTeams");
+    // this.$store.dispatch("loadAllTeams");
 
   },
   mounted() {

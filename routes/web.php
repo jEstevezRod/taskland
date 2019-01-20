@@ -18,9 +18,14 @@ Route::get( '/', 'Web\AppController@getApp' )->name('app');
 
 /* Login and Logout */
 
+
+
 Route::get('/login/{social}', 'Web\AuthenticationController@getSocialRedirect');
 
 Route::get('/login/{social}/callback', 'Web\AuthenticationController@getSocialCallback');
+
+//Route::post('/login/{social}', 'Web\AuthenticationController@getSocialRedirect');
+
 
 //Route::get( '/logout', 'Web\AppController@getLogout' )->name('logout');
 //
