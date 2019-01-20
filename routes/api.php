@@ -33,6 +33,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/changeStatus/{id}', 'API\TaskController@update');
 
+    Route::get('/countTasks', 'API\TaskController@countTasks' );
+
 
     /*Route::get('/tasks/{id}', 'API\TaskController@getTask'); */
 

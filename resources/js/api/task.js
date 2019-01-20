@@ -32,6 +32,12 @@ export default {
 
         return axios.post( TASKLAND_CONFIG.API_URL + '/changeStatus/' + data.data.id, data)
 
+    },
+
+    countAllTasks: function (data) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+
+        return axios.get( TASKLAND_CONFIG.API_URL + '/countTasks')
     }
 
 }

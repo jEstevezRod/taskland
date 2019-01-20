@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Task;
+use App\Models\ProjectUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
@@ -116,5 +117,40 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         //
+    }
+
+    public function countTasks() {
+
+
+        $user = JWTAuth::user() ;
+
+
+        $projects_array = ProjectUser::where('user_id', '=', $user->id)
+            ->join('projects', 'projects.id', '=', 'project_users.project_id')
+            ->select('projects.id','projects.team_id', 'projects.p_name')->get();
+        $task_number = 0;
+        $null_project = 0;
+        $team_project = 0;
+
+        foreach ($projects_array as $value) {
+            $task_number = Task::where('project_id', '=', $value->id)->count() + $task_number;
+        }
+        foreach ($projects_array as $value) {
+            if ($value->team_id == null) {
+                $null_project++;
+            } else {
+                $team_project++;
+            }
+        }
+
+        return response()->json([
+            'a' => $task_number,
+            'b' => $team_project,
+            'c' => $null_project,
+            'd' => count($projects_array)
+        ]);
+
+
+
     }
 }

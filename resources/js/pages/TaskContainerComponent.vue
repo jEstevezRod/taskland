@@ -162,7 +162,7 @@
             this.$store.dispatch("loadAllTeams");
             this.$store.dispatch("loadProjects")
         },
-        methods: {},
+
         computed: {
             ...mapGetters([
                 "getTeamList", "getNumberTeams", "getProjectList"

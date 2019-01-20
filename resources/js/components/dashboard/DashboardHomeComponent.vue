@@ -22,18 +22,18 @@
             <div class="column is-10-mobile is-offset-1-mobile">
                 <div class="box notification emerald ">
                     <div class="heading">Projects</div>
-                    <div class="title">10</div>
+                    <div class="title"> {{ getCountProjects }}</div>
                     <div class="level">
                         <div class="level-item">
                             <div class="">
                                 <div class="heading">in team</div>
-                                <div class="title is-5">3</div>
+                                <div class="title is-5">{{getTeamProjects}}</div>
                             </div>
                         </div>
                         <div class="level-item">
                             <div class="">
                                 <div class="heading">personal</div>
-                                <div class="title is-5">7</div>
+                                <div class="title is-5">{{getPersonalProjects}}</div>
                             </div>
                         </div>
 
@@ -43,7 +43,7 @@
             <div class="column is-10-mobile is-offset-1-mobile">
                 <div class="box notification peter-river">
                     <div class="heading">Tasks</div>
-                    <div class="title">78</div>
+                    <div class="title">{{getTaskNumber}}</div>
                     <div class="level">
                         <div class="level-item">
                             <div class="">
@@ -66,9 +66,23 @@
 
 <script>
     import LineChart from './ChartDashboardComponent'
+    import {mapGetters} from 'vuex'
 
     export default {
-        components: {LineChart}
+        components: {LineChart},
+        data() {
+            return {}
+        },
+        mounted() {
+          this.$store.dispatch('countAllTasks');
+        },
+
+        computed: {
+            ...mapGetters([
+                "getTaskNumber", "getPersonalProjects", "getTeamProjects", "getCountProjects"
+            ]),
+        }
+
     }
 </script>
 

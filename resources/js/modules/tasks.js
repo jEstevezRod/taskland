@@ -6,9 +6,7 @@
 */
 
 import taskAPI from '../api/task.js';
-import { resolve } from 'path';
-import { reject } from 'q';
-import stateAPI from "../api/state";
+
 
 /*
 |-------------------------------------------------------------------------------
@@ -27,6 +25,14 @@ export const tasks = {
         tasks: [],
 
         task: {},
+
+        taskNumber: 0,
+
+        projectInTeam: 0,
+
+        personalProject: 0,
+
+        countProjects: 0
     },
     actions: {
 
@@ -79,6 +85,24 @@ export const tasks = {
                         reject(error)
                     })
             })
+        },
+        countAllTasks: function ( {commit}) {
+
+            let token = window.localStorage.getItem('token')
+
+            return new Promise( ((resolve, reject) => {
+
+                taskAPI.countAllTasks({token})
+                    .then(response => {
+                        commit('setTaskNumber', response.data.a);
+                        commit('setPersonalProjects', response.data.c);
+                        commit('setTeamProjects', response.data.b);
+                        commit('setProjectNumber', response.data.d);
+                        resolve(response)
+                    },error => {
+                        reject(error)
+                    })
+            }))
         }
 
     },
@@ -98,7 +122,16 @@ export const tasks = {
         modifyTasks: (state, data) => {
             let index = state.tasks.findIndex(x => x.id === data.id);
             state.tasks[index].state = data.state;
-        }
+        },
+
+        setTaskNumber: (state, value) => state.taskNumber = value,
+
+        setProjectNumber: (state, value) => state.countProjects = value,
+
+        setPersonalProjects: (state, value) => state.personalProject = value,
+
+        setTeamProjects: (state, value) => state.projectInTeam = value,
+
     },
 
     getters: {
@@ -109,6 +142,14 @@ export const tasks = {
 
         getTask(state) {
             return state.task;
-        }
+        },
+
+        getTaskNumber: state => state.taskNumber,
+
+        getCountProjects: state => state.countProjects,
+
+        getPersonalProjects: state => state.personalProject ,
+
+        getTeamProjects: state => state.projectInTeam
     }
 }
