@@ -65,8 +65,7 @@
             return {
                 isCardModalActive: false
             }
-        },
-        methods: {}
+        }
     }
 </script>
 
@@ -79,7 +78,8 @@
     .special-box {
         padding: 13px 8px 8px 12px;
     }
-    .card{
+
+    .card {
         border-radius: 7px;
     }
 </style>

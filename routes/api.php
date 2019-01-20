@@ -29,19 +29,20 @@ Route::group(['prefix' => 'auth'], function () {
 
     //For tasks
 
-    Route::get('/tasks', 'API\TasksController@getTasks');
+    Route::get('/loadTasks/{id}', 'API\TaskController@getTasks');
 
-    Route::get('/tasks/{id}', 'API\TasksController@getTask');
+    Route::post('/changeStatus/{id}', 'API\TaskController@update');
+
+
+    /*Route::get('/tasks/{id}', 'API\TaskController@getTask'); */
 
     Route::post('/tasks', 'API\TaskController@postNewTask');
 
     //For teams
 
-
     Route::post('/newTeam', 'API\TeamController@postNewTeam');
 
     Route::get('/loadTeams', 'API\TeamController@loadTeams');
-
 
     // For teammember
 
@@ -50,6 +51,20 @@ Route::group(['prefix' => 'auth'], function () {
     // For projects
 
     Route::post('/newProject', 'API\ProjectController@store');
+
+    Route::get('/loadProjects', 'API\ProjectController@index');
+
+    Route::get('loadProjectName/{id}','API\ProjectController@getName' );
+
+    // For new User in Project
+
+    Route::post('/addNewUserInProject', 'API\ProjectUserController@store');
+
+    // For States
+
+    Route::post('/addNewState', 'API\StateController@store');
+
+    Route::get('/loadStates/{id}', 'API\StateController@index');
 
 
 });

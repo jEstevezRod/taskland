@@ -15,7 +15,9 @@ export const teamMembers = {
     actions: {
 
         newTeamMember: function ({commit},team_id) {
+
             let token = window.localStorage.getItem('token');
+
             return new Promise((resolve, reject) => {
                 teamMemberAPI.addTeamMember({team_id: team_id, token: token})
                     .then (response => {

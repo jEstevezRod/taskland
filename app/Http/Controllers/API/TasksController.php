@@ -8,6 +8,11 @@ use Request;
 
 class TasksController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['getLoginUser']]);
+    }
   /*
   |-------------------------------------------------------------------------------
   | Get All Tasks

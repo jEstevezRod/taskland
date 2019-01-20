@@ -13,13 +13,21 @@ import { users} from './modules/users'
 import { teams } from './modules/teams'
 import { tasks} from './modules/tasks'
 import { teamMembers } from "./modules/teammembers";
+import { projects} from "./modules/projects";
+import { projectUsers} from "./modules/projectusers";
+import { states} from "./modules/states";
+import { assignedTasks} from "./modules/assignedtasks";
 
 export default new Vuex.Store({
     modules: {
         tasks,
         users,
         teams,
-        teamMembers
+        teamMembers,
+        projects,
+        projectUsers,
+        states,
+        assignedTasks
 
     }
 });

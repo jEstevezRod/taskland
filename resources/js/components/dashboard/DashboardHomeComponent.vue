@@ -1,5 +1,7 @@
 <template>
     <div class="container is-fluid">
+        <h1 class="title has-text-centered"> Dashboard</h1>
+
         <div class="columns is-multiline ">
 
             <div class="column is-10-mobile is-offset-1-mobile">
@@ -50,9 +52,9 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
+        </div>
 
         <div class="columns">
             <div class="column  min-height">
@@ -64,9 +66,9 @@
 
 <script>
     import LineChart from './ChartDashboardComponent'
+
     export default {
-        name: "DashboardHomeComponent",
-        components: { LineChart}
+        components: {LineChart}
     }
 </script>
 
@@ -78,12 +80,15 @@
     .turquoise {
         background-color: #1abc9c;
     }
+
     .emerald {
         background-color: #2ecc71;
     }
+
     .peter-river {
         background-color: #3498db;
     }
+
     .asphalt {
         background-color: #9b59b6;
     }

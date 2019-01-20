@@ -14,6 +14,21 @@ export const projectUsers = {
     },
     actions: {
 
+        addUserInProject({commit}, data) {
+
+            let token = window.localStorage.getItem('token');
+
+            return new Promise( ((resolve, reject) => {
+                projectUserAPI.addNewUserInProject({data, token})
+                    .then( response => {
+                        console.log(response.data.message);
+                        resolve(response)
+                    }, error => {
+                        reject(error)
+                    })
+            }))
+        }
+
     },
     mutations: {
 

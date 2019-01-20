@@ -65,7 +65,6 @@ export const teams = {
 
         fillTeamList : (state, array) => state.teamList = array ,
 
-        countTeams: (state, array) => state.numberTeams = array.length
     },
     getters: {
 

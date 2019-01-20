@@ -1,83 +1,86 @@
 <template>
     <section class="container is-fluid test">
-        <h1 class="title has-text-centered"> Dashboard</h1>
         <div class="columns">
 
             <!--left side-->
-            <div class="column is-9 task-wrapper">
+            <div class="column is-10 task-wrapper">
                 <div class="container is-fluid">
                     <router-view :key="$route.path"></router-view>
                 </div>
             </div>
 
             <!--right side-->
-            <div class="column is-3 sidebar-wrapper">
+            <div class="column is-2 sidebar-wrapper">
                 <div class="columns">
                     <div class="column is-12 sidebar">
 
                         <!--sidebar information-->
                         <div class="teams-wrapper">
-                            <p class="subtitle">TEAMS ({{getNumberTeams}}) :</p>
-                            <ul class="container">
-                                <li v-for="team in getTeamList" class="">
-                                    <strong>Name: </strong>{{team.t_name}} ( id : {{team.id}} )
-                                </li>
+                            <p class="has-text-centered has-text-grey-darker">TEAMS ({{getNumberTeams}}) </p>
+                            <ul class="menu-list">
+                                <a v-for="team in getTeamList">
+                                    <li>
+                                        <i class="fas fa-arrow-right mr-5"></i>{{team.t_name}} ( id : {{team.id}} )
+                                    </li>
+                                </a>
                             </ul>
                         </div>
                         <div class="projects-wrapper">
-                            <p class="subtitle">PROJECTS</p>
-                            <ul>
-                                <router-link v-for="project in project_list"
-                                :to="{name: 'dashboard', params: {id: project.id}}">
-                                    <li> {{project.p_name}}</li>
+                            <p class="has-text-centered has-text-grey-darker">PROJECTS</p>
+                            <ul class="menu-list">
+                                <router-link v-for="project in getProjectList"
+                                             :to="{name: 'dashboard', params: {id: project.id}}">
+                                    <li class="has-text-grey-dark"><i class="fas fa-arrow-right mr-5"></i>
+                                        {{project.p_name}}
+                                    </li>
                                 </router-link>
                             </ul>
                         </div>
                         <!--end sidebar information-->
 
                         <!--modals-->
-                        <div class="box">
-                            <section>
-                                <button class="button is-primary is-rounded"
-                                        @click="isComponentModalActive = true">
-                                    Add new task
-                                </button>
+                        <!--<div class="box">-->
+                            <!--<section>-->
+                                <!--<button class="button is-primary is-rounded"-->
+                                        <!--@click="isComponentModalActive = true">-->
+                                    <!--Add new task-->
+                                <!--</button>-->
 
-                                <b-modal :active.sync="isComponentModalActive" has-modal-card>
-                                    <modal-add-task v-bind="formProps"></modal-add-task>
-                                </b-modal>
-                            </section>
-                            <section>
-                                <button class="button is-info is-danger is-rounded"
-                                        @click="isComponentModalActive2 = true">
-                                    Add new project
-                                </button>
+                                <!--<b-modal :active.sync="isComponentModalActive" has-modal-card>-->
+                                    <!--<modal-add-task></modal-add-task>-->
+                                <!--</b-modal>-->
+                            <!--</section>-->
+                            <!--<section>-->
+                                <!--<button class="button is-info is-danger is-rounded"-->
+                                        <!--@click="isComponentModalActive2 = true">-->
+                                    <!--Add new project-->
+                                <!--</button>-->
 
-                                <b-modal :active.sync="isComponentModalActive2" has-modal-card>
-                                    <modal-add-project v-bind="formProps2"></modal-add-project>
-                                </b-modal>
-                            </section>
-                            <section>
-                                <button class="button is-info is-warning is-rounded"
-                                        @click="isComponentModalActive3 = true">
-                                    Add new state
-                                </button>
+                                <!--<b-modal :active.sync="isComponentModalActive2" has-modal-card>-->
+                                    <!--<modal-add-project></modal-add-project>-->
+                                <!--</b-modal>-->
+                            <!--</section>-->
+                            <!--<section>-->
+                                <!--<button class="button is-info is-warning is-rounded"-->
+                                        <!--@click="isComponentModalActive3 = true">-->
+                                    <!--Add new state-->
+                                <!--</button>-->
 
-                                <b-modal :active.sync="isComponentModalActive3" has-modal-card>
-                                    <modal-add-state v-bind="formProps3"></modal-add-state>
-                                </b-modal>
-                            </section>
-                            <section>
-                                <button class="button is-info  is-rounded"
-                                        @click="isComponentModalActive4 = true">
-                                    Add new team
-                                </button>
+                                <!--<b-modal :active.sync="isComponentModalActive3" has-modal-card>-->
+                                    <!--<modal-add-state></modal-add-state>-->
+                                <!--</b-modal>-->
+                            <!--</section>-->
+                            <!--<section>-->
+                                <!--<button class="button is-info  is-rounded"-->
+                                        <!--@click="isComponentModalActive4 = true">-->
+                                    <!--Add new team-->
+                                <!--</button>-->
 
-                                <b-modal :active.sync="isComponentModalActive4" has-modal-card>
-                                    <modal-add-team v-bind="formProps4"></modal-add-team>
-                                </b-modal>
-                            </section>
-                        </div>
+                                <!--<b-modal :active.sync="isComponentModalActive4" has-modal-card>-->
+                                    <!--<modal-add-team></modal-add-team>-->
+                                <!--</b-modal>-->
+                            <!--</section>-->
+                        <!--</div>-->
                         <!--end modals-->
                         <section>
 
@@ -94,14 +97,16 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="content">
-                                    <label for="email"> User email </label>
-                                    <input type="text" class="input" id="email" v-model="emailToCheck">
+                                        <label for="email"> User email </label>
+                                        <input type="text" class="input" id="email" v-model="emailToCheck">
 
-                                    <b-field label="Pick a project">
-                                        <b-select placeholder="Select a project" v-model="project_id_add" rounded>
-                                            <option v-for="project in project_list" v-bind:value="project.id">{{project.p_name}}</option>
-                                        </b-select>
-                                    </b-field>
+                                        <b-field label="Pick a project">
+                                            <b-select placeholder="Select a project" v-model="project_id_add" rounded>
+                                                <option v-for="project in getProjectList" v-bind:value="project.id">
+                                                    {{project.p_name}}
+                                                </option>
+                                            </b-select>
+                                        </b-field>
                                     </div>
 
                                 </div>
@@ -128,93 +133,39 @@
     import ModalAddProject from '../components/dashboard/ModalAddProjectComponent'
     import ModalAddState from '../components/dashboard/ModalAddStateComponent'
     import ModalAddTeam from '../components/dashboard/ModalAddTeamComponent'
-    import { mapGetters } from 'vuex';
+    import {mapGetters} from 'vuex';
 
 
     export default {
-        components:{ DashboardHomeComponent, ProjectsComponent,ModalAddTask, ModalAddProject, ModalAddState, ModalAddTeam},
+        components: {
+            DashboardHomeComponent,
+            ProjectsComponent,
+            ModalAddTask,
+            ModalAddProject,
+            ModalAddState,
+            ModalAddTeam
+        },
         name: "TaskContainer",
         data() {
             return {
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                project_id: '',
-                subject: '',
-                description: '',
-                state: 'queue',
-                tasks_list: [],
-                states_list: [],
-                project_list: [],
-                teams_list: [],
-                state_name: '',
-                p_team: '',
-                p_name: '',
                 project_id_add: '',
                 emailToCheck: '',
                 isComponentModalActive: false,
                 isComponentModalActive2: false,
                 isComponentModalActive3: false,
                 isComponentModalActive4: false,
-                formProps: {
-                    subject: '',
-                    project_id: '',
-                    description: '',
-                    state: ''
-                },
-                formProps2: {
-                    p_name: '',
-                    p_team: '',
-                },
-                formProps3: {
-                    name: '',
-                    project: '',
-                },
-                formProps4: {
-                    t_name: '',
-                },
             }
         },
-        created () {
+        created() {
             this.$store.dispatch("loadUser");
-            this.$store.dispatch("loadAllTeams");        }
-        ,
-        mounted() {
-
-           /*  this.$axios.get('/tasks')
-                .then(response => this.tasks_list = response.data.tasks)
-                .catch(error => console.log(error.response))
-
-            this.$axios.get('/projects')
-                .then(response => {
-                    this.project_list = response.data.projects
-                })
-                .catch(error => console.log(error.response))
-
-            this.$axios.get('/states')
-                .then(response => this.states_list = response.data.states)
-                .catch(error => console.log(error.response))
-
-            this.$axios.get('/teams')
-                .then(response => this.teams_list = response.data.teams)
-                .catch(error => console.log(error.response))
-            */
-
-
-
+            this.$store.dispatch("loadAllTeams");
+            this.$store.dispatch("loadProjects")
         },
-        methods : {
-
-            addToProject() {
-                this.$axios.post('/userInProject', {
-                    email: this.emailToCheck,
-                    project_id : this.project_id_add
-                }).then( response => console.log(response.data.message))
-                    .catch( error => console.log(error))
-            }
-
-        },
-        computed : {
+        methods: {},
+        computed: {
             ...mapGetters([
-                'isLogged', 'getUser', "getTeamList", "getNumberTeams"
+                "getTeamList", "getNumberTeams", "getProjectList"
             ])
         }
 
@@ -249,6 +200,10 @@
 
     .projects-wrapper {
         margin-top: 30px;
+    }
+
+    .mr-5 {
+        margin-right: 7px;
     }
 
 

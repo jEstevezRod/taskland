@@ -21,7 +21,6 @@
 </template>
 
 <script>
-    import {EventBus} from '../../event-bus.js';
 
     export default {
         name: "ModalAddTeamComponent",
@@ -41,13 +40,16 @@
                 this.$store.dispatch('newTeam', {
                     t_name: this.t_name,
                 }).then(response => {
-                    console.log(response.data.message)
-                    this.$store.dispatch("newTeamMember" ,
+                    this.$toast.open({
+                        duration: 5000,
+                        message: response.data.message,
+                        position: 'is-top',
+                        type: 'is-success'
+                    });
+                    this.$store.dispatch("newTeamMember",
                         response.data.team_id
-                    ).then( response => console.log(response.data.message))
-                        .catch( error => console.error(error))
+                    )
                 })
-                    .catch(error => console.error(error))
             },
 
         }

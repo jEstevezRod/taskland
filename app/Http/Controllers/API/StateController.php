@@ -5,17 +5,28 @@ namespace App\Http\Controllers\API;
 use App\Models\State;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use JWTAuth;
 
 class StateController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( $id )
     {
-        //
+
+        $own_states = State::where('project','=', $id)->get();
+
+        return response()->json([
+            'message' => 'States for project with id '. $id .' loaded correctly!',
+            'states' => $own_states]);
     }
 
     /**
@@ -36,7 +47,20 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $state = State::create([
+            'name' => $request->input('data.name'),
+            'project' => $request->input('data.project'),
+            'author' => $user->id
+        ]);
+
+
+        return response()->json([
+            'message' => 'State created correctly!',
+            'state' => $state]);
+
     }
 
     /**
@@ -68,9 +92,9 @@ class StateController extends Controller
      * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, State $state)
+    public function update(Request $request, $id)
     {
-        //
+//
     }
 
     /**

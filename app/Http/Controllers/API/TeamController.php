@@ -51,11 +51,11 @@ class TeamController extends Controller
         $team->t_name = $request->input('t_name');
         $team->save();
 
-        return [
-            'message' => 'Team ' . $request->input('t_name') . ' added correctly',
+        return response()->json([
+            'message' => 'Team ' . $request->input('t_name') . ' created correctly',
             'team_id' => $team->id,
             'team' => $team
-        ];
+        ]);
     }
 
     /**

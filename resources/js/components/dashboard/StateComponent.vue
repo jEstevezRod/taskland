@@ -1,63 +1,60 @@
 <template>
-    <div class="column is-3-desktop is-4-tablet is-6-mobile task-state">
+    <div class="column is-3-desktop is-3-tablet is-6-mobile task-state">
         <p class="subtitle has-text-white has-text-centered">
             {{state.name}}
         </p>
         <hr>
-        <draggable class="max-height" v-model="taskToShow" :options="{group:'state'}" @start="drag=true"
+        <draggable class="max-height" :value.sync="tasks" :options="{group:'state'}" @start="drag=true"
                    @change="modifyState($event,state.name)">
-            <task class="m-4" v-for="task in taskToShow" :task="task"></task>
+            <task class="m-4" v-for="task in tasks" :task="task"></task>
         </draggable>
     </div>
 </template>
 
 <script>
-    import {EventBus} from '../../event-bus.js';
+    import {mapGetters} from 'vuex';
     import draggable from 'vuedraggable'
+    import Task from './TaskComponent'
 
     export default {
         components: {
-            draggable,
+            draggable, Task
         },
-        props: ['state', 'tasks_list', 'project_id'],
+        props: ['state', 'project_id'],
         name: "StateComponent",
         data() {
             return {
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                taskToShow: [],
                 oldState: '',
                 newState: '',
             }
         },
-
-        mounted() {
-
-            EventBus.$on('updateTasks', value => {
-                if (this.project_id == value.project_id) {
-                    value.state == this.state.name ? this.taskToShow.push(value) : false
-                }
-            })
-            for (let task of this.tasks_list) {
-                if (task.state === this.state.name) {
-                    this.taskToShow.push(task)
-                }
+        computed: {
+            ...mapGetters([
+                'isLogged', 'getUser'
+            ]),
+            tasks: function () {
+                return this.$store.getters.getTasks.filter(i => i.state === this.state.name)
             }
         },
         methods: {
 
             modifyState($event, state) {
                 if ($event.added) {
-                    console.log($event.added.element.subject, 'se ha añadido a', state)
-                    this.$axios.post('/tasks/' + $event.added.element.id + '/'+ state,
-                        {
-                            _method: 'put',
-                        }
-                    ).then(response => {
-                        console.log(response.data.message)
-                    })
-                        .catch(function (error) {
-                            console.log(error.response);
-                        });
+                    console.log($event.added.element.subject, 'se ha añadido a', state);
+
+                    this.$store.dispatch('changeState', {
+                        'id' : $event.added.element.id,
+                        state : state})
+                        .then(response => {
+                            this.$store.commit('modifyTasks', {id:$event.added.element.id, state})
+                            this.$toast.open({
+                                duration: 3000,
+                                message: response.data.message,
+                                position: 'is-top',
+                                type: 'is-success'
+                            });
+                        })
                 }
                 if ($event.removed) {
                     console.log($event.removed.element.subject, 'se ha eliminado de', state)
@@ -85,6 +82,7 @@
         height: 100%;
         min-height: 50px;
     }
+
     .m-4 {
         margin: 12px 0;
     }

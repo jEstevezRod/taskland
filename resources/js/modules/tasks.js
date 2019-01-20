@@ -6,6 +6,9 @@
 */
 
 import taskAPI from '../api/task.js';
+import { resolve } from 'path';
+import { reject } from 'q';
+import stateAPI from "../api/state";
 
 /*
 |-------------------------------------------------------------------------------
@@ -27,57 +30,85 @@ export const tasks = {
     },
     actions: {
 
-        newTask({commit}, data) {
+        newTask({ commit }, data) {
 
-            taskAPI.newTask(data)
-                .then((response) => console.log(response.data.message))
-                .catch()
+            let token = window.localStorage.getItem('token');
+
+            return new Promise((resolve, reject) => {
+
+                taskAPI.newTask({ data, token })
+                    .then(response => {
+                        commit('addTaskToList', response.data.task);
+                        resolve(response)
+                    }, error => {
+                        reject(error);
+                    })
+            })
+
         }
         ,
 
-        loadTasks( { commit } ){
+        loadTasks({ commit }, data) {
 
+            let token = window.localStorage.getItem('token');
 
-            taskAPI.getTasks()
-                .then( function( response ){
-                commit( 'setTasks', response.data );
-                })
-                .catch( function(){
-                commit( 'setTasks', [] );
-                });
+            return new Promise((resolve, reject) => {
+                taskAPI.getTasks({ data, token })
+                    .then(function (response) {
+                        commit('setTasks', response.data.tasks);
+                        resolve(response)
+                    }, error => {
+                        reject(error)
+                    })
+
+            })
+
 
         },
-        loadTask( { commit }, data ){
 
-            taskAPI.getTask( data.id )
-                .then( function( response ){
-                commit( 'setTask', response.data );
-                })
-                .catch( function(){
-                commit( 'setTask', {} );
-                });
+        changeState: function ({commit}, data) {
+
+            let token = window.localStorage.getItem('token');
+
+            return new Promise( (resolve, reject) => {
+
+                taskAPI.updateState( {data, token})
+                    .then( response => {
+                        resolve(response)
+                    }, error => {
+                        reject(error)
+                    })
+            })
         }
+
     },
 
     mutations: {
 
-        setTasks( state, tasks ){
-          state.tasks = tasks;
+        setTasks(state, array) {
+            state.tasks = array;
         },
 
-        setTask( state, task ){
-          state.task = task;
+        setTask(state, task) {
+            state.task = task;
+        },
+
+        addTaskToList: ( state, task) => state.tasks.push(task),
+
+        modifyTasks: (state, data) => {
+            let index = state.tasks.findIndex(x => x.id === data.id);
+            state.tasks[index].state = data.state;
         }
     },
 
     getters: {
 
-        getTasks( state ){
-          return state.tasks;
+        getTasks(state) {
+            return state.tasks;
         },
 
-        getTask( state ){
-          return state.task;
+        getTask(state) {
+            return state.task;
         }
     }
 }
