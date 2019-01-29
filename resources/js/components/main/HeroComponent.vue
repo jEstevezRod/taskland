@@ -2,11 +2,11 @@
     <div class="hero-body">
         <div class="container has-text-centered ">
             <h1 class="title tomato">
-                <span class="has-text-dark title">Taskland</span>
+                <span class="title">Taskland</span>
             </h1>
-            <h2 class="subtitle dark-text"><span class="dark-text">
+            <!-- <h2 class="subtitle dark-text"><span class="dark-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>
-            </h2>
+            </h2> -->
         </div>
     </div>
 </template>
@@ -42,6 +42,6 @@
     .title {
         font-family: 'Waiting for the Sunrise', cursive;
         font-size: 110px !important;
-        color: #333333 !important;
+        color: rgba(204, 146, 69, 0.77);
     }
 </style>

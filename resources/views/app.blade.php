@@ -1,12 +1,3 @@
-@php
-$config = [
-'appName' => config('app.name'),
-'locale' => $locale = app()->getLocale(),
-'locales' => config('app.locales'),
-'githubAuth' => config('services.github.client_id'),
-];
-@endphp
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,6 +13,9 @@ $config = [
         <!-- styles -->
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+        </style>
 
         <!-- libraries -->
 
@@ -29,6 +23,7 @@ $config = [
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
               integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
         <script type='text/javascript'>
              window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
@@ -36,7 +31,7 @@ $config = [
         </script>
     </head>
     <body>
-
+                
         <div id="app">
             <router-view></router-view>
         </div>

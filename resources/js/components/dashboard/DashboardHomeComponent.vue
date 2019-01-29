@@ -2,6 +2,26 @@
     <div class="container is-fluid">
         <h1 class="title has-text-centered"> Dashboard</h1>
 
+        <div class=" box is-flex custom-flex">
+            <button @click="isComponentModalActive2 = true"
+                    class="button is-medium is-info is-inverted ">
+                <i class="fas fa-plus-circle has-text-danger is-size-4"/>
+                &nbsp Create project
+            </button>
+
+            <button @click="isComponentModalActive4 = true"
+                    class="button is-medium is-info is-inverted ">
+                <i class="fas fa-plus-circle has-text-danger is-size-4"/>
+                &nbsp Create team
+            </button>
+        </div>
+        <b-modal :active.sync="isComponentModalActive2" has-modal-card>
+            <modal-add-project ></modal-add-project>
+        </b-modal>
+        <b-modal :active.sync="isComponentModalActive4" has-modal-card>
+            <modal-add-team ></modal-add-team>
+        </b-modal>
+
         <div class="columns is-multiline ">
 
             <div class="column is-10-mobile is-offset-1-mobile">
@@ -67,11 +87,16 @@
 <script>
     import LineChart from './ChartDashboardComponent'
     import {mapGetters} from 'vuex'
+    import ModalAddProject from './ModalAddProjectComponent'
+    import ModalAddTeam from './ModalAddTeamComponent'
 
     export default {
-        components: {LineChart},
+        components: {LineChart, ModalAddProject, ModalAddTeam},
         data() {
-            return {}
+            return {
+                isComponentModalActive2: false,
+                isComponentModalActive4: false,
+            }
         },
         mounted() {
           this.$store.dispatch('countAllTasks');
@@ -105,6 +130,9 @@
 
     .asphalt {
         background-color: #9b59b6;
+    }
+    .custom-flex {
+        justify-content: space-around;
     }
 
 </style>

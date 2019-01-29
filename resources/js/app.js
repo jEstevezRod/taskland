@@ -27,7 +27,13 @@ import router from './routes.js'
 import store from './store.js'
 import Buefy from 'buefy';
 
+
+
 Vue.use(Buefy);
+
+import bulmaExtensions from '../../node_modules/bulma-extensions/dist/js/bulma-extensions.min'
+
+Vue.use(bulmaExtensions);
 
 import Home from './pages/Home.vue'
 import Main from './pages/Main.vue'
@@ -36,12 +42,15 @@ import Main from './pages/Main.vue'
 import VeeValidate from 'vee-validate';
 
 Vue.use(VeeValidate);
+Vue.use(require('vue-moment'));
 
 // const tokenJWT = localStorage.getItem('token')
 //
 // if (tokenJWT) {
 //     window.axios.defaults.headers.common['Authorization'] = tokenJWT
 // }
+
+
 new Vue({
     components: {
         Home, Main

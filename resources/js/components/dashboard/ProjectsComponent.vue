@@ -17,18 +17,7 @@
                         &nbsp Add state
                     </button>
 
-                    <button @click="isComponentModalActive2 = true"
-                            class="button is-medium is-info is-inverted ">
-                        <i class="fas fa-plus-circle has-text-success	"></i>
-                        &nbsp Create project
-                    </button>
 
-
-                    <button @click="isComponentModalActive4 = true"
-                            class="button is-medium is-info is-inverted ">
-                        <i class="fas fa-plus-circle has-text-success	"></i>
-                        &nbsp Create team
-                    </button>
                 </div>
                 <div v-if="getStateList.length == 0">
                     You don't have any state. Probably you want tu add one <a @click="isComponentModalActive3 = true">clicking
@@ -42,12 +31,7 @@
                     <modal-add-task :project_id="project_id"></modal-add-task>
                 </b-modal>
 
-                <b-modal :active.sync="isComponentModalActive2" has-modal-card>
-                    <modal-add-project ></modal-add-project>
-                </b-modal>
-                <b-modal :active.sync="isComponentModalActive4" has-modal-card>
-                    <modal-add-team ></modal-add-team>
-                </b-modal>
+
             </div>
         </div>
         <div class="columns">
@@ -63,12 +47,11 @@
     import {mapGetters} from 'vuex';
     import State from './StateComponent.vue'
     import ModalAddTask from './ModalAddTaskComponent'
-    import ModalAddProject from './ModalAddProjectComponent'
     import ModalAddState from './ModalAddStateComponent'
-    import ModalAddTeam from './ModalAddTeamComponent'
+
 
     export default {
-        components: {State, ModalAddTask, ModalAddProject, ModalAddState, ModalAddTeam},
+        components: {State, ModalAddTask , ModalAddState,},
         data() {
             return {
                 tasks_list: [],
@@ -77,9 +60,8 @@
                 project_id: this.$route.params.id,
                 project_name: '',
                 isComponentModalActive: false,
-                isComponentModalActive2: false,
                 isComponentModalActive3: false,
-                isComponentModalActive4: false,
+
             }
         },
         mounted() {

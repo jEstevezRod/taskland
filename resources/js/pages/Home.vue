@@ -40,21 +40,6 @@
                 </p>
               </div>
             </section>
-
-            <!--<section v-else>-->
-            <section>
-              <!--<h2 class="m-5">Hi ! {{ userData.name}}</h2>-->
-
-              <div class="field is-grouped is-grouped-centered m-5">
-                <p class="control">
-                  <router-link class="button is-medium is-dark is-outlined" to="/main">Go home</router-link>
-                </p>
-
-                <p class="control">
-                  <a class="button is-medium is-danger is-outlined" @click="logout">Logout</a>
-                </p>
-              </div>
-            </section>
           </div>
         </div>
         <div class="column is-6">
@@ -118,12 +103,14 @@ export default {
     };
   },
   computed: mapGetters([
-    'isLogged'
+    'isLogged', 'getUser'
   ]),
+  created(){this.$store.dispatch("loadUser");},
   mounted() {
-    if (this.isLogged){
-      router.push('Main')
-    }
+    // console.log(this.getUser)
+    // if (Object.entries(this.getUser).length > 0) {
+    //   router.push('Main')
+    // }
 
   },
   methods: {

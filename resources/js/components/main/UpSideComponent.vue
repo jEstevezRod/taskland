@@ -1,6 +1,6 @@
 <template>
     
-    <section class="hero is-medium is-bold header-image">
+    <section class="hero is-large is-bold header-image">
         <hero-component></hero-component>
     </section>
 </template>
@@ -15,7 +15,7 @@ import HeroComponent from './HeroComponent'
 
 <style scoped>
     .header-image {
-        background-image: url("../../../../public/images/cortada.jpg");
+        background-image: url("../../../../public/images/bg8.jpg");
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;

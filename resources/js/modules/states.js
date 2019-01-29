@@ -19,10 +19,10 @@ export const states = {
 
             let token = window.localStorage.getItem('token');
 
-            return new Promise( (resolve, reject) => {
+            return new Promise((resolve, reject) => {
 
-                stateAPI.addNewState({data, token} )
-                    .then( response => {
+                stateAPI.addNewState({data, token})
+                    .then(response => {
                         console.log(response.data.message);
                         commit('addStateToList', response.data.state);
                         resolve(response)
@@ -34,13 +34,13 @@ export const states = {
 
         },
 
-        loadStates: function ({commit}, data ) {
+        loadStates: function ({commit}, data) {
 
             let token = window.localStorage.getItem('token');
 
-            return new Promise( ((resolve, reject) => {
+            return new Promise(((resolve, reject) => {
                 stateAPI.loadAllStates({data, token})
-                    .then( response => {
+                    .then(response => {
                         console.log(response.data.message);
                         commit('fillStateList', response.data.states);
                         resolve(response)
@@ -51,6 +51,23 @@ export const states = {
 
         },
 
+        deleteState: function ({commit}, data) {
+
+            let token = window.localStorage.getItem('token');
+
+            return new Promise((resolve, reject) => {
+                stateAPI.deleteState({data, token})
+                    .then(response => {
+                        console.log(response.data);
+                        commit('removeStateFromList', response.data.state);
+                        resolve(response.data)
+                    }, error => {
+                        reject(error)
+                    })
+            })
+
+
+        }
 
 
     },
@@ -59,6 +76,8 @@ export const states = {
         fillStateList: (state, array) => state.stateList = array,
 
         addStateToList: (state, newState) => state.stateList.push(newState),
+
+        removeStateFromList: (state, obj) => state.stateList.splice(state.stateList.indexOf(obj),1)
 
     },
     getters: {

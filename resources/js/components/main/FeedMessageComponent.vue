@@ -1,41 +1,19 @@
 <template>
 
-    <div class="box">
-        <article class="media">
-            <div class="media-left">
-                <figure class="image is-64x64">
-                    <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                </figure>
+    <div class="timeline-item is-flex custom-flex">
+        <div class="timeline-marker is-image is-32x32">
+            <i class="fas fa-pencil-alt"></i>
+        </div>
+        <div class="timeline-content  transition">
+            <div class="is-flex  is-lined">
+            <div class=" is-rounded">
+                <img class="img-custom " src="https://image.flaticon.com/icons/png/512/247/247783.png">
             </div>
-            <div class="media-content">
-                <div class="content">
-                    <p>
-                        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-                    </p>
-                </div>
-                <nav class="level is-mobile">
-                    <div class="level-left">
-                        <a class="level-item" aria-label="reply">
-            <span class="icon is-small">
-              <i class="fas fa-reply" aria-hidden="true"></i>
-            </span>
-                        </a>
-                        <a class="level-item" aria-label="retweet">
-            <span class="icon is-small">
-              <i class="fas fa-retweet" aria-hidden="true"></i>
-            </span>
-                        </a>
-                        <a class="level-item" aria-label="like">
-            <span class="icon is-small">
-              <i class="fas fa-heart" aria-hidden="true"></i>
-            </span>
-                        </a>
-                    </div>
-                </nav>
+            <div>
+                <div class="is-flex flex-custom"><span>Pablo A.</span><span class="help">16-02-2019</span></div>
+                <p>Ha creado un nuevo proyecto!</p>
             </div>
-        </article>
+        </div></div>
     </div>
 </template>
 
@@ -47,4 +25,33 @@
 
 <style scoped>
 
+    .is-lined {
+        padding: 20px 15px;
+        border: 1px solid #a7a7a7;
+        border-radius: 27px;
+        box-shadow: 1px 1px 11px -1px;
+    }
+
+    .heading {
+        text-align: left;
+    }
+    .img-custom {
+        width: 32px;
+        height: 32px;
+        margin: 0 15px;
+        border-radius:50%;
+
+    }
+    .flex-custom {
+        justify-content: space-between;
+    }
+    .transition {
+        transition: all .2s ease-in-out;
+    }
+    .transition:hover {
+        transform: scale(1.05);
+    }
+    .timeline .timeline-item .timeline-marker.is-image.is-32x32{
+        top: 44px;
+    }
 </style>

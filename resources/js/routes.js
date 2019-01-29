@@ -57,11 +57,28 @@ const router = new VueRouter({
                             component: Vue.component('ProjectsComponent', require('./components/dashboard/ProjectsComponent')).default,
                         }
                     ]
+                },
+                {
+                    path: '/calendar',
+                    name: 'Calendar',
+                    component: Vue.component('Calendar', require('./pages/Calendar')).default
+                },
+                {
+                    path: '/notes',
+                    name: 'Notes',
+                    component: Vue.component('Notes', require('./pages/Notes')).default
+                },
+                {
+                    path: '/inbox',
+                    name: 'Messages',
+                    component: Vue.component('Notes', require('./pages/Messages')).default
                 }
             ]
 
         },
         {path: '*', redirect: '/'}
+        ,
+
     ]
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\State;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
@@ -103,8 +104,19 @@ class StateController extends Controller
      * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function destroy(State $state)
+    public function delete($id, Request $request)
     {
-        //
+
+
+        $state = State::where('id',$id)->delete();
+
+        $tasks = Task::where('project_id', $request->input('project'))
+        ->where('state', $request->input('name'))->delete();
+
+        if ($tasks == 1) $message = 'State and tasks removed correctly!';
+        else $message = 'State removed correctly!';
+
+        return response()->json(['state' => $id, 'tasks' => $tasks,
+            'message' => $message]);
     }
 }

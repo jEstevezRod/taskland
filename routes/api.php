@@ -76,5 +76,7 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/loadStates/{id}', 'API\StateController@index');
 
+    Route::delete('/deleteState/{id}','API\StateController@delete');
+
 
 });

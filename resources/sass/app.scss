@@ -4,14 +4,18 @@
 
 // Variables
 
-// Bootstrap
+// Buefy ( Bulma )
 @import '../../node_modules/buefy/dist/buefy.css';
 
 // Home CSS
 
-@import './welcome.css';
+@import "../../node_modules/bulma-extensions/dist/css/bulma-extensions.min.css";
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
 }
