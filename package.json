@@ -28,10 +28,12 @@
     "dependencies": {
         "bulma-extensions": "^4.0.1",
         "chart.js": "^2.7.3",
-        "kalendar-vue": "^0.2.8",
+        "fullcalendar": "^3.10.0",
+        "moment": "^2.24.0",
         "vee-validate": "^2.1.5",
         "vue-chartjs": "^3.4.0",
         "vue-cookie-law": "^1.8.0",
+        "vue-full-calendar": "^2.7.0",
         "vue-moment": "^4.0.0",
         "vuedraggable": "^2.17.0"
     }

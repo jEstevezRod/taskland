@@ -1,6 +1,7 @@
 
 window._ = require('lodash');
-
+window.$ = require('jquery')
+window.JQuery = require('jquery')
 try {
     window.$ = window.jQuery = require('jquery');
 
@@ -49,7 +50,8 @@ Vue.use(require('vue-moment'));
 // if (tokenJWT) {
 //     window.axios.defaults.headers.common['Authorization'] = tokenJWT
 // }
-
+import FullCalendar from 'vue-full-calendar'
+Vue.use(FullCalendar)
 
 new Vue({
     components: {

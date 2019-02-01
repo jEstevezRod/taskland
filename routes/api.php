@@ -78,5 +78,11 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::delete('/deleteState/{id}','API\StateController@delete');
 
+    // For appointment
+
+    Route::get('/getAppointments','API\AppointmentController@index');
+
+    Route::post('/newAppointment','API\AppointmentController@store');
+
 
 });

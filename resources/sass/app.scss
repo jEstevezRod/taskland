@@ -11,6 +11,8 @@
 
 @import "../../node_modules/bulma-extensions/dist/css/bulma-extensions.min.css";
 
+@import '../../node_modules/fullcalendar/dist/fullcalendar.css';
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -18,4 +20,12 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
+}
+
+.fc-content {
+  height: 32px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around
 }

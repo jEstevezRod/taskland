@@ -17,6 +17,7 @@ import { projects} from "./modules/projects";
 import { projectUsers} from "./modules/projectusers";
 import { states} from "./modules/states";
 import { assignedTasks} from "./modules/assignedtasks";
+import { appointments } from "./modules/appointments"
 
 export default new Vuex.Store({
     modules: {
@@ -27,7 +28,8 @@ export default new Vuex.Store({
         projects,
         projectUsers,
         states,
-        assignedTasks
+        assignedTasks,
+        appointments
 
     }
 });
