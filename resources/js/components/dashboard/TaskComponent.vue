@@ -11,17 +11,17 @@
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-4">[ project name] - [ team name ?]</p>
+                            <p class="title is-4">Project: {{task.project_id}} <span v-if="task.team_id"> Team: {{task.team_id}}</span></p>
                             <p class="subtitle is-6">[ list of people whos has this task assigned]</p>
                         </div>
                     </div>
 
                     <div class="">
-                        <p>[subject]</p>
-                        <p>[ description ]</p>
+                        <p>Title: {{task.subject}}</p>
+                        <p>Description: {{task.description}}</p>
 
                         <span class="is-fullwidth is-pulled-right">
-                        <small>[ created date ]</small> - <small> [ due date ]</small></span>
+                        <small>{{task.created_at}}</small> - <small> [ due date ]</small></span>
                         <br>
                         <hr>
                         <div class="field">
@@ -65,6 +65,9 @@
             return {
                 isCardModalActive: false
             }
+        },
+        mounted() {
+            console.log(this.task)
         }
     }
 </script>
