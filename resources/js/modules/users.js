@@ -71,7 +71,6 @@ export const users = {
 
             UserAPI.getLoginUserGithub(data)
                 .then(function (data) {
-                    console.log(data)
                     // window.localStorage.setItem('token', response.data.data.token)
                     // window.localStorage.setItem('userId', response.data.data.user.id)
                     // axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
@@ -82,12 +81,10 @@ export const users = {
         loadUserWithoutPass({commit}){
             let token = readCookie('access');
 
-            console.log(token)
 
 
             UserAPI.getUserWithoutPass(token)
                 .then(function (response) {
-                    console.log(response);
                     commit('setuserWithoutPass')
                 })
         },
@@ -187,6 +184,8 @@ export const users = {
         getUser(state) {
             return state.user;
         },
+
+        getUserID: state => state.user.id,
 
         getHasPassword(state) {
             return state.hasPassword;

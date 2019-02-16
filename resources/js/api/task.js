@@ -16,6 +16,8 @@ export default {
                 subject: data.data.subject,
                 description: data.data.description,
                 state: data.data.state,
+                due_date: data.data.due_date,
+                progress: data.data.progress
             }
         );
     },

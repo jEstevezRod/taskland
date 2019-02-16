@@ -5,13 +5,18 @@
 // Variables
 
 // Buefy ( Bulma )
-@import '../../node_modules/buefy/dist/buefy.css';
+
+@import '~buefy/dist/buefy.css';
+
+@import '~bulma-helpers/css/bulma-helpers.min.css';
 
 // Home CSS
 
-@import "../../node_modules/bulma-extensions/dist/css/bulma-extensions.min.css";
+@import "~bulma-extensions/dist/css/bulma-extensions.min.css";
 
-@import '../../node_modules/fullcalendar/dist/fullcalendar.css';
+@import '~fullcalendar/dist/fullcalendar.css';
+
+
 
 .navbar-laravel {
   background-color: #fff;

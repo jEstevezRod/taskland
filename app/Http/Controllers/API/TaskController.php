@@ -53,6 +53,8 @@ class TaskController extends Controller
         $task->subject = $request->input('subject');
         $task->description = $request->input('description');
         $task->state = $request->input('state');
+        $task->dueDate = $request->input('due_date');
+        $task->progress = $request->input('progress');
 
         $task->save();
 

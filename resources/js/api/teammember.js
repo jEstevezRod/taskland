@@ -14,5 +14,20 @@ export default {
             )
     },
 
+    loadTeamMembersAPI: function( data) {
+
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+
+        return axios.get( TASKLAND_CONFIG.API_URL + `/loadMembers/${data.data}`)
+
+
+    },
+
+    addMemberToTeam: function(data){
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+
+        return axios.post( TASKLAND_CONFIG.API_URL + '/addNewMember', data.data)
+    }
+
 
 }

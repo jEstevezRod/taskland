@@ -4,7 +4,7 @@
         <p class="my-center has-text-white ">
             {{state.name}}
         </p>
-            <i @click="deleteState(state)"  class="fas fa-times-circle has-text-danger is-size-4" style="cursor:pointer;"></i>
+            <i @click="deleteState()"  class="fas fa-times-circle has-text-danger is-size-4" style="cursor:pointer;"></i>
     </div>
         <hr>
         <draggable class="max-height" :value.sync="tasks" :options="{group:'state'}" @start="drag=true"
@@ -65,10 +65,10 @@
 
             },
 
-            deleteState(state){
+            deleteState(){
                 this.$dialog.confirm({
                     message: 'If you delete a state with tasks inside you will delete all of them, take care !',
-                    onConfirm: () => this.$store.dispatch('deleteState', state)
+                    onConfirm: () => this.$store.dispatch('deleteState', this.state)
                         .then(response => this.$toast.open({
                             duration: 3000,
                             message: response.message,

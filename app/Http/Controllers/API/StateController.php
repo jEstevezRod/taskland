@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Comment;
 use App\Models\State;
 use App\Models\Task;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
+use DB;
 
 class StateController extends Controller
 {
@@ -107,6 +110,12 @@ class StateController extends Controller
     public function delete($id, Request $request)
     {
 
+        $comments = DB::table('comments')
+            ->join('tasks', 'comments.task_id', '=', 'tasks.id')
+            ->select('comments.*')
+            ->where('project_id', $request->input('project'))
+            ->where('state', $request->input('name'))
+            ->delete();
 
         $state = State::where('id',$id)->delete();
 
@@ -116,7 +125,7 @@ class StateController extends Controller
         if ($tasks == 1) $message = 'State and tasks removed correctly!';
         else $message = 'State removed correctly!';
 
-        return response()->json(['state' => $id, 'tasks' => $tasks,
+        return response()->json(['state' => $id, '' => $tasks,
             'message' => $message]);
     }
 }

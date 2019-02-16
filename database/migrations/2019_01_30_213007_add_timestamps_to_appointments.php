@@ -26,6 +26,9 @@ class AddTimestampsToAppointments extends Migration
     public function down()
     {
         Schema::table('appointments', function (Blueprint $table) {
+            $table->dropColumn('created_at');
+            $table->dropColumn('updated_at');
+
         });
     }
 }

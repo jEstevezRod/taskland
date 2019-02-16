@@ -11,7 +11,8 @@
     },
     "devDependencies": {
         "axios": "^0.18",
-        "buefy": "^0.7.1",
+        "buefy": "^0.7.2",
+        "bulma-helpers": "^0.3.6",
         "cross-env": "^5.1",
         "es6-promise": "^4.2.5",
         "jquery": "^3.2",
@@ -35,6 +36,7 @@
         "vue-cookie-law": "^1.8.0",
         "vue-full-calendar": "^2.7.0",
         "vue-moment": "^4.0.0",
-        "vuedraggable": "^2.17.0"
+        "vuedraggable": "^2.17.0",
+        "vuejs-datepicker": "^1.5.4"
     }
 }

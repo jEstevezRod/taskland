@@ -53,9 +53,15 @@ const router = new VueRouter({
                         },
                         {
                             path: ':id',
-                            name: 'dashboard',
+                            name: 'project',
                             component: Vue.component('ProjectsComponent', require('./components/dashboard/ProjectsComponent')).default,
-                        }
+                        },
+                        {
+                            path: 'team/:id',
+                            name: 'team',
+                            component: Vue.component('ProjectsComponent', require('./components/dashboard/Team')).default,
+                        },
+
                     ]
                 },
                 {

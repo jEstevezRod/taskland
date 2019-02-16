@@ -2,6 +2,7 @@
     <div>
         <div class="columns">
             <div class="column">
+
                 <p class="title has-text-centered">{{getProjectName}}</p>
                 <div class="is-flex justify-center" v-if="getStateList.length != 0">
 
@@ -17,8 +18,8 @@
                         &nbsp Add state
                     </button>
 
-
                 </div>
+                <div class="box m-5"> <strong>Participants :</strong>  John Doe, Foo bar</div>
                 <div v-if="getStateList.length == 0">
                     You don't have any state. Probably you want tu add one <a @click="isComponentModalActive3 = true">clicking
                     here.</a>
@@ -89,6 +90,9 @@
     .justify-center {
         justify-content: space-around;
         flex-flow: row wrap;
+    }
+    .m-5{
+        margin:10px 0;
     }
 
 </style>

@@ -1,12 +1,9 @@
 <template>
     <div class="hero-body">
         <div class="container has-text-centered ">
-            <h1 class="title tomato">
-                <span class="title">Taskland</span>
-            </h1>
-            <!-- <h2 class="subtitle dark-text"><span class="dark-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>
-            </h2> -->
+            <p class="title2 tomato">
+                Taskland
+            </p>
         </div>
     </div>
 </template>
@@ -32,16 +29,17 @@
     }
 
     .tomato {
-        color: #49affb  !important;
+        color: rgb(252, 72, 72)  !important;
     }
 
     .subtitle {
         color: #333333 !important;
 
     }
-    .title {
+    .title2 {
         font-family: 'Waiting for the Sunrise', cursive;
         font-size: 110px !important;
-        color: rgba(204, 146, 69, 0.77);
+        font-weight: 600;
+        
     }
 </style>

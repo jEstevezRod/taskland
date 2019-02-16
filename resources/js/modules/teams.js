@@ -16,11 +16,11 @@ export const teams = {
     },
     actions: {
 
-        newTeam: function ({commit}, data) {
+        newTeam: function ({ commit }, data) {
             let token = window.localStorage.getItem('token')
 
             return new Promise((resolve, reject) => {
-                teamAPI.postNewTeam({data, token})
+                teamAPI.postNewTeam({ data, token })
                     .then(response => {
                         commit('setTeam', response.data.team);
                         commit('addTeamToTeamList', response.data.team);
@@ -33,14 +33,14 @@ export const teams = {
 
         },
 
-        loadAllTeams: function ({commit}) {
+        loadAllTeams: function ({ commit }) {
 
             let token = window.localStorage.getItem('token')
 
-            return new Promise( (resolve, reject) => {
+            return new Promise((resolve, reject) => {
 
-                teamAPI.loadTeams( token)
-                    .then( response => {
+                teamAPI.loadTeams(token)
+                    .then(response => {
                         commit('fillTeamList', response.data.teams);
                         resolve(response)
                     }, error => {
@@ -50,25 +50,40 @@ export const teams = {
             })
         },
 
+        loadTeam: function ({ commit }, data) {
+
+            let token = window.localStorage.getItem('token');
+
+            return new Promise((resolve, reject) => {
+
+                teamAPI.loadTeamAPI({ token, data })
+                    .then(response => {
+                        
+                        console.log(response.data.team);
+                        commit('setTeam', response.data.team)
+                        resolve(response.data.team)
+                    }, error => {
+                        console.error(error)
+                        reject(error)
+                    })
+
+            })
+        }
 
 
     },
     mutations: {
 
-        setTeam: (state, team) => {
-            state.team = team
-        },
+        setTeam: (state, team) => state.team = team,
 
-        addTeamToTeamList: (state, value) => {
-            state.teamList.push(value)
-        },
+        addTeamToTeamList: (state, value) => state.teamList.push(value),
 
-        fillTeamList : (state, array) => state.teamList = array ,
+        fillTeamList: (state, array) => state.teamList = array,
 
     },
     getters: {
 
-        getTeam: state => state.team,
+        team: state => state.team,
 
         getTeamList: state => state.teamList,
 

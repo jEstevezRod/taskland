@@ -149,7 +149,20 @@ class ProjectController extends Controller
     {
         $project = Project::where('id', $id)->first();
 
-        return response()->json(['message' => 'Name loaded correctly', 'name' => $project->p_name]);
+        return response()->json([
+            'message' => 'Name loaded correctly',
+             'name' => $project->p_name
+             ]);
 
+    }
+
+    public function getProjects($id) {
+
+        $projects = Project::where('team_id', $id)->get();
+
+        return response()->json([
+            'message' => 'Projects for team ' . $id . ' loaded correctly',
+            'projects' => $projects 
+            ]);
     }
 }

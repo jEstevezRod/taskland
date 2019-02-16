@@ -41,7 +41,6 @@ export const states = {
             return new Promise(((resolve, reject) => {
                 stateAPI.loadAllStates({data, token})
                     .then(response => {
-                        console.log(response.data.message);
                         commit('fillStateList', response.data.states);
                         resolve(response)
                     }, error => {
@@ -58,7 +57,6 @@ export const states = {
             return new Promise((resolve, reject) => {
                 stateAPI.deleteState({data, token})
                     .then(response => {
-                        console.log(response.data);
                         commit('removeStateFromList', response.data.state);
                         resolve(response.data)
                     }, error => {
@@ -77,7 +75,9 @@ export const states = {
 
         addStateToList: (state, newState) => state.stateList.push(newState),
 
-        removeStateFromList: (state, obj) => state.stateList.splice(state.stateList.indexOf(obj),1)
+        removeStateFromList: (state, id) => {
+            return state.stateList.splice(state.stateList.findIndex(x => x.id === id), 1)
+        }
 
     },
     getters: {

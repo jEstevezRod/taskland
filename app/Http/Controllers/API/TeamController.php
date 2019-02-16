@@ -29,6 +29,16 @@ class TeamController extends Controller
         return response()->json(['message' => 'Teams loaded correctly!', 'teams' => $teams]);
     }
 
+    public function loadTeam($id)
+    {
+        $team = Team::where('id', $id)->first();
+
+        return response()->json([ 
+            'message' => 'Team loaded correctly',
+            'team' => $team
+            ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

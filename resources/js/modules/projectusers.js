@@ -27,6 +27,24 @@ export const projectUsers = {
                         reject(error)
                     })
             }))
+        },
+
+        addTeamInProject({commit}, data) {
+            let token = window.localStorage.getItem("token")
+
+            return new Promise( (resolve,reject) => {
+
+                projectUserAPI.addTeamInProject({token, data})
+                .then( response => {
+                    console.log(response.data.message)
+                    // commit()
+                    resolve(response.data)
+                }, error => {
+                    console.error(error)
+                    reject(error)
+                })
+
+            })
         }
 
     },

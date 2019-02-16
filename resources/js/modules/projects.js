@@ -13,6 +13,7 @@ export const projects = {
         project: {},
         projectList: [],
         projectName: '',
+        projectListbyTeam: []
     },
     actions: {
 
@@ -24,8 +25,12 @@ export const projects = {
                 projectAPI.addNewProject({data, token})
                     .then(response => {
                         console.log(response.data.message);
-                        commit('addProjectToList', response.data.project);
-                        resolve(response)
+                        if (response.data.project.team_id) {
+                            commit('addOneProjectToTeamList', response.data.project)
+                            commit('addProjectToList', response.data.project)
+                        } else commit('addProjectToList', response.data.project);
+                        
+                        resolve(response.data.project)
                     }, error => {
                         console.error(error);
                         reject(error)
@@ -66,6 +71,25 @@ export const projects = {
                     })
             }));
 
+        },
+
+        loadProjectsbyTeam: function ({commit}, data) 
+        {
+            let token = window.localStorage.getItem("token")
+
+            return new Promise ( (resolve, reject) => {
+
+                projectAPI.loadProjectsbyTeam({token, data})
+                .then( response => {
+                    console.log(response.data.message)
+                    commit('addProjectToTeamList', response.data.projects)
+                    resolve(response.data)
+                }, error => {
+                    console.error(error)
+                    reject(error)
+                })
+
+            } )
         }
 
 
@@ -73,7 +97,11 @@ export const projects = {
     mutations: {
         setProjectList: (state, array) => state.projectList = array,
 
-        addProjectToList: (state, project) => state.projectList.push(project),
+        addProjectToList: (state, projects) => state.projectList.push(projects),
+
+        addProjectToTeamList: (state, projects) => state.projectListbyTeam = projects,
+
+        addOneProjectToTeamList: (state, project) => state.projectListbyTeam.push(project),
 
         setProjectName: (state, name) => state.projectName = name
     },
@@ -81,7 +109,9 @@ export const projects = {
 
         getProjectList: (state) => state.projectList,
 
-        getProjectName: (state) => state.projectName
+        getProjectName: (state) => state.projectName,
+
+        getprojectListbyTeam: state => state.projectListbyTeam
     }
 
 };

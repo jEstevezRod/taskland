@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\ProjectUser;
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
@@ -13,6 +14,23 @@ class ProjectUserController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+    }
+
+    public function addTeamToProject(Request $request)
+    {
+        $team_id = $request->input('team_id');
+        $project_id = $request->input('id');
+
+        $members = TeamMember::where('team_id', $team_id)->get();
+
+        foreach($members as $member) {
+            $projectUser = new ProjectUser;
+            $projectUser->user_id = $member->user_id;
+            $projectUser->project_id = $project_id;
+            $projectUser->save();
+        }
+
+        return ['message' => 'Members added to the project correctly!'];
     }
 
     /**

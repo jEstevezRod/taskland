@@ -16,6 +16,7 @@ export default {
     },
 
     deleteState: function (data) {
+
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
 
         return axios.delete( TASKLAND_CONFIG.API_URL + `/deleteState/${data.data.id}`, data)

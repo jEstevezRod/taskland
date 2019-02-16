@@ -29,11 +29,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/loginUserWithToken', 'API\AuthenticationController@loadUserWithoutPass');
 
-    //specials
+    Route::get('/user/{id}','API\UsersController@getUser');
 
-//    Route::post('/login/{driver}', 'Web\AuthenticationController@getSocialRedirect');
-//
-//    Route::post('/login/{driver}/callback', 'Web\AuthenticationController@getSocialCallback');
 
     //For tasks
 
@@ -54,9 +51,16 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/loadTeams', 'API\TeamController@loadTeams');
 
+    Route::get('/loadTeam/{id}', 'API\TeamController@loadTeam');
+
     // For teammember
 
-    Route::post('/addTeamMember', 'API\ManageMembers@new');
+    Route::post('/addTeamMember', 'API\ManageMembers@createMember');
+
+    Route::get('/loadMembers/{id}', 'API\ManageMembers@loadMembers');
+
+    Route::post('/addNewMember', 'API\ManageMembers@addMember' );
+
 
     // For projects
 
@@ -66,9 +70,15 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('loadProjectName/{id}','API\ProjectController@getName' );
 
+    Route::get('/loadProjectsbyTeam/{id}', 'API\ProjectController@getProjects');
+
+
     // For new User in Project
 
     Route::post('/addNewUserInProject', 'API\ProjectUserController@store');
+
+    Route::post('/addTeamToProject', 'API\ProjectUserController@addTeamToProject');
+
 
     // For States
 
@@ -83,6 +93,12 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/getAppointments','API\AppointmentController@index');
 
     Route::post('/newAppointment','API\AppointmentController@store');
+
+    // For comments
+
+    Route::get('/loadComments/{id}', 'API\CommentController@index');
+
+    Route::post('/addNewComment', 'API\CommentController@store');
 
 
 });

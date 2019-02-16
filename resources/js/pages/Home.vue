@@ -107,7 +107,6 @@ export default {
   ]),
   created(){this.$store.dispatch("loadUser");},
   mounted() {
-    // console.log(this.getUser)
     // if (Object.entries(this.getUser).length > 0) {
     //   router.push('Main')
     // }

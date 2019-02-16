@@ -22,6 +22,17 @@ class UsersController extends Controller
         $this->middleware('auth:api', ['except' => ['getLoginUser','me']]);
     }
 
+    public function getUser($id) {
+
+        $user = User::where('id', $id)->first();
+
+        return response()->json([
+            'message' => 'User loaded correctly',
+            'user' => $user
+        ]);
+
+    }
+
     public function getUserCheckPass()
     {
 
@@ -47,26 +58,12 @@ class UsersController extends Controller
     public function getLoginUser(Request $request)
     {
 
-//        $request->validate([
-//            'email' => 'required|email',
-//            'password' => 'required|min:6',
-//        ]);
-//
-//        $credentials = request(['email', 'password']);
-//
-//        if (!$token = auth()->attempt($credentials)) {
-//            return response()->json(['error' => 'Unauthorized'], 401);
-//        }
-//
-//
-//        return $this->respondWithToken($token);
 
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
 
-//        $credentials = $request->only('email', 'password');
         $credentials = request(['email', 'password']);
 
         try {
@@ -102,12 +99,9 @@ class UsersController extends Controller
 
     public function logout()
     {
-
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
-
-
     }
 
     protected function respondWithToken($token)
@@ -128,8 +122,6 @@ class UsersController extends Controller
 
     public function me()
     {
-
-
         return response()->json(auth()->user());
     }
 

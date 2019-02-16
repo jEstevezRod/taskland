@@ -23,7 +23,6 @@ export const appointments = {
 
                 appointmentAPI.loadAllAppointments({ token })
                     .then( response => {
-                        console.log(response.data);
                         let appointmentsList = [];
                         for (let appointment of response.data) {
                             appointmentsList.push({

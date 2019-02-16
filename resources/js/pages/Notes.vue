@@ -5,6 +5,12 @@
                 <div class="hero-body">
                     <div class="container is-fluid">
                         <h1 class="title has-text-white has-text-centered">Notes</h1>
+                        <b-field label="Select a date">
+                            <b-datepicker
+                                    placeholder="Click to select..."
+                                    icon="calendar-today">
+                            </b-datepicker>
+                        </b-field>
                     </div>
                 </div>
             </section>

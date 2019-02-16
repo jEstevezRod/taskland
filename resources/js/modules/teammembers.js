@@ -10,7 +10,7 @@ import teamMemberAPI from '../api/teammember.js';
 
 export const teamMembers = {
     state: {
-        teams: []
+        members: []
     },
     actions: {
 
@@ -19,18 +19,68 @@ export const teamMembers = {
             let token = window.localStorage.getItem('token');
 
             return new Promise((resolve, reject) => {
+
                 teamMemberAPI.addTeamMember({team_id: team_id, token: token})
                     .then (response => {
-                        resolve(response)
+                        commit('addMemberToList', response.data.member)
+                        resolve(response.data)
                     }, error => {
                     reject(error)
                 })
             })
 
 
+        },
+        loadTeamMembers: function ({commit}, data) {
+
+            let token = window.localStorage.getItem('token');
+
+            return new Promise ( (resolve, reject) => {
+
+                teamMemberAPI.loadTeamMembersAPI({token, data})
+                .then( response => {
+                    console.log(response.data.message);
+                    commit('setTeamMemberList', response.data.members)
+                    resolve(response.data)
+                }, error => {
+                    console.error(error);
+                    reject(error)
+                })
+
+            })
+
+        },
+
+        addMember: function ({commit}, data) {
+
+            let token = window.localStorage.getItem('token');
+
+            return new Promise ((resolve, reject) => {
+
+                teamMemberAPI.addMemberToTeam({token, data})
+                .then( response => {
+                    console.log(response.data.message);
+                    if ( response.data.status) {
+                        commit('addMemberToList', response.data.member)
+                        resolve(response.data)
+                    }
+                }, error => {
+                    console.error(error);
+                    reject(error)
+                })
+            })
         }
     },
-    mutations: {},
-    getters: {}
+    mutations: {
+
+        setTeamMemberList: (state, list) => state.members = list,
+
+        addMemberToList: (state, member) => state.members.push(member)
+
+    },
+    getters: {
+
+        listMembers: state => state.members
+    }
 
 }
