@@ -10,6 +10,9 @@
 
                 <label for="p_name">Your project name: </label>
                 <input class="input" type="text" name="p_name" id="p_name" v-model="p_name">
+
+                <label for="description">Description project:</label>
+                <input type="text" class="input" id="description" v-model="description">
                 <b-field label="Choose a team for you project">
                     <b-select placeholder="Select a team" v-model="p_team" rounded>
                         <option v-for="team_option in getTeamList" v-bind:value="team_option.id">
@@ -40,14 +43,15 @@
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 p_name: '',
                 p_team: '',
+                description: ''
             }
         },
         methods: {
-
             onNewProject() {
                 this.$store.dispatch("newProject", {
                     name: this.p_name,
                     team: this.p_team,
+                    description: this.description
                 }).then(response => {
                     this.$store.dispatch("addUserInProject", response.data.project)
                     this.$toast.open({

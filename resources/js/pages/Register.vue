@@ -1,11 +1,14 @@
 <template>
     <div class="modal-card white-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Login</p>
+            <p class="modal-card-title">Register</p>
         </header>
         <section class="modal-card-body ">
             <b-field label="Name">
                 <b-input type="text" v-model="name" placeholder="Your name" required></b-input>
+            </b-field>
+            <b-field label="Last Name">
+                <b-input type="text" v-model="lastname" placeholder="Your last name" required></b-input>
             </b-field>
 
             <b-field label="Email">
@@ -53,13 +56,14 @@
                 email: 'bbb@bbb.com',
                 password: 'bbbbbb',
                 passwordConfirmation: 'bbbbbb',
-                userj: ''
+                lastname: ''
             }
         },
         methods: {
             registerClient: function () {
                 axios.post(TASKLAND_CONFIG.API_URL + '/newUser', {
                     name: this.name,
+                    lastname: this.lastname,
                     email: this.email,
                     password: this.password,
                     passwordConfirmation: this.passwordConfirmation,

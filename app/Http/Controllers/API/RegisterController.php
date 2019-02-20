@@ -17,20 +17,19 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-
+        $name=$request->input('name');
+        $lastname= $request->input('lastname');
         $user = User::create([
-            'name' => $request->input('name'),
+            'name' => $name,
+            'lastname' => $lastname ,
+            'alias' => strtolower($name . $lastname),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password'))
         ]);
 
         return response()->json(['message' => 'User created correctly', 'user_data' => $user], 201);
 
-        return $this->respondWithToken(
-            auth()->login(
-                $user
-            )
-        );
+        return $this->respondWithToken(auth()->login($user));
 
     }
     protected function respondWithToken($token)

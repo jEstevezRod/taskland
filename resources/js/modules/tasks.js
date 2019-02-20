@@ -32,7 +32,9 @@ export const tasks = {
 
         personalProject: 0,
 
-        countProjects: 0
+        countProjects: 0,
+
+        task_loaded: {}
     },
     actions: {
 
@@ -103,6 +105,25 @@ export const tasks = {
                         reject(error)
                     })
             }))
+        },
+
+        loadTask: function ({commit}, data) {
+
+            let token = window.localStorage.getItem("token");
+
+            return new Promise( (resolve, reject) => {
+
+                taskAPI.loadTask({token,data})
+                .then( response => {
+                    console.log(response.data.message)
+                    commit('pushTask', response.data.task)
+                    resolve(response.data)
+                }, error => {
+                    reject(error)
+                })
+
+            })
+            
         }
 
     },
@@ -132,6 +153,8 @@ export const tasks = {
 
         setTeamProjects: (state, value) => state.projectInTeam = value,
 
+        pushTask: (state, data) => state.task_loaded = data
+
     },
 
     getters: {
@@ -150,6 +173,8 @@ export const tasks = {
 
         getPersonalProjects: state => state.personalProject ,
 
-        getTeamProjects: state => state.projectInTeam
+        getTeamProjects: state => state.projectInTeam,
+
+        task: state => state.task_loaded
     }
 }

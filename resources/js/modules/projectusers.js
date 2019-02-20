@@ -36,7 +36,8 @@ export const projectUsers = {
 
                 projectUserAPI.addTeamInProject({token, data})
                 .then( response => {
-                    console.log(response.data.message)
+                    console.log("---------*-**-*------------*-*-*--------")
+                    console.log(response.data)
                     // commit()
                     resolve(response.data)
                 }, error => {

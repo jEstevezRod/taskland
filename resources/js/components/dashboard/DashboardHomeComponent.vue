@@ -31,7 +31,7 @@
         <div class="column is-10-mobile is-offset-1-mobile">
           <div class="box notification turquoise">
             <div class="heading">Teams</div>
-            <div class="title">3</div>
+            <div class="title">{{getNumberTeams}}</div>
             <div class="level">
               <div class="level-item">
                 <div class>
@@ -106,7 +106,8 @@ export default {
       "getTaskNumber",
       "getPersonalProjects",
       "getTeamProjects",
-      "getCountProjects"
+      "getCountProjects",
+      'getNumberTeams'
     ])
   }
 };

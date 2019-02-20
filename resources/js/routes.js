@@ -61,6 +61,11 @@ const router = new VueRouter({
                             name: 'team',
                             component: Vue.component('ProjectsComponent', require('./components/dashboard/Team')).default,
                         },
+                        {
+                            path: 'task/:id',
+                            name: 'task',
+                            component: Vue.component('ProjectsComponent', require('./pages/Task')).default,
+                        },
 
                     ]
                 },

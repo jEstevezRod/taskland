@@ -30,7 +30,7 @@ export const projects = {
                             commit('addProjectToList', response.data.project)
                         } else commit('addProjectToList', response.data.project);
                         
-                        resolve(response.data.project)
+                        resolve(response)
                     }, error => {
                         console.error(error);
                         reject(error)
@@ -65,6 +65,7 @@ export const projects = {
                 projectAPI.getName({data,token})
                     .then( response => {
                         commit('setProjectName', response.data.name);
+                        commit('setProject', response.data.project)
                         resolve(response)
                     }, error => {
                         reject(error)
@@ -103,7 +104,9 @@ export const projects = {
 
         addOneProjectToTeamList: (state, project) => state.projectListbyTeam.push(project),
 
-        setProjectName: (state, name) => state.projectName = name
+        setProjectName: (state, name) => state.projectName = name,
+
+        setProject: (state, project) => state.project = project
     },
     getters: {
 
@@ -111,7 +114,11 @@ export const projects = {
 
         getProjectName: (state) => state.projectName,
 
-        getprojectListbyTeam: state => state.projectListbyTeam
+        getprojectListbyTeam: state => state.projectListbyTeam,
+
+        loadProject: state => state.project
+
+
     }
 
 };

@@ -40,6 +40,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/countTasks', 'API\TaskController@countTasks' );
 
+    Route::get('/loadTask/{id}', 'API\TaskController@loadTask');
+
 
     /*Route::get('/tasks/{id}', 'API\TaskController@getTask'); */
 

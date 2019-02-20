@@ -1,6 +1,6 @@
 <template>
     <div class="columns is-flex justify-end">
-    <div class="column is-4 ">
+    <div class="column is-6 ">
       <b-collapse class="card" :open="false" :close="booleanCol">
         <div slot="trigger" slot-scope="props" class="card-header">
           <p class="card-header-title is-flex is-centered"><i class="fas fa-plus has-text-success"> </i> <span class="mr-1"> Add a new project</span></p>
@@ -30,11 +30,13 @@ export default {
     },
     methods: {
       onNewProject() {
+        console.log("holi estoy en onnewproject")
                 this.$store.dispatch("newProject", {
                     name: this.projectName,
                     team: this.team.id,
                 }).then(response => {
-                    this.$store.dispatch("addTeamInProject", response)
+                  console.log("holi estoy en addteaminproject")
+                    this.$store.dispatch("addTeamInProject", response.data)
                     .then( response => {
                       this.booleanCol = true
                       this.projectName = ''

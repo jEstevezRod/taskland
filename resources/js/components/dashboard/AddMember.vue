@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-flex justify-end">
-    <div class="column is-4">
+    <div class="column is-6">
       <b-collapse class="card" :open="booleanCol">
         <div slot="trigger" slot-scope="props" class="card-header">
           <p class="card-header-title is-flex is-centered"><i class="fas fa-plus has-text-info"> </i> <span class="mr-1"> Add member to my team</span></p>

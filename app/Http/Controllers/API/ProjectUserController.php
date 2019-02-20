@@ -18,9 +18,11 @@ class ProjectUserController extends Controller
 
     public function addTeamToProject(Request $request)
     {
+
         $team_id = $request->input('team_id');
         $project_id = $request->input('id');
 
+        return [$team_id,$project_id];
         $members = TeamMember::where('team_id', $team_id)->get();
 
         foreach($members as $member) {

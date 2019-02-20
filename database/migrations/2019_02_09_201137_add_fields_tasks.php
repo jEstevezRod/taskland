@@ -15,7 +15,6 @@ class AddFieldsTasks extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             $table->date('dueDate')->nullable();
-            $table->integer('progress')->default(0)->nullable();
         });
     }
 
@@ -28,7 +27,6 @@ class AddFieldsTasks extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             $table->dropColumn('dueDate');
-            $table->dropColumn('progress');
         });
     }
 }

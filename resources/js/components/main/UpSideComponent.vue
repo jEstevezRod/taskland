@@ -15,12 +15,13 @@ import HeroComponent from './HeroComponent'
 
 <style scoped>
     .header-image {
-        background-image: url("../../../../public/images/bg8.jpg");
+        background-image: url("../../../../public/images/bg2.png");
+        /* background-color: #1dd1a1; */
         background-position: center center;
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
-        background-color: #999;
+        /* background-color: #999; */
     }
 
 </style>

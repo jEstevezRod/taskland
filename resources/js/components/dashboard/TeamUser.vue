@@ -28,7 +28,6 @@ export default {
       axios.get(TASKLAND_CONFIG.API_URL + `/user/${this.member.user_id}` )
       .then( response => {
         this.user = response.data.user;
-        console.log(response.data.user)
       })
     }
 

@@ -26,6 +26,15 @@ class TaskController extends Controller
         ]);
     }
 
+    public function loadTask ($id)
+    {
+        $task = Task::where('id', $id)->first();
+
+        return response()->json([
+            'message' => 'Task loaded correctly',
+            'task' => $task
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *

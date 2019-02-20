@@ -2,7 +2,12 @@
     <div>
         <div class="columns">
             <div class="column">
-
+                <button class="button" @click="goBack">
+                <span class="icon is-small">
+              <i class="fas fa-arrow-left is-size-5"></i>
+                </span>
+                <span>Back</span>
+            </button>
                 <p class="title has-text-centered">{{getProjectName}}</p>
                 <div class="is-flex justify-center" v-if="getStateList.length != 0">
 
@@ -19,7 +24,10 @@
                     </button>
 
                 </div>
-                <div class="box m-5"> <strong>Participants :</strong>  John Doe, Foo bar</div>
+                <div class="box m-5">
+                     <p><strong>Participants :</strong>  John Doe, Foo bar</p>
+                     
+                     <p v-if="loadProject.description"><br><strong>Description :</strong>{{loadProject.description}}</p></div>
                 <div v-if="getStateList.length == 0">
                     You don't have any state. Probably you want tu add one <a @click="isComponentModalActive3 = true">clicking
                     here.</a>
@@ -74,8 +82,14 @@
         },
         computed: {
             ...mapGetters([
-                "getStateList", "getProjectName"
+                "getStateList", "getProjectName", 'loadProject'
             ])
+        },
+        methods: {
+            
+    goBack: function() {
+      this.$router.push("/dashboard");
+    }
         }
     }
 </script>

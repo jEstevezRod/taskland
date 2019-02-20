@@ -44,6 +44,7 @@ class ProjectController extends Controller
             $project = new Project();
             $project->p_name = $default_project;
             $project->team_id = null;
+            $project->description = "Default project added automatically by Taskland.";
             $project->save();
 
             $userInProject = new ProjectUser();
@@ -92,10 +93,11 @@ class ProjectController extends Controller
 
         $project = Project::create([
             "p_name" => $request->input('name'),
-            "team_id" => $request->input('team') ? $request->input('team') : null
+            "team_id" => $request->input('team') ? $request->input('team') : null,
+            "description" => $request->input('description') ? $request->input('description') : null
         ]);
 
-        return response()->json(['message' => ' Project created correctly', 'project' => $project]);
+        return response()->json(['message' => 'Project created correctly', 'project' => $project]);
 
 
     }
@@ -151,7 +153,8 @@ class ProjectController extends Controller
 
         return response()->json([
             'message' => 'Name loaded correctly',
-             'name' => $project->p_name
+             'name' => $project->p_name,
+             'project' => $project
              ]);
 
     }
