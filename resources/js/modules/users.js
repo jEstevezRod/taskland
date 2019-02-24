@@ -18,10 +18,10 @@ const types = {
 function readCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
@@ -30,8 +30,6 @@ function getCookie(name) {
     let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return v ? v[2] : null;
 }
-
-
 
 
 export const users = {
@@ -43,7 +41,8 @@ export const users = {
         newUser: {},
         logged: !!window.localStorage.getItem('token'),
         token: localStorage.getItem('token') || '',
-        userWithoutPass: ''
+        userWithoutPass: '',
+        user_id: 0
     },
 
 
@@ -67,7 +66,7 @@ export const users = {
         },
 
 
-        loginUserGithub( { commit}, data){
+        loginUserGithub({commit}, data) {
 
             UserAPI.getLoginUserGithub(data)
                 .then(function (data) {
@@ -78,9 +77,8 @@ export const users = {
                 });
         }
         ,
-        loadUserWithoutPass({commit}){
+        loadUserWithoutPass({commit}) {
             let token = readCookie('access');
-
 
 
             UserAPI.getUserWithoutPass(token)
@@ -106,11 +104,9 @@ export const users = {
 
             let token = window.localStorage.getItem('token');
 
-            // if (token == null) token = window.localStorage.getItem('token')
-
             UserAPI.getUser(token)
                 .then(function (response) {
-                    commit('setUser', response.data);
+                    commit('setUser', response.data.user);
                 })
                 .catch(function () {
                     commit('setUser', {});
@@ -140,6 +136,23 @@ export const users = {
                 .catch(function () {
                     commit('setFirstPassword', null)
                 })
+        },
+
+        loadID({commit}) {
+            let token = window.localStorage.getItem('token');
+
+            return new Promise((resolve, reject) => {
+                UserAPI.loadID(token)
+                    .then(
+                        response => {
+                            console.log(response);
+                            commit('setID', response.data);
+                            resolve(response)
+                        }, error => {
+                            reject(error)
+                        }
+                    )
+            })
         }
     },
 
@@ -171,9 +184,10 @@ export const users = {
         setToken(state, nToken) {
             state.token = nToken
         },
-        setuserWithoutPass(state,userWithoutPass) {
+        setuserWithoutPass(state, userWithoutPass) {
             state.userWithoutPass = userWithoutPass
-        }
+        },
+        setID: (state, id) => state.user_id = id
 
 
     },
@@ -200,7 +214,9 @@ export const users = {
 
         getToken: state => state.token,
 
-        getuserWithoutPass: state => state.userWithoutPass
+        getuserWithoutPass: state => state.userWithoutPass,
+
+        getID: state => state.user_id
 
     }
 }

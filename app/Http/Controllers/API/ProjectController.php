@@ -102,6 +102,11 @@ class ProjectController extends Controller
 
     }
 
+
+    public function loadChart ($id)
+    {
+        return response()->json(['message' => $id]);
+    }
     /**
      * Display the specified resource.
      *

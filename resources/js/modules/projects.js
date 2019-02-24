@@ -91,6 +91,23 @@ export const projects = {
                 })
 
             } )
+        },
+
+        loadProjectsAndTaskChart: function ({commit}, data) {
+            
+            let token =window.localStorage.getItem("token");
+
+            return new Promise( (resolve, reject) => {
+
+                projectAPI.loadChartData({token, data})
+                .then( response => {
+                    console.log(response.data);
+                    // commit()
+                    resolve(response)
+                }, error => {
+                    reject(error)
+                })
+            })
         }
 
 

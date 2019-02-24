@@ -122,7 +122,13 @@ class UsersController extends Controller
 
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+        $id  = $user->getId();
+        return response()->json(['user' => $user, 'id' => $id]);
     }
 
+    public function getId()
+    {
+        return response()->json(auth()->user()->getId());
+    }
 }

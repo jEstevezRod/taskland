@@ -26,7 +26,7 @@
         </ul>
       </div>
       <div class="projects-wrapper">
-        <p class="has-text-centered has-text-grey-darker"><strong>PROJECTS</strong> </p>
+        <p class="has-text-centered has-text-grey-darker"><strong>PROJECTS ({{getProjectList.length}})</strong> </p>
         <ul class="menu-list has-margin-top-10">
           <router-link
             v-for="project in getProjectList"

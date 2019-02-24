@@ -46,7 +46,12 @@ export default {
 
     return axios.get( TASKLAND_CONFIG.API_URL + '/loginUserWithToken?token=' + token, token)
   }
+  ,
+  loadID: function (token) {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
+    return axios.get( TASKLAND_CONFIG.API_URL + '/userId')
+  }
   /*
     PUT  /api/v1/user
   */

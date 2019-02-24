@@ -31,6 +31,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/user/{id}','API\UsersController@getUser');
 
+    Route::get('userId','API\UsersController@getId');
+
 
     //For tasks
 
@@ -73,6 +75,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('loadProjectName/{id}','API\ProjectController@getName' );
 
     Route::get('/loadProjectsbyTeam/{id}', 'API\ProjectController@getProjects');
+
+    Route::get('loadChartData/{id}', 'API\ProjectController@loadChart');
 
 
     // For new User in Project
