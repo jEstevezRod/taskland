@@ -9,14 +9,6 @@ export default {
     return axios.get( TASKLAND_CONFIG.API_URL + '/user?token=' + token );
   },
 
-  getUserHasPassword: function() {
-    return axios.get( TASKLAND_CONFIG.API_URL + '/userCheckPass');
-  },
-
-  setFirstPassword: function(password) {
-    return axios.put( TASKLAND_CONFIG.API_URL + '/setPassword/', { password : password});
-  },
-
   postCreateUser: function(data){
     return axios.post( TASKLAND_CONFIG.API_URL + '/newUser', {
       name: data.name,
@@ -38,15 +30,7 @@ export default {
   logoutUser: function (token) {
     return axios.post( TASKLAND_CONFIG.API_URL + '/logoutUser?token=' + token)
   },
-  getUserWithoutPass: function (token) {
-    return axios.get( TASKLAND_CONFIG.API_URL + '/loadUserWithoutPass?token=' + token, { 'token' : token})
-  },
 
-  getLoginUserGithub: function (token) {
-
-    return axios.get( TASKLAND_CONFIG.API_URL + '/loginUserWithToken?token=' + token, token)
-  }
-  ,
   loadID: function (token) {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 

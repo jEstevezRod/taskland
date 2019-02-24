@@ -15,5 +15,6 @@ export default {
 
         return axios.post( TASKLAND_CONFIG.API_URL + '/addTeamToProject', data.data)
 
-    }
+    },
+
 }

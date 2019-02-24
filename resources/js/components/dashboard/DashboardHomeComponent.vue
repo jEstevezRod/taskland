@@ -84,13 +84,14 @@
 </template>
 
 <script>
+  import Chart from "./Chart"
 import LineChart from "./ChartDashboardComponent";
 import { mapGetters } from "vuex";
 import ModalAddProject from "./ModalAddProjectComponent";
 import ModalAddTeam from "./ModalAddTeamComponent";
 
 export default {
-  components: { LineChart, ModalAddProject, ModalAddTeam },
+  components: {Chart, LineChart, ModalAddProject, ModalAddTeam },
   data() {
     return {
       isComponentModalActive2: false,

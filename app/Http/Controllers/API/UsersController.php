@@ -33,27 +33,6 @@ class UsersController extends Controller
 
     }
 
-    public function getUserCheckPass()
-    {
-
-        $pass = auth()->user()->checkPassword();
-
-        return response()->json(['hasPassword' => $pass], 201);
-    }
-
-
-    public function postFirstPassword(Request $request)
-    {
-//        return response(['data' => Auth::check()]);
-
-        $user = auth()->user();
-
-        $user->password = Hash::make($request->input('password'));
-        $user->save();
-
-        return response()->json(['password_updated' => true], 201);
-    }
-
 
     public function getLoginUser(Request $request)
     {

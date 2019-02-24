@@ -36,17 +36,18 @@ export const projectUsers = {
 
                 projectUserAPI.addTeamInProject({token, data})
                 .then( response => {
-                    console.log("---------*-**-*------------*-*-*--------")
-                    console.log(response.data)
+                    console.log(response.data.message)
                     // commit()
-                    resolve(response.data)
+                    resolve(response)
                 }, error => {
                     console.error(error)
                     reject(error)
                 })
 
             })
-        }
+        },
+
+
 
     },
     mutations: {

@@ -7,6 +7,7 @@ use App\Models\TeamMember;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
+use DB;
 
 class ProjectUserController extends Controller
 {
@@ -20,9 +21,8 @@ class ProjectUserController extends Controller
     {
 
         $team_id = $request->input('team_id');
-        $project_id = $request->input('id');
+        $project_id = $request->input('project_id');
 
-        return [$team_id,$project_id];
         $members = TeamMember::where('team_id', $team_id)->get();
 
         foreach($members as $member) {
@@ -34,6 +34,7 @@ class ProjectUserController extends Controller
 
         return ['message' => 'Members added to the project correctly!'];
     }
+
 
     /**
      * Display a listing of the resource.

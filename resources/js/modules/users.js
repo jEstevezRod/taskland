@@ -65,18 +65,6 @@ export const users = {
 
         },
 
-
-        loginUserGithub({commit}, data) {
-
-            UserAPI.getLoginUserGithub(data)
-                .then(function (data) {
-                    // window.localStorage.setItem('token', response.data.data.token)
-                    // window.localStorage.setItem('userId', response.data.data.user.id)
-                    // axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-                    // router.push('main')
-                });
-        }
-        ,
         loadUserWithoutPass({commit}) {
             let token = readCookie('access');
 
@@ -111,31 +99,6 @@ export const users = {
                 .catch(function () {
                     commit('setUser', {});
                 });
-        },
-
-        checkPassword({commit}) {
-
-            UserAPI.getUserHasPassword()
-                .then(function (response) {
-                    commit('setHasPassword', response.data);
-                })
-                .catch(function () {
-                    commit('setHasPassword', 'Error in Vuex Users module');
-                })
-        },
-
-        putFirstPassword({commit}, data, dispatch) {
-
-            UserAPI.setFirstPassword(data.password)
-                .then(
-                    response => {
-                        commit('setFirstPassword', response.data);
-                        dispatch('checkPassword');
-                    }
-                )
-                .catch(function () {
-                    commit('setFirstPassword', null)
-                })
         },
 
         loadID({commit}) {

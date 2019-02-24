@@ -64,14 +64,6 @@
             ])
         },
         methods: {
-
-            setPassword: function () {
-                this.$store.dispatch("putFirstPassword", {
-                    password: this.password
-                })
-                this.isCardModalActive = false;
-            },
-
             logout: function () {
                 this.$store.dispatch("logoutUser")
             }

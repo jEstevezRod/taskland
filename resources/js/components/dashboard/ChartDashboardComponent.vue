@@ -1,8 +1,5 @@
-
 <script>
-    import { Bar } from 'vue-chartjs'
-import { mapGetters } from 'vuex';
-
+    import {Bar} from 'vue-chartjs'
 
     export default {
         name: "ChartDashboardComponent",
@@ -12,59 +9,91 @@ import { mapGetters } from 'vuex';
                 tasks_list: [],
                 states_list: [],
                 projects_list: [],
-                htmlLegend: null,
                 gradient: null,
-                gradient2: null
+                gradient2: null,
+                user_id: 0,
+                labels: [],
+                dataLabels: [],
+                copy:[],
+                numMax: 0,
+                options: {
+
+                    title: {
+                        display: true,
+                        text: 'Projects with number of tasks'
+                    },
+
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scaleBeginAtZero: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: value => { if (Number.isInteger(value))  return value },
+                                stepSize: 1,
+                                max: this.numMax,
+                            },
+                            gridLines: {
+                                display: false
+                            }
+                        }],
+                        xAxes: [{
+                             maxBarThickness: 200,
+                            gridLines: {
+                                display: false,
+
+                            }
+                        }]
+                    }
+                }
             }
         },
-        created(){
-            this.$store.dispatch('loadID');
+        created() {
+            this.$store.dispatch('loadID')
+                .then(response => {
+                    this.user_id = response.data;
+                    console.log(this.user_id);
+                    this.$store.dispatch('loadProjectsAndTaskChart', this.user_id)
+                        .then(response => {
+                            console.log(response);
+                            this.labels = response.labels;
+                            this.dataLabels = response.data;
+                            this.copy = response.data;
+                            this.numMax = parseInt(this.copy.sort().reverse()[0] + 2);
+                            this.executeChart();
+                        })
+
+                });
         },
-        mounted () {
+        methods: {
 
-            console.log('-----------*--------------')
-            console.log(this.getID)
-            console.log('-----------*--------------')
+            executeChart: function () {
+                this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450);
 
-            this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
-            this.gradient2 = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450)
 
-            this.gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)')
-            this.gradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.25)');
-            this.gradient.addColorStop(1, 'rgba(255, 0, 0, 0)');
+                this.gradient.addColorStop(1, 'rgba(231, 76, 60,0.9)');
 
-            this.gradient2.addColorStop(0, 'rgba(0, 231, 255, 0.9)')
-            this.gradient2.addColorStop(0.5, 'rgba(0, 231, 255, 0.25)');
-            this.gradient2.addColorStop(1, 'rgba(0, 231, 255, 0)');
 
-            this.renderChart({
-                labels: [1,2,3,4,5,6,7],
-                datasets: [
-                    {
-                        label: 'Data One',
-                        borderColor: '#FC2525',
-                        pointBackgroundColor: 'white',
-                        borderWidth: 1,
-                        pointBorderColor: 'white',
-                        backgroundColor: this.gradient,
-                        data: [0, 60, 10, 40, 39, 80, 100]
-                    },
-                    // {
-                    //     label: 'Data Two',
-                    //     borderColor: '#05CBE1',
-                    //     pointBackgroundColor: 'white',
-                    //     pointBorderColor: 'white',
-                    //     borderWidth: 1,
-                    //     backgroundColor: this.gradient2,
-                    //     data: [0, 55, 32, 10, 2, 12, 53]
-                    // },
-                ]
-            }, {responsive: true, maintainAspectRatio: false})
-            
+                this.renderChart({
+                    labels: this.labels,
+                    datasets: [
+                        {
+                            label: 'Tasks',
+                            borderColor: 'transparent',
+                            pointBackgroundColor: 'white',
+                            borderWidth: 1,
+                            pointBorderColor: 'white',
+                            backgroundColor: this.gradient,
+                            hoverBackgroundColor: "rgba(30,144,255,0.4)",
+                            data: this.dataLabels,
+                        }
+                    ]
+                }, this.options);
+
+            }
         },
-        computed : {
-            ...mapGetters(['getID'])
-        }
+
     }
 </script>
 
@@ -72,14 +101,14 @@ import { mapGetters } from 'vuex';
     .Chart {
         background: #212733;
         border-radius: 15px;
-        box-shadow: 0px 2px 15px rgba(25, 25, 25, 0.27);
-        margin:  25px 0;
+        box-shadow: 0 2px 15px rgba(25, 25, 25, 0.27);
+        margin: 25px 0;
     }
 
     .Chart h2 {
         margin-top: 0;
         padding: 15px 0;
-        color:  rgba(255, 0,0, 0.5);
+        color: rgba(255, 0, 0, 0.5);
         border-bottom: 1px solid #323d54;
     }
 </style>

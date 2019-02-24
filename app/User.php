@@ -44,11 +44,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->email;
     }
 
-    public function checkPassword()
-    {
-        if ($this->password !== null) return true;
-        else return false;
-    }
 
     public function getPassword()
     {

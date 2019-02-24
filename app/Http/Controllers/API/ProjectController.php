@@ -32,7 +32,7 @@ class ProjectController extends Controller
             ->join('users', 'project_users.user_id', '=', 'users.id')
             ->join('projects', 'projects.id', '=', 'project_users.project_id')
             ->select('projects.p_name', 'projects.id')
-            ->where('users.id', '=', $user->id )
+            ->where('users.id', '=', $user->id)
             ->get();
 
 
@@ -103,10 +103,35 @@ class ProjectController extends Controller
     }
 
 
-    public function loadChart ($id)
+    public function loadChart($id)
     {
-        return response()->json(['message' => $id]);
+        $user_id = $id;
+        $main_data = [];
+        $tasks = [];
+
+        $projects = DB::table('project_users')
+            ->join('projects', 'project_users.project_id','projects.id')
+            ->select('project_users.project_id','projects.p_name')
+            ->where('project_users.user_id', $user_id)
+            ->get();
+
+        foreach ($projects as $project)
+        {
+            $result = DB::table('tasks')
+                ->select('tasks.*')
+                ->where('tasks.project_id', $project->project_id)
+                ->count();
+            array_push($tasks,$result);
+        }
+
+        foreach ($projects as $project)
+        {
+            $main_data[] = $project->p_name;
+        }
+
+        return response()->json(['labels' => $main_data, 'data' => $tasks]);
     }
+
     /**
      * Display the specified resource.
      *
@@ -158,19 +183,22 @@ class ProjectController extends Controller
 
         return response()->json([
             'message' => 'Name loaded correctly',
-             'name' => $project->p_name,
-             'project' => $project
-             ]);
+            'name' => $project->p_name,
+            'project' => $project
+        ]);
 
     }
 
-    public function getProjects($id) {
+    public function getProjects($id)
+    {
 
         $projects = Project::where('team_id', $id)->get();
 
         return response()->json([
             'message' => 'Projects for team ' . $id . ' loaded correctly',
-            'projects' => $projects 
-            ]);
+            'projects' => $projects
+        ]);
     }
+
+
 }

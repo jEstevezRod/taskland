@@ -53,6 +53,10 @@ Vue.use(require('vue-moment'));
 import FullCalendar from 'vue-full-calendar'
 Vue.use(FullCalendar)
 
+import Bars from 'vuebars'
+
+Vue.use(Bars);
+
 new Vue({
     components: {
         Home, Main

@@ -25,6 +25,7 @@ export default {
       }
     },
     mounted(){
+        console.log(this.member)
       axios.get(TASKLAND_CONFIG.API_URL + `/user/${this.member.user_id}` )
       .then( response => {
         this.user = response.data.user;

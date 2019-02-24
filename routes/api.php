@@ -23,8 +23,6 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/userCheckPass', 'API\UsersController@getUserCheckPass');
 
-    Route::put('/setPassword', 'API\UsersController@postFirstPassword');
-
     Route::post('/logoutUser', 'API\UsersController@logout');
 
     Route::get('/loginUserWithToken', 'API\AuthenticationController@loadUserWithoutPass');
@@ -79,11 +77,13 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('loadChartData/{id}', 'API\ProjectController@loadChart');
 
 
+
     // For new User in Project
 
     Route::post('/addNewUserInProject', 'API\ProjectUserController@store');
 
     Route::post('/addTeamToProject', 'API\ProjectUserController@addTeamToProject');
+
 
 
     // For States

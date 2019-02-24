@@ -74,7 +74,7 @@ export default {
       isComponentModalActive: false,
       isComponentModalActive2: false,
       isComponentModalActive3: false,
-      isComponentModalActive4: false
+      isComponentModalActive4: false,
     };
   },
   created() {

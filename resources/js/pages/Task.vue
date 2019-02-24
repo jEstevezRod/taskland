@@ -1,9 +1,9 @@
 <template>
-  <div class="card">
+  <div class="">
     <div class="card-content">
       <div class="media">
         <div class="media-content">
-          
+
             <button class="button" @click="goBack">
                 <span class="icon is-small">
               <i class="fas fa-arrow-left is-size-5"></i>
@@ -19,8 +19,9 @@
       </div>
 
       <div class>
-        <p>Title: {{task.subject}}</p>
-        <p>Description: {{task.description}}</p>
+        <br>
+        <p><strong>Title:</strong>  {{task.subject}}</p>
+        <p><strong>Description:</strong>  {{task.description}}</p>
 
         <span class="is-fullwidth is-pulled-right">
           <small>{{ task.created_at }}</small>

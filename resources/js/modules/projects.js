@@ -13,7 +13,9 @@ export const projects = {
         project: {},
         projectList: [],
         projectName: '',
-        projectListbyTeam: []
+        projectListbyTeam: [],
+        chartDataProjects: [],
+        chartDataTasks: []
     },
     actions: {
 
@@ -76,14 +78,14 @@ export const projects = {
 
         loadProjectsbyTeam: function ({commit}, data) 
         {
-            let token = window.localStorage.getItem("token")
+            let token = window.localStorage.getItem("token");
 
             return new Promise ( (resolve, reject) => {
 
                 projectAPI.loadProjectsbyTeam({token, data})
                 .then( response => {
                     console.log(response.data.message)
-                    commit('addProjectToTeamList', response.data.projects)
+                    commit('addProjectToTeamList', response.data.projects);
                     resolve(response.data)
                 }, error => {
                     console.error(error)
@@ -95,15 +97,15 @@ export const projects = {
 
         loadProjectsAndTaskChart: function ({commit}, data) {
             
-            let token =window.localStorage.getItem("token");
+            let token = window.localStorage.getItem("token");
 
             return new Promise( (resolve, reject) => {
 
                 projectAPI.loadChartData({token, data})
                 .then( response => {
-                    console.log(response.data);
-                    // commit()
-                    resolve(response)
+                    commit('setChartDataProjects', response.data.labels);
+                    commit('setChartDataTasks', response.data.data);
+                    resolve(response.data)
                 }, error => {
                     reject(error)
                 })
@@ -123,7 +125,11 @@ export const projects = {
 
         setProjectName: (state, name) => state.projectName = name,
 
-        setProject: (state, project) => state.project = project
+        setProject: (state, project) => state.project = project,
+
+        setChartDataProjects: (state, data) => state.chartDataProjects = data,
+
+        setChartDataTasks: (state, data) => state.chartDataTasks = data
     },
     getters: {
 
@@ -133,7 +139,11 @@ export const projects = {
 
         getprojectListbyTeam: state => state.projectListbyTeam,
 
-        loadProject: state => state.project
+        loadProject: state => state.project,
+
+        getChartDataProj : state => state.chartDataProjects,
+
+        getChartDataTasks : state => state.chartDataTasks
 
 
     }
