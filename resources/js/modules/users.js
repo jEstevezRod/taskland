@@ -15,21 +15,6 @@ const types = {
     LOGOUT: 'LOGOUT'
 }
 
-function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-function getCookie(name) {
-    let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return v ? v[2] : null;
-}
 
 
 export const users = {
@@ -48,24 +33,26 @@ export const users = {
 
     actions: {
 
-        loginUser({commit}, data) {
+        loginUser({ commit }, data) {
 
-            let token = readCookie('access');
+            return new Promise((resolve, reject) => {
+                UserAPI.getLoginUser(data)
+                    .then(response => {
+                        commit(types.LOGIN)
+                        window.localStorage.setItem('token', response.data.data.token)
+                        window.localStorage.setItem('userId', response.data.data.user.id)
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data.token
+                        router.push('main')
+                        resolve(response)
+                    }, error => {
+                        reject(error)
+                    })
+            })
 
-            console.log(token)
-
-            UserAPI.getLoginUser(data, token)
-                .then(function (response) {
-                    commit(types.LOGIN)
-                    window.localStorage.setItem('token', response.data.data.token)
-                    window.localStorage.setItem('userId', response.data.data.user.id)
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data.token
-                    router.push('main')
-                })
 
         },
 
-        loadUserWithoutPass({commit}) {
+        loadUserWithoutPass({ commit }) {
             let token = readCookie('access');
 
 
@@ -75,34 +62,38 @@ export const users = {
                 })
         },
 
-        logoutUser({commit}) {
+        logoutUser({ commit }) {
             let token = window.localStorage.getItem('token')
             UserAPI.logoutUser(token)
                 .then(function () {
-                        commit(types.LOGOUT)
-                        window.localStorage.removeItem('token')
-                        window.localStorage.removeItem('userId')
-                        delete axios.defaults.headers.common['Authorization']
-                        router.push('/')
-                    }
+                    commit(types.LOGOUT)
+                    window.localStorage.removeItem('token')
+                    window.localStorage.removeItem('userId')
+                    delete axios.defaults.headers.common['Authorization']
+                    router.push('/')
+                }
                 )
         },
 
-        loadUser({commit}) {
+        loadUser({ commit }) {
 
             let token = window.localStorage.getItem('token');
 
-            UserAPI.getUser(token)
+            return new Promise ((resolve, reject) => {
+                 UserAPI.getUser(token)
                 .then(function (response) {
                     commit('setUser', response.data.user);
                 })
                 .catch(function () {
                     commit('setUser', {});
                 });
+            })
+
+           
         },
 
-        loadID({commit}) {
-            let token = window.localStorage.getItem('token');
+        loadID({ commit }) {
+            let token = window.localStorage.getItem("token")
 
             return new Promise((resolve, reject) => {
                 UserAPI.loadID(token)

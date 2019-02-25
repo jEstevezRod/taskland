@@ -25,7 +25,6 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/logoutUser', 'API\UsersController@logout');
 
-    Route::get('/loginUserWithToken', 'API\AuthenticationController@loadUserWithoutPass');
 
     Route::get('/user/{id}','API\UsersController@getUser');
 

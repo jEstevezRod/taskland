@@ -6,7 +6,9 @@ import { TASKLAND_CONFIG } from '../config.js';
 export default {
 
   getUser: function(token){
-    return axios.get( TASKLAND_CONFIG.API_URL + '/user?token=' + token );
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
+    return axios.get( TASKLAND_CONFIG.API_URL + '/user' );
   },
 
   postCreateUser: function(data){
@@ -17,9 +19,7 @@ export default {
       passwordConfirmation: data.passwordConfirmation});
   },
 
-  getLoginUser: function (data, token) {
-
-    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  getLoginUser: function (data) {
 
     return axios.post( TASKLAND_CONFIG.API_URL + '/loginUser', {
       email: data.email,
@@ -28,7 +28,9 @@ export default {
   },
 
   logoutUser: function (token) {
-    return axios.post( TASKLAND_CONFIG.API_URL + '/logoutUser?token=' + token)
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+
+    return axios.post( TASKLAND_CONFIG.API_URL + '/logoutUser')
   },
 
   loadID: function (token) {

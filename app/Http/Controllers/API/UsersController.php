@@ -36,8 +36,6 @@ class UsersController extends Controller
 
     public function getLoginUser(Request $request)
     {
-
-
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6',
@@ -72,7 +70,7 @@ class UsersController extends Controller
         return response()->json([
             'message' => 'Success',
             'data' => $data
-        ]);
+        ])->header('Authorization', $data['token']);
 
     }
 
@@ -100,10 +98,22 @@ class UsersController extends Controller
     }
 
     public function me()
-    {
+    {   
+       
         $user = auth()->user();
-        $id  = $user->getId();
-        return response()->json(['user' => $user, 'id' => $id]);
+
+        if(isset($user)) 
+        {
+            $id  = $user->getId();
+            return response()->json([
+                'message' => 'User logged',
+                'user' => $user,
+                'id' => $id
+                ], 200);
+        }
+        else {
+            return response()->json(['message' => 'User not logged'], 401);
+        }
     }
 
     public function getId()

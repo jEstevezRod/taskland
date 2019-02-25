@@ -605,7 +605,7 @@
       <workItem from="1549714981461" duration="6402000" />
       <workItem from="1549733398853" duration="13703000" />
       <workItem from="1550861758691" duration="2911000" />
-      <workItem from="1551009610069" duration="17149000" />
+      <workItem from="1551009610069" duration="17424000" />
     </task>
     <task id="LOCAL-00001" summary="added password page for laravel socialite after github login">
       <created>1547584355218</created>
@@ -653,7 +653,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222584000" />
+    <option name="totallyTimeSpent" value="222859000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

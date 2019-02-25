@@ -1,6 +1,5 @@
 <template>
-<div>
-
+  <div>
     <nav class="level">
       <!-- Left side -->
       <div class="level-left">
@@ -23,7 +22,7 @@
             <p class="is-size-1 is-size-3-mobile title">Taskland</p>
             <p class="m-5">Your team needs a better way to stay organized</p>
             <section>
-            <!--<section v-if="!userData">-->
+              <!--<section v-if="!userData">-->
               <div class="field is-grouped is-grouped-centered m-5">
                 <p class="control">
                   <a
@@ -45,14 +44,14 @@
         <div class="column is-6">
           <div class="animated fadeInUp is-size-6">
             <img class="image is-hidden-mobile" src alt>
-             <img class="image is-hidden-mobile" src="../../../public/images/schema4.png" alt="">
+            <img class="image is-hidden-mobile" src="../../../public/images/schema4.png" alt>
             <div class="columns">
               <div class="column is-1">
                 <img src="../../../public/images/arrow-tomato.png">
               </div>
               <div class="column is-11">
                 <p>
-                  Organize and manage your team’s plans, projects, and processes with Joy Nuts.
+                  Organize and manage your team’s plans, projects, and processes with Taskland.
                   And empower everyone to focus on the work that grows your business.
                 </p>
               </div>
@@ -72,22 +71,21 @@
         </div>
       </div>
     </div>
-    <b-modal :active.sync="isComponentModalLogin" >
+    <b-modal :active.sync="isComponentModalLogin">
       <login></login>
     </b-modal>
-    <b-modal :active.sync="isComponentModalRegister" >
-      <register ></register>
+    <b-modal :active.sync="isComponentModalRegister">
+      <register></register>
     </b-modal>
   </div>
-
 </template>
 
 <script>
 import Login from "./Login";
 import Register from "./Register";
-import router from "../routes"
+import router from "../routes";
 
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   components: { Login, Register },
   data() {
@@ -98,221 +96,222 @@ export default {
       LoginProps: {
         email: "",
         password: ""
-      },
-
+      }
     };
   },
-  computed: mapGetters([
-    'isLogged', 'getUser'
-  ]),
-  created(){this.$store.dispatch("loadUser");},
+  computed: mapGetters(["isLogged", "getUser"]),
+  created() {
+    
+  },
   mounted() {
     // if (Object.entries(this.getUser).length > 0) {
     //   router.push('Main')
     // }
-
+    this.$store
+      .dispatch("loadUser")
+      .then(response => {
+        console.log("response");
+      })
+      .catch(error => {
+        console.error("error");
+      });
   },
   methods: {
     logout: function() {
-      this.$store.dispatch("logoutUser")
+      this.$store.dispatch("logoutUser");
     }
   }
 };
 </script>
 
 <style scoped>
-
-
 .h-100 {
-    height: 100%;
+  height: 100%;
 }
 
 .jc-right {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .ma-5 {
-    margin: 0px 15px;
-
+  margin: 0px 15px;
 }
 .full-height {
-    height: 100vh;
+  height: 100vh;
 }
 
 .level-item > img {
-    z-index: 21;
+  z-index: 21;
 }
 .m-5 {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 .m-4 {
-    margin: 0px 5px;
+  margin: 0px 5px;
 }
 
 body > div > nav > div {
-    font-size: 19px;
-    color: #f8f2f5;
+  font-size: 19px;
+  color: #f8f2f5;
 }
 
-#login, #login > a, #register, #register a {
-    z-index: 999;
-    color: #575757;
-    font-weight: 400;
+#login,
+#login > a,
+#register,
+#register a {
+  z-index: 999;
+  color: #575757;
+  font-weight: 400;
 }
 
 nav > div.level-right > p > strong > a {
-    font-family: 'Montserrat', sans-serif;
-    color: #fffdf5;
-    margin-left: 30px;
+  font-family: "Montserrat", sans-serif;
+  color: #fffdf5;
+  margin-left: 30px;
 }
 
 nav > div.level-right > p > strong > a:hover {
-    color: #253674;
+  color: #253674;
 }
 
-
 nav > div.level-left > div > img {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .title {
-    font-family: 'Waiting for the Sunrise', cursive;
-    font-size: 110px !important;
+  font-family: "Waiting for the Sunrise", cursive;
+  font-size: 110px !important;
 }
 
-
 #flow span {
-    display: block;
-    width: 200vw;
-    height: 200vw;
-    position: absolute;
-    top: -180vw;
-    left: -50vw;
-    border-radius: 90vw;
-    opacity: 0.6;
+  display: block;
+  width: 200vw;
+  height: 200vw;
+  position: absolute;
+  top: -180vw;
+  left: -50vw;
+  border-radius: 90vw;
+  opacity: 0.6;
 }
 
 .flow-1 {
-    background: #3281ff;
-    -webkit-animation: rotating 20s linear infinite;
-    -moz-animation: rotating 20s linear infinite;
-    -ms-animation: rotating 20s linear infinite;
-    -o-animation: rotating 20s linear infinite;
-    animation: rotating 20s linear infinite;
+  background: #3281ff;
+  -webkit-animation: rotating 20s linear infinite;
+  -moz-animation: rotating 20s linear infinite;
+  -ms-animation: rotating 20s linear infinite;
+  -o-animation: rotating 20s linear infinite;
+  animation: rotating 20s linear infinite;
 }
 
 .flow-2 {
-    background: #f442ee;
-    position: absolute;
-    -webkit-animation: rotating 15s linear infinite;
-    -moz-animation: rotating 15s linear infinite;
-    -ms-animation: rotating 15s linear infinite;
-    -o-animation: rotating 15s linear infinite;
-    animation: rotating 15s linear infinite;
+  background: #f442ee;
+  position: absolute;
+  -webkit-animation: rotating 15s linear infinite;
+  -moz-animation: rotating 15s linear infinite;
+  -ms-animation: rotating 15s linear infinite;
+  -o-animation: rotating 15s linear infinite;
+  animation: rotating 15s linear infinite;
 }
 
 .flow-3 {
-    background: #42eef4;
-    position: absolute;
-    -webkit-animation: rotating 7s linear infinite;
-    -moz-animation: rotating 7s linear infinite;
-    -ms-animation: rotating 7s linear infinite;
-    -o-animation: rotating 7s linear infinite;
-    animation: rotating 7s linear infinite;
+  background: #42eef4;
+  position: absolute;
+  -webkit-animation: rotating 7s linear infinite;
+  -moz-animation: rotating 7s linear infinite;
+  -ms-animation: rotating 7s linear infinite;
+  -o-animation: rotating 7s linear infinite;
+  animation: rotating 7s linear infinite;
 }
 
 @-webkit-keyframes rotating {
-    from {
-        -ms-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    to {
-        -ms-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -webkit-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes rotating {
-    from {
-        -ms-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    to {
-        -ms-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -webkit-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
-
 section {
-    margin: 1em auto;
-    max-width: 680px;
+  margin: 1em auto;
+  max-width: 680px;
 }
 
 .modal-content {
-    display: block;
-    margin: 2em auto;
-    max-width: 100vh;
-    padding: 10px;
+  display: block;
+  margin: 2em auto;
+  max-width: 100vh;
+  padding: 10px;
 }
 
 [class*="close-"] {
-    border: 2px solid;
-    border-radius: 100%;
-    color: #FF3860;
-    cursor: pointer;
-    display: block;
-    font-size: 1.75em;
-    height: 50px;
-    line-height: 50px;
-    margin: 1em auto;
-    overflow: hidden;
-    padding: 0;
-    position: relative;
-    width: 50px;
+  border: 2px solid;
+  border-radius: 100%;
+  color: #ff3860;
+  cursor: pointer;
+  display: block;
+  font-size: 1.75em;
+  height: 50px;
+  line-height: 50px;
+  margin: 1em auto;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  width: 50px;
 }
 
 .thum {
-    display: block;
-    overflow: hidden;
-    position: relative;
-    width: initial;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: initial;
 }
 
-
 @media only screen and (min-width: 1024px) {
-    .modal-content {
-        padding: 0;
-    }
-    .thum img {
-        width: 32%;
-        -webkit-transition: all .45s ease-in-out;
-        -moz-transition: all .45s ease-in-out;
-        transition: all .45s ease-in-out;
-    }
+  .modal-content {
+    padding: 0;
+  }
+  .thum img {
+    width: 32%;
+    -webkit-transition: all 0.45s ease-in-out;
+    -moz-transition: all 0.45s ease-in-out;
+    transition: all 0.45s ease-in-out;
+  }
 }
 
 @media only screen and (max-width: 340px) {
-    .thum img {
-        display: block;
-        margin: 0 auto 8px;
-        width: 100%;
-        -webkit-transition: all .45s ease-in-out;
-        -moz-transition: all .45s ease-in-out;
-        transition: all .45s ease-in-out;
-    }
+  .thum img {
+    display: block;
+    margin: 0 auto 8px;
+    width: 100%;
+    -webkit-transition: all 0.45s ease-in-out;
+    -moz-transition: all 0.45s ease-in-out;
+    transition: all 0.45s ease-in-out;
+  }
 }
-
 </style>
