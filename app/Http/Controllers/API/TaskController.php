@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Project;
 use App\Models\Task;
 use App\Models\ProjectUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
-
+use DB;
 class TaskController extends Controller
 {
     /**
@@ -161,6 +162,59 @@ class TaskController extends Controller
             'd' => count($projects_array)
         ]);
 
+
+
+    }
+
+    public function loadTasksCalendar(Request $request)
+    {
+
+        // $user = JWTAuth::toUser($request->input('token'));
+        $user = JWTAuth::user();
+        $user_id = $user->id;
+
+        
+
+        return response()->json([ 'otracosa' => 'hola']);
+    }
+
+    public function loadUsersInProject($id)
+    {
+        $project_id = $id;
+        $assignable = false;
+
+        $query = DB::table('projects')
+            ->join('teams','projects.team_id','=','teams.id')
+            ->join('team_members','teams.id','=','team_members.team_id')
+            ->join('users','team_members.user_id','=','users.id')
+            ->select('users.id','users.name')
+            ->where('projects.id', $project_id)
+            ->get();
+
+        $check_team = Project::where('id',$project_id)->first();
+
+        if ($check_team->team_id === null)
+        {
+            $assignable = false;
+            return response()->json([
+               'assignable' => $assignable
+            ]);
+        } else {
+            $assignable = true;
+
+            $query = DB::table('projects')
+            ->join('teams','projects.team_id','=','teams.id')
+            ->join('team_members','teams.id','=','team_members.team_id')
+            ->join('users','team_members.user_id','=','users.id')
+            ->select('users.id','users.name')
+            ->where('projects.id', $project_id)
+            ->get();
+
+            return response()->json([
+                'assignable' => $assignable,
+                'results'=> $query
+            ]);
+        }
 
 
     }

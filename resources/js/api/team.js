@@ -18,5 +18,10 @@ export default {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
 
         return axios.get( TASKLAND_CONFIG.API_URL + `/loadTeam/${data.data}`)
+    },
+    loadTeamWithProject: data => {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+
+        return axios.get( TASKLAND_CONFIG.API_URL + `/loadTeamWithProject/${data.data}`)
     }
 }

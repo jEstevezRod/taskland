@@ -25,11 +25,9 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/logoutUser', 'API\UsersController@logout');
 
-
     Route::get('/user/{id}','API\UsersController@getUser');
 
     Route::get('userId','API\UsersController@getId');
-
 
     //For tasks
 
@@ -41,6 +39,9 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/loadTask/{id}', 'API\TaskController@loadTask');
 
+    Route::get('/loadTasksCalendar', 'API\TaskController@loadTasksCalendar');
+
+    Route::get('/loadUsersInProject/{id}', 'API\TaskController@loadUsersInProject');
 
     /*Route::get('/tasks/{id}', 'API\TaskController@getTask'); */
 
@@ -53,6 +54,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/loadTeams', 'API\TeamController@loadTeams');
 
     Route::get('/loadTeam/{id}', 'API\TeamController@loadTeam');
+
+    Route::get('/loadTeamWithProject/{id}', 'API\TeamController@loadTeamWithProject');
 
     // For teammember
 
@@ -76,13 +79,11 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('loadChartData/{id}', 'API\ProjectController@loadChart');
 
 
-
     // For new User in Project
 
     Route::post('/addNewUserInProject', 'API\ProjectUserController@store');
 
     Route::post('/addTeamToProject', 'API\ProjectUserController@addTeamToProject');
-
 
 
     // For States
@@ -105,5 +106,7 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/addNewComment', 'API\CommentController@store');
 
+    // For assign assign Tasks
 
+    Route::post('/assignTaskTo', 'API\AssignedTaskController@assignTasks');
 });

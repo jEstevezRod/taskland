@@ -124,6 +124,39 @@ export const tasks = {
 
             })
             
+        },
+
+        loadTasksCalendar: function ({commit}) {
+
+            let token = window.localStorage.getItem("token")
+
+            return new Promise( (resolve, reject) => {
+                
+                taskAPI.loadTasksCalendar({token})
+                .then( response => {
+                    console.log("787897897779787897987879789797897897878978979878789789789");
+                    console.log(response);
+                    resolve(response.data)
+                }, error => {
+                    reject(error);
+                })
+
+            })
+            
+        },
+        loadUsersInProject: function ({commit}, data) {
+
+            const token = window.localStorage.getItem("token");
+
+            return new Promise((resolve,reject) => {
+                taskAPI.loadUsersInProject({token, data})
+                    .then( response => {
+                        resolve(response.data)
+                    }, error => {
+                        reject(error)
+                    })
+            })
+
         }
 
     },

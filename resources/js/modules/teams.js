@@ -68,6 +68,22 @@ export const teams = {
                     })
 
             })
+        },
+
+        loadTeamWithProject: function ({commit}, data) {
+
+            const token = window.localStorage.getItem('token');
+
+            return new Promise((resolve, reject)=> {
+
+                teamAPI.loadTeamWithProject({token,data})
+                    .then( response => {
+                        console.log(response)
+                        resolve(response.data)
+                    }, error => {
+                        reject(error)
+                    })
+            })
         }
 
 

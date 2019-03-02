@@ -47,6 +47,19 @@ export default {
 
         return axios.get( TASKLAND_CONFIG.API_URL + '/loadTask/' + data.data)
 
+    },
+
+    loadTasksCalendar: function (data) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+
+        return axios.get( TASKLAND_CONFIG.API_URL + '/loadTasksCalendar')
+        
+    },
+
+    loadUsersInProject: function (data) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+
+        return axios.get( TASKLAND_CONFIG.API_URL + `/loadUsersInProject/${data.data}`)
     }
 
 }

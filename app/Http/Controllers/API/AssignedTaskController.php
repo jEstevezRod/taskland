@@ -34,9 +34,21 @@ class AssignedTaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function assignTasks(Request $request)
     {
-        //
+        $array_users = $request->all();
+
+        foreach ($array_users['selected'] as $user)
+        {
+          $assigned = new AssignedTask;
+          $assigned->user_id = $user;
+          $assigned->task_id = $request->input('task_id');
+          $assigned->project_id = $request->input('project_id');
+          $assigned->team_id = $request->input('team_id.id');
+          $assigned->save();
+        }
+
+        return response()->json(['message' => 'Task assigned!']);
     }
 
     /**

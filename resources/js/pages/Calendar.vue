@@ -1,14 +1,16 @@
 <template>
-  <div class="container">
-    <full-calendar
-      class="calendar-custom"
-      :events="events"
-      :config="config"
-      @day-click="click"
-      @event-created="created"
-      @event-resize="resize"
-      @event-drop="drop"
-    ></full-calendar>
+  <div class="columns">
+    <div class="column is-10 is-offset-1 is-10-mobile is-offset-1-mobile">
+      <full-calendar
+        class="calendar-custom"
+        :events="events"
+        :config="config"
+        @day-click="click"
+        @event-created="created"
+        @event-resize="resize"
+        @event-drop="drop"
+      ></full-calendar>
+    </div>
   </div>
 </template>
 
@@ -59,17 +61,18 @@ export default {
           console.log(event);
         },
         eventMouseover: (calEvent, jsEvent) => {
-         console.log(calEvent)
-         console.log(jsEvent.currentTarget)
+          console.log(calEvent);
+          console.log(jsEvent.currentTarget);
         },
         eventMouseout: function(calEvent, jsEvent) {
-         console.log(calEvent)
-         console.log(jsEvent)
+          console.log(calEvent);
+          console.log(jsEvent);
         }
       }
     };
   },
   mounted() {
+    this.$store.dispatch('loadTasksCalendar');
     $(document).ready(
       $("#calendar").fullCalendar({
         viewRender: function(view, element) {
@@ -80,7 +83,12 @@ export default {
           }
         },
         defaultView: "agendaWeek",
-        defaultDate: this.today
+        defaultDate: this.today,
+        dayRender: function(date, cell) {
+          if (date > this.today) {
+            $(cell).addClass("disabled");
+          }
+        }
       })
     );
   },
@@ -112,5 +120,10 @@ export default {
 <style scoped>
 .calendar-custom {
   margin: 25px 0;
+}
+
+.fc-scroller.fc-day-grid-container {
+  overflow: hidden !important;
+  height: 700px !important;
 }
 </style>

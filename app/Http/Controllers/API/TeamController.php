@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Project;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,6 +40,16 @@ class TeamController extends Controller
             ]);
     }
 
+    public function loadTeamWithProject($id){
+        $project_id = $id;
+
+        $team = DB::table('projects')
+            ->join('teams','projects.team_id','=','teams.id')
+            ->select('teams.id')
+            ->where('projects.id', $project_id)
+            ->first();
+        return response()->json($team);
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -12,6 +12,19 @@ export const assignedTasks = {
 
     },
     actions: {
+        assignTaskTo: function ({commit}, data) {
+            const token = window.localStorage.getItem('token');
+
+            return new Promise((resolve, reject) => {
+
+                assignedTaskrAPI.assignTaskTo({token, data})
+                    .then( response => {
+                        console.log(response)
+                    }, error => {
+                        reject(error)
+                    })
+            })
+        }
 
     },
     mutations: {
