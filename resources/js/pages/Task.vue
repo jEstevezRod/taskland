@@ -11,10 +11,14 @@
                 <span>Back</span>
             </button>
             <p class="title is-4 has-text-centered has-padding-top-10">
-            Project: {{task.project_id}}
-            <span v-if="task.team_id">Team: {{task.team_id}}</span>
+            Project:  {{project['p_name'] }}
           </p>
-          <p class="subtitle is-6">[ list of people whos has this task assigned]</p>
+          <div class="has-margin-top-15">
+          <p class="subtitle is-6 " v-if="users_assigned.length > 0"><strong>Assigned to: </strong>
+            <span v-for="(assigned, index) in users_assigned"> {{assigned.name}}{{ index == (users_assigned.length - 1) ? '' : ', '}}
+            </span>
+          </p>
+          <p class="subtitle is-6" v-else><small class="is-italic has-text-weight-semibold">This task has not been assigned to anyone</small></p></div>
         </div>
       </div>
 
@@ -26,7 +30,7 @@
         <span class="is-fullwidth is-pulled-right">
           <small>{{ task.created_at }}</small>
           <span v-if="task.dueDate">
-            -params
+            -
             <small class="has-text-danger">DUE DATE: {{ task.dueDate}}</small>
           </span>
         </span>
@@ -74,11 +78,17 @@ export default {
   data() {
     return {
       task_id: this.$route.params.id,
-      textComment: ""
+      textComment: "",
+      users_assigned: [],
+      project: []
     };
   },
   mounted() {
-    this.$store.dispatch("loadTask", this.task_id);
+    this.$store.dispatch("loadTask", this.task_id)
+            .then( response =>{
+              this.project = response[0] })
+    this.$store.dispatch("loadAssignedUsersTask", this.task_id)
+            .then( tasks => this.users_assigned = tasks)
   },
   computed: {
     ...mapGetters(["getUserID", "comments", "task"])

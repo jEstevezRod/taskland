@@ -69,6 +69,20 @@ export const teamMembers = {
                     reject(error)
                 })
             })
+        },
+        loadTeamMembersWithProject: function ({commit}, data) {
+
+            const token = window.localStorage.getItem('token');
+
+            return new Promise((resolve,reject) => {
+
+                teamMemberAPI.loadTeamMembersWithProject({token, data})
+                    .then( response => {
+                        resolve(response.data)
+                    }, error => {
+                        reject(error)
+                    })
+            })
         }
     },
     mutations: {

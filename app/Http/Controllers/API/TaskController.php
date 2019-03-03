@@ -31,9 +31,15 @@ class TaskController extends Controller
     {
         $task = Task::where('id', $id)->first();
 
+        $project = Task::join('projects','tasks.project_id','=','projects.id')
+            ->select('projects.p_name')
+            ->where('tasks.id', $id)
+            ->get();
+
         return response()->json([
             'message' => 'Task loaded correctly',
-            'task' => $task
+            'task' => $task,
+            'project'=> $project
         ]);
     }
     /**
@@ -166,17 +172,7 @@ class TaskController extends Controller
 
     }
 
-    public function loadTasksCalendar(Request $request)
-    {
 
-        // $user = JWTAuth::toUser($request->input('token'));
-        $user = JWTAuth::user();
-        $user_id = $user->id;
-
-        
-
-        return response()->json([ 'otracosa' => 'hola']);
-    }
 
     public function loadUsersInProject($id)
     {

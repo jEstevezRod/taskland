@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Models\AssignedTask;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AssignedTaskController extends Controller
 {
@@ -37,18 +39,42 @@ class AssignedTaskController extends Controller
     public function assignTasks(Request $request)
     {
         $array_users = $request->all();
+        $userLogged = JWTAuth::user();
+        $user_id = $userLogged->id;
 
-        foreach ($array_users['selected'] as $user)
-        {
-          $assigned = new AssignedTask;
-          $assigned->user_id = $user;
-          $assigned->task_id = $request->input('task_id');
-          $assigned->project_id = $request->input('project_id');
-          $assigned->team_id = $request->input('team_id.id');
-          $assigned->save();
+        if ($array_users['team_id'] != null) {
+            foreach ($array_users['selected'] as $user) {
+                $assigned = new AssignedTask;
+                $assigned->user_id = $user;
+                $assigned->task_id = $request->input('task_id');
+                $assigned->project_id = $request->input('project_id');
+                $assigned->team_id = $request->input('team_id.id');
+                $assigned->save();
+            }
+        } else {
+
+                $assigned = new AssignedTask;
+                $assigned->user_id = $user_id;
+                $assigned->task_id = $request->input('task_id');
+                $assigned->project_id = $request->input('project_id');
+                $assigned->team_id = null;
+                $assigned->save();
         }
 
         return response()->json(['message' => 'Task assigned!']);
+    }
+
+    public function loadAssignedUsersTask($id)
+    {
+        $task_id = $id;
+
+        $users = DB::table('assigned_tasks')
+            ->join('users','assigned_tasks.user_id','=','users.id')
+            ->select('users.name')
+            ->where('assigned_tasks.task_id',$task_id)
+            ->get();
+
+        return response()->json($users);
     }
 
     /**

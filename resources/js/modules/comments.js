@@ -15,7 +15,7 @@ export const comments = {
     },
     actions: {
 
-        newComment: function ({commit}, data) {
+        newComment: function ({commit, dispatch}, data) {
 
             let token = window.localStorage.getItem('token');
 
@@ -26,6 +26,7 @@ export const comments = {
                         response => {
                             console.log(response.data.message);
                             commit('addCommentsToList', response.data.comment);
+                            dispatch('loadCommentsTask', response.data.comment.task_id);
                             resolve(response);
                         }, error => {
                             console.error(error);
@@ -44,7 +45,7 @@ export const comments = {
 
                 commentAPI.loadComments({token,data})
                     .then( response => {
-                        console.log(response.data.message);
+                        console.log(response.data);
                         commit('setCommentList', response.data.comments);
                         resolve(response.data)
                     }, error => {

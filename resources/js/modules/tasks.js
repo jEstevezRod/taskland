@@ -115,9 +115,10 @@ export const tasks = {
 
                 taskAPI.loadTask({token,data})
                 .then( response => {
-                    console.log(response.data.message)
+                    console.log('*--**-*-*-')
+                    console.log(response.data.task)
                     commit('pushTask', response.data.task)
-                    resolve(response.data)
+                    resolve(response.data.project)
                 }, error => {
                     reject(error)
                 })
@@ -126,24 +127,7 @@ export const tasks = {
             
         },
 
-        loadTasksCalendar: function ({commit}) {
 
-            let token = window.localStorage.getItem("token")
-
-            return new Promise( (resolve, reject) => {
-                
-                taskAPI.loadTasksCalendar({token})
-                .then( response => {
-                    console.log("787897897779787897987879789797897897878978979878789789789");
-                    console.log(response);
-                    resolve(response.data)
-                }, error => {
-                    reject(error);
-                })
-
-            })
-            
-        },
         loadUsersInProject: function ({commit}, data) {
 
             const token = window.localStorage.getItem("token");

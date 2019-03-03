@@ -1,6 +1,10 @@
 <template>
   <div class="columns">
     <div class="column is-10 is-offset-1 is-10-mobile is-offset-1-mobile">
+      <div class="is-flex justify-center"><b-message auto-close :active.sync="isActive" class="has-margin-top-20 has-margin-bottom-30 is-half-width" type="is-info" has-icon>
+        You are only going to see the tasks in which you have been assigned
+      </b-message></div>
+
       <full-calendar
         class="calendar-custom"
         :events="events"
@@ -23,31 +27,14 @@ export default {
   },
   data() {
     return {
+      isActive: true,
       self: this,
       footer: {
         left: "",
         center: "prev,next",
         right: ""
       },
-      events: [
-        {
-          title: "event1",
-          start: "2019-02-01",
-          id: 11
-        },
-        {
-          title: "event2",
-          id: 10,
-          start: "2019-02-05",
-          end: "2019-02-09"
-        },
-        {
-          title: "event3",
-          start: "2019-02-09",
-          end: "2019-02-10",
-          id: 12
-        }
-      ],
+      events: [],
       config: {
         firstDay: 1,
         defaultView: "month",
@@ -72,7 +59,20 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('loadTasksCalendar');
+    this.$store.dispatch('loadTasksCalendar')
+            .then( response => {
+              console.log(response)
+              for (const appoint of response)
+              {
+                console.log(appoint.subject)
+                this.events.push({
+                  title: appoint.subject,
+                  start: appoint.created_at,
+                  end: appoint.dueDate,
+                  id: appoint.task_id
+                })
+              }
+            })
     $(document).ready(
       $("#calendar").fullCalendar({
         viewRender: function(view, element) {

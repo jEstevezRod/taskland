@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
+use DB;
 
 class ManageMembers extends Controller
 {
@@ -35,9 +36,16 @@ class ManageMembers extends Controller
 
     public function loadMembers($id) {
 
-        $members = TeamMember::select('team_members.*')
-        ->where('team_members.team_id', $id)
-        ->get();
+//        $members = TeamMember::select('team_members.*')
+//        ->where('team_members.team_id', $id)
+//        ->get();
+
+        $members = DB::table('team_members')
+            ->join('users','team_members.user_id','=','users.id')
+            ->select('team_members.user_id','users.id','users.name')
+            ->where('team_members.team_id',$id)
+            ->get();
+
 
         return response()->json([
             'message' => 'Members loaded correctly!',
@@ -77,5 +85,20 @@ class ManageMembers extends Controller
         $member->save();
 
         return [ 'message' => "Member added correctly!", 'member' => $member, 'status' => 1];
+    }
+
+    public function loadTeamMembersWithProject($id)
+    {
+
+
+        $users = DB::table('projects')
+            ->join('teams', 'projects.team_id','=','teams.id')
+            ->join('team_members','teams.id','=','team_members.team_id')
+            ->join('users', 'team_members.user_id','=','users.id')
+            ->select('users.name', 'users.lastname')
+            ->where('projects.id',$id)
+            ->get();
+
+        return response()->json($users);
     }
 }

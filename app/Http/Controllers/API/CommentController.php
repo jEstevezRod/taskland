@@ -24,6 +24,8 @@ class CommentController extends Controller
         $comment->task_id = $request->input('task_id');
         $comment->save();
 
+        
+
         return response()->json([
             'message' => 'Comment created correctly!',
             'comment' => $comment
@@ -32,7 +34,10 @@ class CommentController extends Controller
 
     public function index ($id) {
 
-        $comments = Comment::where('task_id', $id)->orderBy('created_at', 'desc')->get();
+        $comments = Comment::where('task_id', $id)
+            ->join('users','comments.author','=','users.id')
+            ->select('comments.*','users.name','users.lastname')
+            ->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'message' => 'Comments loaded correctly!',

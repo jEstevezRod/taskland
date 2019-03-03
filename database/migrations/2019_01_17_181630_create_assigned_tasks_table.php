@@ -18,7 +18,7 @@ class CreateAssignedTasksTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('task_id');
             $table->unsignedInteger('project_id');
-            $table->unsignedInteger('team_id');
+            $table->unsignedInteger('team_id')->nullable();
             $table->timestamps();
         });
 

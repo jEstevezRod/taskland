@@ -1,33 +1,71 @@
 <template>
-    <div class="columns is-flex is-vcentered has-background-grey-light">
-        <div class="column is-12  ">
-            <section class="hero is-info">
-                <div class="hero-body">
-                    <div class="container is-fluid">
-                        <h1 class="title has-text-white has-text-centered">Notes</h1>
-                        <b-field label="Select a date">
-                            <b-datepicker
-                                    placeholder="Click to select..."
-                                    icon="calendar-today">
-                            </b-datepicker>
-                        </b-field>
+    <div class="columns">
+        <div class="column is-12 is-10-mobile is-offset-1-mobile has-page-height">
+
+            <div class="columns is-full-height">
+                <div class="column is-3">
+                    <div>Your notes: </div>
+                    <section>
+                        <div class="box">sadsadsad</div>
+                        <div class="box">sadsadsad</div>
+                        <div class="box">sadsadsad</div>
+                        <div class="box">sadsadsad</div>
+                    </section>
+                </div>
+
+                <div class="column is-9 is-full-height">
+                    <div class="columns">
+                        <div class="column is-12">Holaaa</div>
+                    </div>
+                    <div class="columns editor is-12 is-full-height">
+                        <div class="column is-6 is-full-height">
+                            <textarea class="is-full-width has-padding-15" autofocus rows="55" v-model="input" @input="update"></textarea>
+                        </div>
+                        <div class="column is-6  is-full-height">
+                            <div v-html="compiledMarkdown"></div>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
         </div>
     </div>
 </template>
-
 <script>
+    import marked from 'marked';
+    import _ from 'lodash';
+
     export default {
-        name: "Notes"
+        data() {
+            return {
+                input: '',
+            }
+        },
+        computed: {
+            compiledMarkdown: function () {
+                return marked(this.input, {sanitize: true})
+            }
+        },
+        methods: {
+            update: _.debounce(function (e) {
+                this.input = e.target.value
+            }, 300)
+        }
     }
 </script>
-
 <style scoped>
-    .columns {
-        min-height: 100vh;
+    .editor {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
     }
 
+    textarea {
+        border: none;
+        border-right: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        font-family: 'Monaco', courier, monospace;
+    }
+
+    code {
+        color: #f66;
+    }
 </style>

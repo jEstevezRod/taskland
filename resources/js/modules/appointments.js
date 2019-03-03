@@ -6,6 +6,7 @@
 */
 
 import appointmentAPI from "../api/appointment";
+import taskAPI from "../api/task";
 
 export const appointments = {
 
@@ -67,7 +68,25 @@ export const appointments = {
                         reject(error);
                     })
             })
-        }
+        },
+
+        loadTasksCalendar: function ({commit}) {
+
+            let token = window.localStorage.getItem("token")
+
+            return new Promise( (resolve, reject) => {
+
+                taskAPI.loadTasksCalendar({token})
+                    .then( response => {
+                        console.log(response);
+                        resolve(response.data)
+                    }, error => {
+                        reject(error);
+                    })
+
+            })
+
+        },
 
     },
     mutations: {

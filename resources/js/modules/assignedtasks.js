@@ -24,6 +24,21 @@ export const assignedTasks = {
                         reject(error)
                     })
             })
+        },
+
+        loadAssignedUsersTask: function ({commit}, data) {
+
+            const token = window.localStorage.getItem('token');
+
+            return new Promise((resolve, reject) => {
+
+                assignedTaskrAPI.loadAssignedUsersTask({token,data})
+                    .then( response => {
+                        resolve(response.data)
+                    }, error => {
+                        reject(error)
+                    })
+            })
         }
 
     },

@@ -17,7 +17,6 @@
         </div>
         <div class="navbar-menu" v-bind:class="{'is-active': isOpen}">
             <div class="navbar-end">
-                <a href="" class="navbar-item has-text-danger"> User logged : {{ isLogged}}</a>
                 <router-link to="/main" class="navbar-item is-tab">Home</router-link>
                 <router-link to="/dashboard" class="navbar-item is-tab">Dashboard</router-link>
                 <router-link to="/calendar" class="navbar-item is-tab">Calendar</router-link>

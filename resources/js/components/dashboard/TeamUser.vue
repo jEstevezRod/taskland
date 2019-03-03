@@ -8,7 +8,7 @@
             </figure>
             <div class="is-flex flex-column has-text-centered has-padding-5 ">
               <strong class="is-capitalized">{{user.name}}</strong>
-              <small>@johnsmith</small>
+              <small>@{{user.name}}{{user.id}}</small>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@
                 <p class="modal-card-title has-text-centered">Add task</p>
             </header>
             <section class="modal-card-body">
-                <label for="subject"><strong>Your title is:</strong></label>
+                <label for="subject"><strong>Your title is: <span class="has-text-danger">*</span></strong></label>
                 <input
                         class="input is-rounded"
                         type="text"
@@ -16,7 +16,7 @@
                         autocomplete="off"
                 >
 
-                <label for="description"><strong>Your description is:</strong></label>
+                <label for="description"><strong>Your description is: <span class="has-text-danger">*</span></strong></label>
                 <input
                         class="input is-rounded"
                         type="text"
@@ -43,23 +43,16 @@
                         :format="customFormatter"
                         @input="timeModified"
                 ></datepicker>
-
-                <!--<b-field label="Pick a project">-->
-                    <!--<b-select placeholder="Select a project" v-model="project_id" rounded>-->
-                        <!--<option v-for="project in getProjectList" :value="project.id">{{project.p_name}}</option>-->
-                    <!--</b-select>-->
-                <!--</b-field>-->
-
                 <section class="has-margin-top-15">
                     <section>
-                        <span><strong>Choose the task state:</strong></span>
+                        <span><strong>Choose the task state: <span class="has-text-danger">*</span></strong></span>
                         <div class="block">
                             <b-radio
                                     v-model="state"
                                     required
                                     v-for="state_option in getStateList"
                                     :native-value="state_option.name"
-
+                                    class="has-margin-top-10"
                             >{{state_option.name}}
                             </b-radio>
                         </div>
@@ -67,11 +60,11 @@
                     <section v-if="assign_task.length !== 0" class="has-margin-top-15">
                         <b><strong>Assign the task to:</strong></b>
                         <div class="select is-multiple">
-                            <select multiple :size="assign_task.length + 1" v-model="users_selected" style="width:150px">
+                            <select multiple :size="assign_task.length + 1" v-model="users_selected"
+                                    style="width:150px">
                                 <option v-for="user in assign_task" :value="user.id">{{user.name}}</option>
                             </select>
                         </div>
-                        {{users_selected}}
                     </section>
                 </section>
             </section>
@@ -122,45 +115,40 @@
             ...mapGetters(["getProjectList", "getStateList"])
         },
         mounted() {
-            //add style to datepicker
-            let input = this.$el.querySelector('input[name="datepicker"]');
+            // Add styles to the datepicker
+            const input = this.$el.querySelector('input[name="datepicker"]');
             input.className = "input is-rounded";
             input.style = "z-index:9999999; width: 300px;margin-left: 15px";
-            // load information
+            // Load information
             this.$store.dispatch("loadStates", this.project_id);
             this.$store.dispatch('loadUsersInProject', this.project_id)
-                .then( task => {
-                    if (task.assignable)
-                    {
+                .then(task => {
+                    if (task.assignable) {
                         this.assign_task = task.results;
                     }
-                })
+                });
             this.$store.dispatch('loadTeamWithProject', this.project_id)
-                .then( team => this.team_id = team)
+                .then(team => this.team_id = team)
         },
         methods: {
             onNewTask() {
                 this.$store.dispatch("newTask", {
-                        project_id: this.project_id,
-                        subject: this.subject,
-                        description: this.description,
-                        state: this.state,
-                        due_date: this.duedate,
-                        progress: this.progress
-                    })
+                    project_id: this.project_id,
+                    subject: this.subject,
+                    description: this.description,
+                    state: this.state,
+                    due_date: this.duedate,
+                    progress: this.progress
+                })
                     .then(response => {
-                        console.log(this.users_selected.length)
                         console.log(response)
-                        if (this.users_selected.length > 0)
-                        {
                             this.$store.dispatch('assignTaskTo', {
-                                selected : this.users_selected,
+                                selected: this.users_selected,
                                 project_id: this.project_id,
                                 task_id: response.data.task.id,
                                 team_id: this.team_id
                             })
-                        }
-                        console.log(response)
+
                         this.$toast.open({
                             duration: 5000,
                             message: response.data.message,
@@ -172,12 +160,9 @@
             customFormatter(date) {
                 return moment(date).format("MMMM Do YYYY, h:mm:ss a");
             },
-
             timeModified(date) {
                 this.duedate = moment(date).format("YYYY/MM/DD");
             }
-        },
-        watch: {
         }
     };
 </script>

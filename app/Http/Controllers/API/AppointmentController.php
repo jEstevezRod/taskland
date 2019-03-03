@@ -5,7 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Models\Appointment;
 use App\Http\Controllers\Controller;
-
+use App\Models\AssignedTask;
+use JWTAuth;
 class AppointmentController extends Controller
 {
     
@@ -32,5 +33,20 @@ class AppointmentController extends Controller
              'message' => 'Appointment created correctly!',
              'appointment' => $appointment
          ]);
+    }
+    public function loadTasksCalendar(Request $request)
+    {
+
+        // $user = JWTAuth::toUser($request->input('token'));
+        $user = JWTAuth::user();
+        $user_id = $user->id;
+
+        $appointments = AssignedTask::where('user_id', $user_id)
+            ->join('tasks', 'assigned_tasks.task_id','=','tasks.id')
+            ->select('tasks.id','tasks.author', 'tasks.subject','tasks.description','tasks.created_at','tasks.dueDate','tasks.progress','assigned_tasks.*')
+            ->get();
+
+
+        return response()->json($appointments);
     }
 }

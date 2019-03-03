@@ -11,6 +11,10 @@
                         <label for="email">Project name: </label>
                         <input type="text" class="input" id="email" v-model="projectName">
                     </div>
+                    <div class="content">
+                        <label for="description">Project description: </label>
+                        <input type="text" class="input" id="description" v-model="description">
+                    </div>
                 </div>
                 <footer class="card-footer">
                     <a class="card-footer-item" @click="onNewProject">Add</a>
@@ -26,7 +30,8 @@
         data() {
             return {
                 projectName: '',
-                booleanCol: false
+                booleanCol: false,
+                description: ''
             }
         },
         methods: {
@@ -34,6 +39,7 @@
                 this.$store.dispatch("newProject", {
                     name: this.projectName,
                     team: this.team.id,
+                    description: this.description
                 }).then(response => {
                     this.$store.dispatch("addTeamInProject", {
                         project_id: response.data.project.id,

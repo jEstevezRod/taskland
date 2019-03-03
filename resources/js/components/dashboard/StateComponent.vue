@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-3-desktop is-3-tablet is-6-mobile task-state">
+  <div class="column is-3-desktop is-3-tablet is-10-mobile is-offset-1-mobile task-state">
     <div class="is-flex jus-stretch">
       <p class="my-center has-text-white">{{state.name}}</p>
       <i

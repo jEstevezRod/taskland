@@ -39,8 +39,6 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/loadTask/{id}', 'API\TaskController@loadTask');
 
-    Route::get('/loadTasksCalendar', 'API\TaskController@loadTasksCalendar');
-
     Route::get('/loadUsersInProject/{id}', 'API\TaskController@loadUsersInProject');
 
     /*Route::get('/tasks/{id}', 'API\TaskController@getTask'); */
@@ -64,6 +62,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/loadMembers/{id}', 'API\ManageMembers@loadMembers');
 
     Route::post('/addNewMember', 'API\ManageMembers@addMember' );
+
+    Route::get('/loadTeamMembersWithProject/{id}', 'API\ManageMembers@loadTeamMembersWithProject');
 
 
     // For projects
@@ -100,6 +100,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/newAppointment','API\AppointmentController@store');
 
+    Route::get('/loadTasksCalendar', 'API\AppointmentController@loadTasksCalendar');
+
     // For comments
 
     Route::get('/loadComments/{id}', 'API\CommentController@index');
@@ -109,4 +111,6 @@ Route::group(['prefix' => 'auth'], function () {
     // For assign assign Tasks
 
     Route::post('/assignTaskTo', 'API\AssignedTaskController@assignTasks');
+
+    Route::get('/loadAssignedUsersTask/{id}', 'API\AssignedTaskController@loadAssignedUsersTask');
 });
