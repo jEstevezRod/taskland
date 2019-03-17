@@ -1,16 +1,17 @@
 <template>
 
     <div class="column is-3 is-10-mobile is-offset-1-mobile ">
-        <div class="card is-shady">
+        <div class="card is-shady my-bg">
             <div class="card-image has-text-centered">
                 <img :src="item.image" class="has-margin5 image-target" alt="">
             </div>
             <div class="card-content">
                 <div class="content">
                     <h4 class="has-text-centered"> {{ item.title }} </h4>
-                    <router-link to="/dashboard"></router-link>
                     <p>{{ item.description}}</p>
-                    <p class="has-text-centered"><router-link :to="{ path: item.title }" class="button is-danger">Ir a {{ item.title }}</router-link></p>
+                    <p class="has-text-centered">
+                        <router-link :to="{ path: item.title }" class="button my-tomato has-text-white">Ir a {{ item.title }}</router-link>
+                        </p>
                 </div>
             </div>
         </div>
@@ -36,11 +37,16 @@
 </script>
 
 <style scoped>
+
+
     .has-margin5 {
         margin: 45px 30px 20px 30px;
     }
     .image-target {
         width: 100px;
         height: 100px;
+    }
+    .my-bg {
+        background-color: #e2e2e291;
     }
 </style>

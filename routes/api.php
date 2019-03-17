@@ -78,7 +78,6 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('loadChartData/{id}', 'API\ProjectController@loadChart');
 
-
     // For new User in Project
 
     Route::post('/addNewUserInProject', 'API\ProjectUserController@store');
@@ -113,4 +112,15 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/assignTaskTo', 'API\AssignedTaskController@assignTasks');
 
     Route::get('/loadAssignedUsersTask/{id}', 'API\AssignedTaskController@loadAssignedUsersTask');
+
+    // For notes
+
+    Route::get('/indexNotes', 'API\NoteController@index');
+
+    Route::post('/storeNotes', 'API\NoteController@store');
+
+    Route::put('/updateNote/{id}', 'API\NoteController@update');
+
+    Route::delete('/deleteNote/{id}' , 'API\NoteController@destroy');
+
 });

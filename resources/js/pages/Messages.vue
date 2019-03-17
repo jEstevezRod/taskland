@@ -14,7 +14,10 @@
 
 <script>
     export default {
-        name: "Messages"
+        name: "Messages",
+        mounted(){
+            this.$store.dispatch("loadUser");
+        }
     }
 </script>
 

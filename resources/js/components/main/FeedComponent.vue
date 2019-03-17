@@ -6,7 +6,7 @@
             <div class="timeline">
 
                 <header class="timeline-header">
-                    <span class="tag is-medium is-primary">Today</span>
+                    <span class="tag is-medium my-tomato has-text-white">Today</span>
                 </header>
 
                 <feed-message-component/>
@@ -15,23 +15,11 @@
                 <feed-message-component/>
                 <feed-message-component/>
 
-                <header class="timeline-header">
-                    <span class="tag is-primary">2017</span>
-                </header>
+                
 
-                <div class="timeline-item">
-                    <div class="timeline-marker is-icon">
-                        <i class="fa fa-flag"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <p class="heading">March 2017</p>
-                        <p>Timeline content - Can include any HTML element</p>
-                    </div>
+                <div class="timeline-header">
+                    <span class="tag is-medium my-tomato has-text-white">End</span>
                 </div>
-
-                <!--<div class="timeline-header">-->
-                    <!--<span class="tag is-medium is-primary">End</span>-->
-                <!--</div>-->
 
             </div>
         </div>

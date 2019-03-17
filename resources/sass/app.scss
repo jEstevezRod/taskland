@@ -2,6 +2,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise');
 
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 // Variables
 
 // Buefy ( Bulma )
@@ -33,4 +34,8 @@ body {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around
+}
+
+.my-tomato {
+  background-color:rgb(245, 83, 83) !important;
 }

@@ -59,6 +59,7 @@ export default {
     };
   },
   mounted() {
+    this.$store.dispatch("loadUser");
     this.$store.dispatch('loadTasksCalendar')
             .then( response => {
               console.log(response)

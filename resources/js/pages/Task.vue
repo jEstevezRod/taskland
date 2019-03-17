@@ -84,6 +84,7 @@ export default {
     };
   },
   mounted() {
+    this.$store.dispatch("loadUser");
     this.$store.dispatch("loadTask", this.task_id)
             .then( response =>{
               this.project = response[0] })

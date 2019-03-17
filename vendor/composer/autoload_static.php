@@ -517,6 +517,7 @@ class ComposerStaticInit79f7cfa9cdaec8633d0a4a45c1013b77
         'App\\Models\\Task' => __DIR__ . '/../..' . '/app/Models/Task.php',
         'App\\Models\\Team' => __DIR__ . '/../..' . '/app/Models/Team.php',
         'App\\Models\\TeamMember' => __DIR__ . '/../..' . '/app/Models/TeamMember.php',
+        'App\\Note' => __DIR__ . '/../..' . '/app/Note.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

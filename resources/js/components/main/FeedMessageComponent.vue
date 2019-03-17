@@ -29,7 +29,7 @@
         padding: 20px 15px;
         border: 1px solid #a7a7a7;
         border-radius: 27px;
-        box-shadow: 1px 1px 11px -1px;
+            box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     }
 
     .heading {

@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise);/*! Buefy v0.7.2 | MIT License | github.com/buefy/buefy */ 
+@import url(https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise);@import url(https://fonts.googleapis.com/css?family=Montserrat);/*! Buefy v0.7.2 | MIT License | github.com/buefy/buefy */ 
 .is-noscroll {
   position: fixed;
   overflow-y: hidden;
@@ -11205,5 +11205,9 @@ body {
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
+}
+
+.my-tomato {
+  background-color: #f55353 !important;
 }
 
