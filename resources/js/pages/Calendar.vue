@@ -20,6 +20,7 @@
 
 <script>
 import { FullCalendar } from "vue-full-calendar";
+import router from '../routes.js';
 
 export default {
   components: {
@@ -44,7 +45,7 @@ export default {
         },
         eventClick: event => {
           this.selected = event;
-          alert(event.title);
+          this.$router.push(`dashboard/task/${event.id}`);
           console.log(event);
         },
         eventMouseover: (calEvent, jsEvent) => {

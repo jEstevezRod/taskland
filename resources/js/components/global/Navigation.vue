@@ -17,10 +17,10 @@
         </div>
         <div class="navbar-menu" v-bind:class="{'is-active': isOpen}">
             <div class="navbar-end">
-                <router-link to="/main" class="navbar-item is-tab">Home</router-link>
-                <router-link to="/dashboard" class="navbar-item is-tab">Dashboard</router-link>
-                <router-link to="/calendar" class="navbar-item is-tab">Calendar</router-link>
-                <router-link to="/notes" class="navbar-item is-tab">Notes</router-link>
+                <router-link to="/main" class="navbar-item is-tab" >Home</router-link>
+                <router-link to="/dashboard" class="navbar-item is-tab" >Dashboard</router-link>
+                <router-link to="/calendar" class="navbar-item is-tab" >Calendar</router-link>
+                <router-link to="/notes" class="navbar-item is-tab" >Notes</router-link>
                 <router-link to="/inbox" class="navbar-item is-tab">Messages</router-link>
                 <div class="navbar-item has-dropdown is-hoverable has-margin-right">
                     <a class="navbar-link">
@@ -28,9 +28,9 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item">
+                        <router-link to="/profile" class="navbar-item" >
                             Profile
-                        </a>
+                        </router-link>
                         <a class="navbar-item">
                             Settings
                         </a>
@@ -63,7 +63,12 @@
         methods: {
             logout: function() {
                 this.$store.dispatch("logoutUser")
+            },
+            closeBurger: function() {
+                console.log("hola")
+                this.isOpen = false;
             }
+            
         }
     }
     ;

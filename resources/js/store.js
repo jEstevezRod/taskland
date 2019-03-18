@@ -20,6 +20,7 @@ import { assignedTasks} from "./modules/assignedtasks";
 import { appointments } from "./modules/appointments"
 import { comments } from "./modules/comments"
 import { notes } from './modules/notes'
+import { files } from './modules/files'
 
 export default new Vuex.Store({
     modules: {
@@ -33,7 +34,8 @@ export default new Vuex.Store({
         assignedTasks,
         appointments,
         comments,
-        notes
+        notes,
+        files
 
     }
 });

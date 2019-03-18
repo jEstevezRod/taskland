@@ -123,4 +123,8 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::delete('/deleteNote/{id}' , 'API\NoteController@destroy');
 
+    // For files
+
+    Route::post('/uploadPicture', 'API\FileController@store');
+
 });
