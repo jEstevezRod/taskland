@@ -81,8 +81,8 @@ const router = new VueRouter({
                 },
                 {
                     path: '/inbox',
-                    name: 'Messages',
-                    component: Vue.component('Notes', require('./pages/Messages')).default
+                    name: 'Messenger',
+                    component: Vue.component('Messenger', require('./pages/ChatApp')).default
                 },
                 {
                     path: '/profile',

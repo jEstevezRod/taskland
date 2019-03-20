@@ -127,4 +127,10 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/uploadPicture', 'API\FileController@store');
 
+    // For Messages
+
+     Route::get('/contacts', 'API\ContactsController@getContacts');
+     
+     Route::get('/messages/{id}', 'API\ContactsController@getMessages');
+
 });
