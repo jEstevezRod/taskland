@@ -1,7 +1,7 @@
 <template>
     <div class="composer ">
-        <textarea class="" v-model="message" @keydown.enter="send" placeholder="Write your message..."></textarea>
-        <button class="button is-full-height">Send</button>
+        <textarea class="" v-model="message" @keydown.enter="send"  placeholder="Write your message..."></textarea>
+        <button class="button is-full-height" @click="send">Send</button>
     </div>
 </template>
 
@@ -13,9 +13,11 @@ export default {
         }
     },
     methods: {
-        send(){
+        send(e){
+            e.preventDefault();
             if (this.message === '') return false
             this.$emit('send', this.message);
+            this.message = '';
 
         }
     }

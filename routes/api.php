@@ -133,4 +133,6 @@ Route::group(['prefix' => 'auth'], function () {
      
      Route::get('/messages/{id}', 'API\ContactsController@getMessages');
 
+     Route::post('/sendMessage', 'API\ContactsController@sendMessage');
+
 });

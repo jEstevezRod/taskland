@@ -1,6 +1,11 @@
 <template>
 <div class="chat-app columns is-flex wrap has-margin-top-40 has-margin-bottom-40">
-    <conversation :contact="selectedContact" :messages="messages" class="column is-7 is-offset-1  is-10-mobile is-offset-mobile-1 is-offset-1-mobile border "></conversation>
+    <conversation 
+    :contact="selectedContact"
+     :messages="messages" 
+     class="column is-7 is-offset-1  is-10-mobile is-offset-mobile-1 is-offset-1-mobile border"
+     @updateMessages="updateNewMessage"
+     ></conversation>
     <contactList :contacts="contacts" @selected="startConversationWith" class="column is-3 is-10-mobile is-offset-1-mobile border"></contactList>
 </div>
 </template>
@@ -36,6 +41,9 @@ export default {
                 this.selectedContact = contact;
             })
 
+        },
+        updateNewMessage(message) {
+            this.messages.push(message);
         }
     }
 

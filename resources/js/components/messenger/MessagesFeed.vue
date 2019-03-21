@@ -22,6 +22,22 @@ export default {
       type: Array,
       required: true
     }
+  },
+  methods:{
+    scrollToBottom(){
+      setTimeout(()=> {
+      this.$refs.feed.scrollTop = this.$refs.feed.scrollHeight - this.$refs.feed.clientHeight;
+
+      }, 75)
+    }
+  },
+  watch: {
+    contact(){
+      this.scrollToBottom();
+    },
+    messages(){
+      this.scrollToBottom();
+    }
   }
 };
 </script>

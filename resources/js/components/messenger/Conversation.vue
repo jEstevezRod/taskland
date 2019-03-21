@@ -27,7 +27,16 @@ export default {
   },
   methods: {
     sendMessage: function(text) {
-      console.log(text);
+      if(!this.contact) {
+        return;
+      }
+      axios.post(`http://localhost:8000/api/auth/sendMessage`, {
+        contact_id : this.contact.id,
+        text: text
+      }).then( response => {
+        console.log(response);
+        this.$emit('updateMessages', response.data)
+      })
     }
   }
 };
