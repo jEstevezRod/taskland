@@ -100,7 +100,9 @@ class UsersController extends Controller
     public function me()
     {   
        
-        $user = auth()->user();
+        // $user = auth()->user();
+
+        $user = Auth::user();
 
         if(isset($user)) 
         {

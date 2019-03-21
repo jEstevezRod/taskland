@@ -21,6 +21,25 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+import Echo from 'laravel-echo'
+
+window.Pusher = require('pusher-js');
+
+let tokenJWT = window.localStorage.getItem("token");
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '4f82658cc05f98e8e468',
+    cluster: 'eu',
+    encrypted: true,
+    auth:
+    {
+        headers:
+        {
+            'Authorization': 'Bearer ' + tokenJWT
+        }
+    }
+});
 
 
 import Vue from 'vue';

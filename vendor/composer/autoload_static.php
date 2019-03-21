@@ -29,6 +29,7 @@ class ComposerStaticInit79f7cfa9cdaec8633d0a4a45c1013b77
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
     );
@@ -83,6 +84,7 @@ class ComposerStaticInit79f7cfa9cdaec8633d0a4a45c1013b77
         ),
         'P' => 
         array (
+            'Pusher\\' => 7,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
@@ -276,6 +278,10 @@ class ComposerStaticInit79f7cfa9cdaec8633d0a4a45c1013b77
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
+        ),
+        'Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
         ),
         'Psy\\' => 
         array (
@@ -482,10 +488,12 @@ class ComposerStaticInit79f7cfa9cdaec8633d0a4a45c1013b77
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\NewMessage' => __DIR__ . '/../..' . '/app/Events/NewMessage.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\API\\AppointmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/AppointmentController.php',
         'App\\Http\\Controllers\\API\\AssignedTaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/AssignedTaskController.php',
         'App\\Http\\Controllers\\API\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/CommentController.php',
+        'App\\Http\\Controllers\\API\\ContactsController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ContactsController.php',
         'App\\Http\\Controllers\\API\\FileController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/FileController.php',
         'App\\Http\\Controllers\\API\\ManageMembers' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ManageMembers.php',
         'App\\Http\\Controllers\\API\\NoteController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/NoteController.php',
@@ -519,6 +527,7 @@ class ComposerStaticInit79f7cfa9cdaec8633d0a4a45c1013b77
         'App\\Models\\AssignedTask' => __DIR__ . '/../..' . '/app/Models/AssignedTask.php',
         'App\\Models\\Comment' => __DIR__ . '/../..' . '/app/Models/Comment.php',
         'App\\Models\\File' => __DIR__ . '/../..' . '/app/Models/File.php',
+        'App\\Models\\Message' => __DIR__ . '/../..' . '/app/Models/Message.php',
         'App\\Models\\Note' => __DIR__ . '/../..' . '/app/Models/Note.php',
         'App\\Models\\Project' => __DIR__ . '/../..' . '/app/Models/Project.php',
         'App\\Models\\ProjectUser' => __DIR__ . '/../..' . '/app/Models/ProjectUser.php',
@@ -3849,6 +3858,11 @@ class ComposerStaticInit79f7cfa9cdaec8633d0a4a45c1013b77
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
+        'Pusher\\Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Pusher.php',
+        'Pusher\\PusherCrypto' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherCrypto.php',
+        'Pusher\\PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherException.php',
+        'Pusher\\PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInstance.php',
+        'Pusher\\Webhook' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Webhook.php',
         'Ramsey\\Uuid\\BinaryUtils' => __DIR__ . '/..' . '/ramsey/uuid/src/BinaryUtils.php',
         'Ramsey\\Uuid\\Builder\\DefaultUuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Builder/DefaultUuidBuilder.php',
         'Ramsey\\Uuid\\Builder\\DegradedUuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Builder/DegradedUuidBuilder.php',

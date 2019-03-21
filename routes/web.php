@@ -20,9 +20,9 @@ Route::get( '/', 'Web\AppController@getApp' )->name('app');
 
 
 
-Route::get('/login/{social}', 'Web\AuthenticationController@getSocialRedirect');
+// Route::get('/login/{social}', 'Web\AuthenticationController@getSocialRedirect');
 
-Route::get('/login/{social}/callback', 'Web\AuthenticationController@getSocialCallback');
+// Route::get('/login/{social}/callback', 'Web\AuthenticationController@getSocialCallback');
 
 //Route::post('/login/{social}', 'Web\AuthenticationController@getSocialRedirect');
 

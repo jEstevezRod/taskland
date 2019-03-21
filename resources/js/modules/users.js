@@ -81,12 +81,13 @@ export const users = {
 
             return new Promise ((resolve, reject) => {
                  UserAPI.getUser(token)
-                .then(function (response) {
+                .then( (response) =>{
                     commit('setUser', response.data.user);
+                    resolve(response.data.id)
+                }, error => {
+                    reject(error)
                 })
-                .catch(function () {
-                    commit('setUser', {});
-                });
+                
             })
 
            

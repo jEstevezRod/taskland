@@ -7,13 +7,16 @@ use App\User;
 use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Events\NewMessage;
+use Auth;
 
 class ContactsController extends Controller
 {
     
     public function getContacts() {
 
-        $contacts = User::all();
+        $me = auth()->user();
+        $contacts = User::where('id','!=',$me->id)->get();
 
         return response()->json($contacts);
     }
@@ -34,6 +37,8 @@ class ContactsController extends Controller
             'to' => $request->contact_id,
             'text' => $request->text
         ]);
+
+        broadcast(new NewMessage($message));
 
         return response()->json($message);
 
